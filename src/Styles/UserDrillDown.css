@@ -1,0 +1,67 @@
+  /* UserDrillDown.css */
+  .dropdown-menu {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0s linear 0.3s;
+  }
+  
+  .dropdown-menu.show {
+    opacity: 1;
+    visibility: visible;
+    transition-delay: 0s;
+  }
+  .user-button{
+    background-color: #a2a2a2;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
+    outline: none;
+    border: none;
+    transition: 0.3s ease ;
+    color: #ffffff;
+    border: #ffffff solid 3px;
+    padding: 3px
+    
+  }
+  .drilldown-container{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100px;
+    height: 55px;
+    background-color: #eeeeee;
+    border-radius: 20px;
+    padding: 10px;
+    flex-direction: row;
+    
+  }
+  .dropdown-toggle::after {
+content: none;
+}
+.signed-in{
+  background-color: aqua;
+}
+.arrow-container{
+  cursor: pointer;
+}
+a.dropdown-item:hover{
+  background-color: #efa43ad6;
+  border-radius: 10px;
+ 
+ 
+}
+
+
+  @media (max-width: 510px) {
+    .arrow-container {
+      display: none; 
+    }
+    .drilldown-container{
+      width: 70px;
+      height: 70px;
+      justify-content: space-around;
+      border-radius: 40px
+
+    }
+  }

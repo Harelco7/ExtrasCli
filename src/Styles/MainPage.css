@@ -1,0 +1,198 @@
+/* For desktop screens */
+.business-cat-frame {
+    display: flex;
+    flex-wrap: nowrap; /* Prevent wrapping of items to a new line */
+
+    margin:10px;
+    max-width: 100%; /* Adjust the maximum width as needed */
+    gap: 15px;
+  }
+  
+  .business-card {
+    flex: 0 0 auto; /* Ensure cards don't grow or shrink */
+    margin-right: 16px; /* Adjust the spacing between cards */
+  }
+  
+  /* Remove margin from the last card to prevent horizontal scroll bar */
+  .business-card:last-child {
+    margin-right: 0;
+  }
+  
+  
+  /* For smaller screens */
+  @media only screen and (max-width: 768px) {
+    .business-cat-frame {
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+
+
+  @keyframes loading {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  
+  .loading-spinner {
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    border-left-color: #333;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: loading 1s infinite linear;
+    margin: 0 auto;
+  }
+
+  /* Inspired by: m3.material.io/components/progress-indicators/overview */
+
+.loader {
+  width: 48px;
+  /* Subpixels get cut off */
+  overflow: visible;
+  transform: rotate(-90deg);
+  transform-origin: center;
+
+  --active: #d67d00;
+  --track: #113946;
+
+  --duration: 8s;
+
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    rotate: 0deg;
+  }
+
+  100% {
+    rotate: 360deg;
+  }
+}
+
+.active {
+  stroke: var(--active);
+  stroke-linecap: round;
+  stroke-dashoffset: 360;
+  animation: active-animation var(--duration) ease-in-out infinite;
+}
+
+@keyframes active-animation {
+  0% {
+    stroke-dasharray: 0 0 0 360 0 360;
+  }
+  12.5% {
+    stroke-dasharray: 0 0 270 90 270 90;
+  }
+  25% {
+    stroke-dasharray: 0 270 0 360 0 360;
+  }
+  37.5% {
+    stroke-dasharray: 0 270 270 90 270 90;
+  }
+  50% {
+    stroke-dasharray: 0 540 0 360 0 360;
+  }
+  50.001% {
+    stroke-dasharray: 0 180 0 360 0 360;
+  }
+  62.5% {
+    stroke-dasharray: 0 180 270 90 270 90;
+  }
+  75% {
+    stroke-dasharray: 0 450 0 360 0 360;
+  }
+  87.5% {
+    stroke-dasharray: 0 450 270 90 270 90;
+  }
+  87.501% {
+    stroke-dasharray: 0 90 270 90 270 90;
+  }
+  100% {
+    stroke-dasharray: 0 360 1 360 0 360;
+  }
+}
+
+.track {
+  stroke: var(--track);
+  stroke-linecap: round;
+  stroke-dashoffset: 360;
+  animation: track-animation var(--duration) ease-in-out infinite;
+}
+
+@keyframes track-animation {
+  0% {
+    stroke-dasharray: 0 20 320 40 320 40;
+  }
+  12.5% {
+    stroke-dasharray: 0 290 50 310 50 310;
+  }
+  25% {
+    stroke-dasharray: 0 290 320 40 320 40;
+  }
+  37.5% {
+    stroke-dasharray: 0 560 50 310 50 310;
+  }
+  37.501% {
+    stroke-dasharray: 0 200 50 310 50 310;
+  }
+  50% {
+    stroke-dasharray: 0 200 320 40 320 40;
+  }
+  62.5% {
+    stroke-dasharray: 0 470 50 310 50 310;
+  }
+  62.501% {
+    stroke-dasharray: 0 110 50 310 50 310;
+  }
+  75% {
+    stroke-dasharray: 0 110 320 40 320 40;
+  }
+  87.5% {
+    stroke-dasharray: 0 380 50 310 50 310;
+  }
+  100% {
+    stroke-dasharray: 0 380 320 40 320 40;
+  }
+}
+
+
+.carousel-container {
+  display: flex;
+  justify-content:center;
+  height: 500px;
+  margin: 10px;
+  border-radius: 10px;
+}
+
+.carousel {
+  width: 80%; /* Adjust the width as needed */
+  margin-top:20px ;
+}
+
+.carousel-item {
+  display: flex;
+  justify-content: center;
+  margin: 10px;
+  
+}
+
+.headlines{
+  display: flex;
+  justify-content: center;
+  font-family: 'Varela Round', sans-serif;
+}
+.headlines h1{
+  height: 30px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  font-size: 50px;
+  font-weight: 400;
+}
+
+
+
+
+
+  

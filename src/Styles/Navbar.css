@@ -1,0 +1,149 @@
+@import url('https://fonts.googleapis.com/css2?family=Varela+Round&display=swap');
+
+.navbar {
+    position: sticky;
+    top: 0;
+    /* background-color: #ffffff ; */
+    background-color: rgba(255, 255, 255, 0.8); /* Add some transparency */
+    /* background-color: #fff2d8;  */
+    padding:  0 190px ;
+    z-index: 1100; /* Ensure the navbar stays on top of other content */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100px;
+    backdrop-filter: blur(8px); /* Apply blur effect */
+    
+  }
+  .logo {
+    background-image: url("../Images/logo.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 170px; /* Adjust as needed */
+    height: 80px; /* Adjust as needed */
+    border-radius: 10px;
+    box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.05) 0px 8px 32px;
+    margin: 10px 0; 
+    cursor: pointer;
+  }
+  
+  .search-container {
+    display: flex;
+  align-items: center;
+  background-color: #f2f2f2;
+  border-radius: 20px;
+  padding: 5px 10px;
+  position: relative;
+}
+  
+  .search-input {
+    border: none;
+    background-color: transparent;
+    outline: none;
+    font-size: 16px;
+    flex-grow: 1;
+    padding-left: 30px;
+  }
+  .search-icon {
+    position: absolute;
+    left: 15px; 
+    
+    font-size: 16px;
+    color: #1c1c1cca;
+  }
+  
+  
+
+  
+
+.navbar-buttons{
+  background-color: #d67d00;
+  border-radius: 10px;
+  outline: none;
+  border: none;
+  margin: 10px;
+  padding: 10px 20px;
+  transition: 0.3s ease ;
+  color: #ffffff;
+  font-family: 'Varela Round', sans-serif;
+  font-weight: 300;
+}
+
+
+  
+  .nav-buttons button:hover,
+  .user-button:hover {
+    transform: scale(1.1);
+    color: #ffffff;
+    background-color: #113946;
+    
+  }
+  .hamburger-menu {
+    display: none; /* Show the hamburger menu icon */
+  }
+
+
+
+
+ 
+
+  
+
+
+  
+  @media (max-width: 834px) {
+    .nav-buttons {
+      display: none;
+    }
+  
+    .navbar{
+      padding: 0 5px; /* Adjust as needed */
+    }
+    .search-container{
+      width: 180px;
+    }
+    
+  }
+  
+  @media (min-width: 835px) and (max-width: 1024px) {
+    .navbar{
+      
+      padding: 0 60px; /* Adjust as needed */
+    }
+  }
+  
+  @media (min-width: 1025px) and (max-width: 1440px) {
+    .navbar{
+      padding: 0 30px; /* Adjust as needed */
+      height: 60px;
+    }
+    .logo{
+      height: 40px;
+    }
+  }
+  
+  @media (min-width: 1441px) {
+    .navbar{
+      padding: 0 120px; /* Adjust as needed */
+    }
+  }
+  
+  @media (max-width: 767px) {
+    .logo{
+      width: 110px; /* Adjust as needed */
+      height: 40px; /* Adjust as needed */
+      margin-top: 0;
+    }
+  }
+
+  @media (max-width: 925px) {
+    .nav-buttons {
+      display: none; /* Hide the button container when screen width is less than 925px */
+    }
+   
+  }
+  
+  
+  
+  
