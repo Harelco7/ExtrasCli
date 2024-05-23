@@ -1,20 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Modal } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-
-import { TextField} from "@mui/material";
+import { TextField } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-
 import logo from "../Images/CircleLogo.png";
-
 import "../Styles/LoginModal.css";
 
-const FCLoginModal = ({ show, onHide ,onSuccessfulLogin}) => {
+const FCLoginModal = ({ show, onHide, onSuccessfulLogin }) => {
   const navigate = useNavigate();
 
-  const sendtoNavbarUser = (user) => {
-
-  }
+  const sendtoNavbarUser = (user) => {};
 
   const [password, setPassword] = useState("");
   const [username, setUserName] = useState("");
@@ -27,7 +22,7 @@ const FCLoginModal = ({ show, onHide ,onSuccessfulLogin}) => {
     password,
   };
 
-  const apiURLUser = "http://localhost:5041/api/Login/LoginTest";
+  const apiURLUser = "http://localhost:5048/api/Login/LoginTest";
 
   const btnLogin = (e) => {
     e.preventDefault();
@@ -47,11 +42,9 @@ const FCLoginModal = ({ show, onHide ,onSuccessfulLogin}) => {
             console.log("Now Logged-In: ", result);
             onHide();
             onSuccessfulLogin(result);
-            
-            
           });
         } else if (res.status === 404 || res.status === 401) {
-          throw new Error("Username or Password are Invaliad");
+          throw new Error("Username or Password are invalid");
         } else {
           throw new Error("Failed to login. Please try again later.");
         }
@@ -65,11 +58,11 @@ const FCLoginModal = ({ show, onHide ,onSuccessfulLogin}) => {
   const getModalSize = () => {
     const screenWidth = window.innerWidth;
     if (screenWidth >= 1440) {
-      return "md"; 
+      return "md";
     } else if (screenWidth >= 1024) {
-      return "md"; 
+      return "md";
     } else {
-      return "sm"; 
+      return "sm";
     }
   };
 
@@ -81,34 +74,36 @@ const FCLoginModal = ({ show, onHide ,onSuccessfulLogin}) => {
     },
   });
 
-  const toggle = (
-    <div className="btn-container">
-      <label className="switch btn-color-mode-switch">
-        <input value="1" id="color_mode" name="color_mode" type="checkbox" />
-        <label
-          className="btn-color-mode-switch-inner"
-          data-off="Login"
-          data-on="Join Us"
-          for="color_mode"
-        ></label>
-      </label>
-    </div>
-  );
-
-  const handleClickOnSignUp = ()=>{
+  const handleClickOnSignUp = () => {
     onHide();
-    navigate("/signup")
-  }
+    navigate("/signup");
+  };
+
+  // Function to determine if the device is mobile
+  const isMobile = () => window.innerWidth <= 768;
+
+  // Use useEffect to handle resizing
+  useEffect(() => {
+    const handleResize = () => setMobile(isMobile());
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  const [mobile, setMobile] = useState(isMobile());
 
   return (
-    <Modal show={show} onHide={onHide} centered size={getModalSize()}>
+    <Modal
+      className={mobile ? "mobile-modal" : ""}
+      show={show}
+      onHide={onHide}
+      centered={!mobile}
+      size={getModalSize()}
+    >
       <Modal.Body className="modal-body">
-        <h1 style={{textAlign:"center"}}>Login</h1>
         <div className="form-container">
           <div className="logo-img">
             <img src={logo} alt="" />
           </div>
-          <div style={{display:"flex",justifyContent:"center"}}>{toggle}</div>
           <form className="form">
             <ThemeProvider theme={theme}>
               <TextField
@@ -134,7 +129,7 @@ const FCLoginModal = ({ show, onHide ,onSuccessfulLogin}) => {
               />
             </ThemeProvider>
             {error && (
-              <p style={{ fontSize: 12, color: "Red", textAlign: "center" }}>
+              <p style={{ fontSize: 12, color: "Red", textAlign: "center", margin: 0 }}>
                 {error}
               </p>
             )}

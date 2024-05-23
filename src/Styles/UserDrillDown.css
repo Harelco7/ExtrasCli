@@ -34,17 +34,18 @@
     border-radius: 20px;
     padding: 10px;
     flex-direction: row;
+    font-family: "Manrope", sans-serif;
     
   }
   .dropdown-toggle::after {
 content: none;
 }
-.signed-in{
-  background-color: aqua;
-}
+
 .arrow-container{
   cursor: pointer;
 }
+
+
 a.dropdown-item:hover{
   background-color: #efa43ad6;
   border-radius: 10px;

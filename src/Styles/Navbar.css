@@ -83,6 +83,15 @@
     display: none; /* Show the hamburger menu icon */
   }
 
+  .nav-buttons button:hover, .user-button:hover {
+   
+    background-color: #d67d00;
+}
+.btn-check:checked+.btn, .btn.active, .btn.show, .btn:first-child:active, :not(.btn-check)+.btn:active {
+
+  border-color: #fff;
+}
+
 
 
 

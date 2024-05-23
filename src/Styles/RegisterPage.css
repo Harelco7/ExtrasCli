@@ -1,0 +1,181 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap');
+
+.register-container {
+    display: flex;
+    justify-content: center; 
+    align-items: flex-start; 
+    height:100%; 
+    margin-bottom: 50px;
+   
+    
+  }
+  
+  .inputs-container {
+    display: flex;
+    justify-content: space-between;
+    width: 60%;
+  }
+  
+  .register-inputs-left,
+  .register-inputs-right {
+    flex: 1;
+  }
+  
+  .button-container {
+    display: flex;
+    justify-content: center; 
+  }
+  .register-inputs-left{
+    margin-right: 30px;
+  }
+  
+ 
+  
+  .text-field-wrapper {
+    margin-bottom: 10px;
+    
+  }
+  .button-submit{
+    padding: 10px 15px;
+    /* font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande", "Lucida Sans Unicode", Geneva, Verdana, sans-serif; */
+    font-family: "Manrope", sans-serif;
+    border-radius: 20px;
+    border: 0 !important;
+    outline: 0 !important;
+    background: #d67d00;
+    color: white;
+    cursor: pointer;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    width: 50%;
+    margin-bottom: 20px;
+    
+  }
+  .page-container{
+    border-radius: 10px;
+    margin: 0 30px;
+    height: 80vh;
+    box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+    
+  }
+
+ .logo-container{
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+ }
+
+ .head-container{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin: 50px 0;
+ }
+ .form-wrapper{
+  display: flex;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+ }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  /* Switch Toggle */
+
+ .btn-container {
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+    margin-top: 10px;
+  }
+  
+  .btn-color-mode-switch {
+    display: inline-block;
+    margin: 0px;
+    position: relative;
+  }
+  
+  .btn-color-mode-switch > label.btn-color-mode-switch-inner {
+    margin: 0px;
+    width: 198px;
+    height: 40px;
+    background-color: #d67d00;
+    border-radius: 26px;
+    overflow: hidden;
+    position: relative;
+    transition: all 0.3s ease;
+    display: block;
+  }
+  
+  .btn-color-mode-switch > label.btn-color-mode-switch-inner:before {
+    content: attr(data-on);
+    position: absolute;
+    font-size: 18px;
+    font-weight: 600;
+    top: 7px;
+    right: 10px;
+    color: #222;
+    font-family: "Manrope", sans-serif;
+  }
+  
+  .btn-color-mode-switch > label.btn-color-mode-switch-inner:after {
+    content: attr(data-off);
+    width: 90px;
+    height: 35px;
+    background: #fff;
+    border-radius: 26px;
+    position: absolute;
+    font-size: 18px;
+    display: flex;
+    justify-content: center;
+    left: 3px;
+    top: 2px;
+    text-align: center;
+    transition: all 0.3s ease;
+    box-shadow: 0px 0px 6px -2px #111;
+    padding: 5px 0px;
+    color: #222;
+    font-weight: 600;
+    font-family: "Manrope", sans-serif;
+  }
+  
+  .btn-color-mode-switch input[type="checkbox"] {
+    cursor: pointer;
+    width: 50px;
+    height: 25px;
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    z-index: 1;
+    margin: 0px;
+  }
+  
+  .btn-color-mode-switch input[type="checkbox"]:checked + label.btn-color-mode-switch-inner {
+    background-color: #d67d00;
+    
+    
+  }
+  
+  .btn-color-mode-switch input[type="checkbox"]:checked + label.btn-color-mode-switch-inner:after {
+    content: attr(data-on);
+    left: 103px;
+    
+ }
+  
+  .btn-color-mode-switch input[type="checkbox"]:checked + label.btn-color-mode-switch-inner:before {
+    content: attr(data-off);
+    right: auto;
+    left: 10px;
+  }
+  
+  

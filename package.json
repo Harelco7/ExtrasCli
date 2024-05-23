@@ -18,13 +18,15 @@
     "@fortawesome/free-solid-svg-icons": "^6.5.2",
     "@fortawesome/react-fontawesome": "^0.2.0",
     "@mui/icons-material": "^5.15.16",
-    "@mui/material": "^5.15.16",
+    "@mui/material": "^5.15.18",
     "bootstrap": "^5.3.3",
+    "jss-rtl": "^0.3.0",
     "react": "^18.2.0",
     "react-bootstrap": "^2.10.2",
     "react-dom": "^18.2.0",
     "react-multi-carousel": "^2.8.5",
-    "react-router-dom": "^6.23.0"
+    "react-router-dom": "^6.23.0",
+    "react-spring": "^9.7.3"
   },
   "devDependencies": {
     "@types/react": "^18.2.66",

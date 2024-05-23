@@ -5,7 +5,7 @@ import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 
 export default function MainPage(props) {
-  const apiURL = "http://localhost:5041/api/Main/Businesses";
+  const apiURL = "http://localhost:5048/api/Main/Businesses";
 
   const [businessData, setBusinessData] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -25,10 +25,10 @@ export default function MainPage(props) {
         throw new Error("Somthing Went Wrong :(");
       }
       const data = await response.json();
+      console.log(data);
       setBusinessData(data);
       setLoading(false);
     } catch {
-    
       setErrorMessage("Somthing Went Wrong :(");
       setLoading(false);
     }
@@ -158,13 +158,8 @@ export default function MainPage(props) {
             removeArrowOnDeviceType={["tablet", "mobile"]}
           >
             {bakerys.map((Bakery, index) => (
-             <div className="carousel-item"  key={index}>
-                <FCBusinessCard
-                  name={Bakery.businessName}
-                  type={Bakery.businessType}
-                  address={Bakery.businessAdress}
-                  hours={Bakery.dailySalesHour}
-                />
+              <div className="carousel-item" key={index}>
+                <FCBusinessCard data={Bakery} />
               </div>
             ))}
           </Carousel>
@@ -182,14 +177,8 @@ export default function MainPage(props) {
             removeArrowOnDeviceType={["tablet", "mobile"]}
           >
             {coffee.map((coffee, index) => (
-              <div className="carousel-item"  key={index}>
-                <FCBusinessCard
-                 
-                  name={coffee.businessName}
-                  type={coffee.businessType}
-                  address={coffee.businessAdress}
-                  hours={coffee.dailySalesHour}
-                />
+              <div className="carousel-item" key={index}>
+                <FCBusinessCard data={coffee} />
               </div>
             ))}
           </Carousel>
@@ -207,14 +196,8 @@ export default function MainPage(props) {
             removeArrowOnDeviceType={["tablet", "mobile"]}
           >
             {flowers.map((flowers, index) => (
-             <div className="carousel-item"  key={index}>
-                <FCBusinessCard
-                 
-                  name={flowers.businessName}
-                  type={flowers.businessType}
-                  address={flowers.businessAdress}
-                  hours={flowers.dailySalesHour}
-                />
+              <div className="carousel-item" key={index}>
+                <FCBusinessCard data={flowers} />
               </div>
             ))}
           </Carousel>
@@ -223,5 +206,3 @@ export default function MainPage(props) {
     );
   }
 }
-
-

@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap');
+
 /* Card */
 .card {
   width: 300px;
@@ -55,22 +57,26 @@
 .card-content {
   padding: 25px;
   text-align: center;
+  
 }
 
 /* Card content heading */
 .card-content h2 {
+  text-align: left  ;
+  font-size: 25px;
   margin-top: 0;
   font-weight: 400;
-  font-family: 'Varela Round', sans-serif;
+  font-family: "Manrope", sans-serif;
 }
 
 /* Card content paragraph */
 .card-content p {
+  font-size: 14px;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 200;
-  font-family: 'Varela Round', sans-serif;
+  align-items: flex-start;
+  justify-content: start;
+  font-weight: 500;
+  font-family: "Manrope", sans-serif;
 }
 
 /* Card content SVG */
@@ -86,7 +92,8 @@
   border: none;
   border-radius: 10px;
   cursor: pointer;
-  font-family: 'Varela Round', sans-serif;
+  font-family: "Manrope", sans-serif;
+  font-weight: 500;
 }
 
 

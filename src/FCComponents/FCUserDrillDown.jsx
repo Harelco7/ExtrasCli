@@ -1,14 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { Dropdown } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser, faChevronUp, faChevronDown } from "@fortawesome/free-solid-svg-icons";
+import {
+  faUser,
+  faChevronUp,
+  faChevronDown,
+} from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 import FCLoginModal from "./FCLoginModal";
-import FCRegisterModal from "./FCRegisterModal";
 
 
 import "../Styles/UserDrillDown.css";
-import FCModal from "./FCModal";
+
 
 const FCUserDrillDown = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -24,15 +27,15 @@ const FCUserDrillDown = () => {
     setLoggedInUser(userData);
   };
 
-  const handleShowLoginModal  = ()=>{
-    setShowRegisterModal(false)
-    setShowLoginModal(true)
-  }
-  const handleShowRegisterModal = ()=>{
-    setShowRegisterModal(true)
-    setShowLoginModal(false)
-  }
-  
+  const handleShowLoginModal = () => {
+    setShowRegisterModal(false);
+    setShowLoginModal(true);
+  };
+  const handleShowRegisterModal = () => {
+    setShowRegisterModal(true);
+    setShowLoginModal(false);
+  };
+
   useEffect(() => {
     if (loggedInUser) {
       setUserData(loggedInUser);
@@ -60,14 +63,23 @@ const FCUserDrillDown = () => {
       <div className="drilldown-container">
         <div className="user-icon-container" onClick={toggleDropdown}>
           <Dropdown show={isOpen} onToggle={toggleDropdown}>
-          <Dropdown.Toggle className="user-button" style={{ backgroundColor: userData ? "#efa43a" : "" }}>
+            <Dropdown.Toggle
+              className="user-button"
+              style={{ backgroundColor: userData ? "#efa43a" : "" }}
+            >
               {userData ? (
-                <span style={{ fontSize: 25,marginBottom:10 }}>{userData.customerName[0]}</span>
+                <span style={{ fontSize: 25, marginBottom: 10 }}>
+                  {userData.customerName
+                    ? userData.customerName[0].toUpperCase()
+                    : userData.username[0].toUpperCase()}
+                </span>
               ) : (
                 <FontAwesomeIcon icon={faUser} size="xl" />
               )}
             </Dropdown.Toggle>
-            <Dropdown.Menu className={`dropdown-menu ${isOpen ? "show" : "hide"}`}>
+            <Dropdown.Menu
+              className={`dropdown-menu ${isOpen ? "show" : "hide"}`}
+            >
               {userData ? (
                 <>
                   <Dropdown.Item onClick={() => console.log("Profile")}>
@@ -77,10 +89,10 @@ const FCUserDrillDown = () => {
                 </>
               ) : (
                 <>
-                  <Dropdown.Item onClick={ handleShowLoginModal}>
+                  <Dropdown.Item onClick={handleShowLoginModal}>
                     Log In
                   </Dropdown.Item>
-                  <Dropdown.Item onClick={handleShowRegisterModal}>
+                  <Dropdown.Item onClick={() => navigate("/signup")}>
                     Sign Up
                   </Dropdown.Item>
                 </>
@@ -92,18 +104,17 @@ const FCUserDrillDown = () => {
           </Dropdown>
         </div>
         <div className="arrow-container" onClick={toggleDropdown}>
-          <FontAwesomeIcon icon={isOpen ? faChevronUp : faChevronDown} size="lg" />
+          <FontAwesomeIcon
+            icon={isOpen ? faChevronUp : faChevronDown}
+            size="lg"
+          />
         </div>
       </div>
-    
+
       <FCLoginModal
         show={showLoginModal}
         onHide={() => setShowLoginModal(false)}
         onSuccessfulLogin={handleSuccessfulLogin}
-      />
-       <FCRegisterModal
-        show={showRegisterModal}
-        onHide={() => setShowRegisterModal(false)}
       />
     </>
   );
