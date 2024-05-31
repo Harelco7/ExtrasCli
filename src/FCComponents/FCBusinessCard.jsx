@@ -1,6 +1,6 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
+import { faLocationDot,faClock } from "@fortawesome/free-solid-svg-icons";
 import "../Styles/BusinessCard.css";
 import { useNavigate } from "react-router-dom";
 
@@ -26,11 +26,14 @@ export default function FCBusinessCard({ data }) {
         <div className="card-content">
           <h2>{data.businessName}</h2>
           <p>
-            <FontAwesomeIcon icon={faLocationDot} />
+            <FontAwesomeIcon icon={faLocationDot} size="lg" style={{marginLeft:10}}  />
+            
             {data.businessAdress}
           </p>
-          <p>{data.openingHours}</p>
-          <button onClick={handleOrderNow}>Order Now</button>
+          <p>
+          <FontAwesomeIcon icon={faClock} size="lg" style={{marginLeft:10}}  />
+            {data.openingHours}</p>
+          <button onClick={handleOrderNow}>הזמן עכשיו</button>
         </div>
       </div>
     </>

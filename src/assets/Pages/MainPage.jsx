@@ -3,9 +3,11 @@ import "../../Styles/MainPage.css";
 import FCBusinessCard from "../../FCComponents/FCBusinessCard";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
+import ToggleViewMode from "../../FCComponents/ToggleViewMode";
 
-export default function MainPage(props) {
-  const apiURL = "http://localhost:5048/api/Main/Businesses";
+
+export default function MainPage() {
+  const apiURL = "https://proj.ruppin.ac.il/bgroup33/test2/tar1/api/Main/Businesses";
 
   const [businessData, setBusinessData] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -25,7 +27,6 @@ export default function MainPage(props) {
         throw new Error("Somthing Went Wrong :(");
       }
       const data = await response.json();
-      console.log(data);
       setBusinessData(data);
       setLoading(false);
     } catch {
@@ -41,7 +42,6 @@ export default function MainPage(props) {
   const [bakerys, setBakery] = useState([]);
 
   useEffect(() => {
-    // This code runs after the component is mounted or when businessData changes
     let bakeryBusinesses = businessData.filter(
       (i) => i.businessType === "Bakery"
     );
@@ -51,9 +51,8 @@ export default function MainPage(props) {
   const [coffee, setCoffee] = useState([]);
 
   useEffect(() => {
-    // This code runs after the component is mounted or when businessData changes
     let coffeeBusinesses = businessData.filter(
-      (c) => c.businessType === "Coffee"
+      (c) => c.businessType === "Coffee House"
     );
     setCoffee(coffeeBusinesses);
   }, [businessData]);
@@ -61,7 +60,6 @@ export default function MainPage(props) {
   const [flowers, setFlowers] = useState([]);
 
   useEffect(() => {
-    // This code runs after the component is mounted or when businessData changes
     let flowersBusinesses = businessData.filter(
       (f) => f.businessType === "Flowers"
     );
@@ -146,8 +144,11 @@ export default function MainPage(props) {
   } else {
     return (
       <>
+        <div className="view-options-container">
+        <ToggleViewMode/>
+        </div>
         <div className="headlines">
-          <h1 style={{ direction: "rtl" }}>מאפיות</h1>
+          <h1 style={{ direction: "rtl" }}>מאפיות :</h1>
         </div>
         <div className="carousel-container">
           <Carousel
@@ -156,6 +157,7 @@ export default function MainPage(props) {
             infinite={true}
             // centerMode={true}
             removeArrowOnDeviceType={["tablet", "mobile"]}
+            direction="rtl"
           >
             {bakerys.map((Bakery, index) => (
               <div className="carousel-item" key={index}>
@@ -166,7 +168,7 @@ export default function MainPage(props) {
         </div>
 
         <div className="headlines">
-          <h1 style={{ direction: "rtl" }}>בתי קפה</h1>
+          <h1 style={{ direction: "rtl" }}>בתי קפה :</h1>
         </div>
         <div className="carousel-container">
           <Carousel
@@ -185,7 +187,7 @@ export default function MainPage(props) {
         </div>
 
         <div className="headlines">
-          <h1 style={{ direction: "rtl" }}>פרחים</h1>
+          <h1 style={{ direction: "rtl" }}>פרחים :</h1>
         </div>
         <div className="carousel-container">
           <Carousel

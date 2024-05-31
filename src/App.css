@@ -5,3 +5,6 @@ body{
     /* padding: 0 30px; */
 
 }
+html{
+    direction: rtl;
+}

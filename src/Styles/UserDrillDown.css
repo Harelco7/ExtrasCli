@@ -45,7 +45,9 @@ content: none;
   cursor: pointer;
 }
 
-
+a.dropdown-item{
+  text-align: center;
+}
 a.dropdown-item:hover{
   background-color: #efa43ad6;
   border-radius: 10px;

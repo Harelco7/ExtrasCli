@@ -187,8 +187,18 @@
   height: 30px;
   width: 100%;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
+  margin: 10px;
   font-size: 50px;
+}
+.view-options-container{
+  height: 40px;
+  width: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  direction: ltr;
 }
 
 

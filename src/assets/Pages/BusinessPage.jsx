@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
+import { TbShoppingBagX } from "react-icons/tb";
 import "..//..//Styles/BusinessPage.css";
-import FCNavbar from "..//..//FCComponents/FCNavbar";
+import FCBoxCarousel from "../../FCComponents/FCBoxCarousel";
 
 export default function BusinessPage() {
   const location = useLocation();
@@ -13,20 +14,63 @@ export default function BusinessPage() {
     businessID,
   } = location.state;
 
-  //קריאה לדאטה בייס עם שדה איידי בית עסק
+  const [boxes, setBoxes] = useState([]);
+
+  const BoxUrl =
+    "https://proj.ruppin.ac.il/bgroup33/test2/tar1/api/Business/ShowBusiness/" +
+    businessID;
+  const fetchBoxes = async () => {
+    try {
+      const response = await fetch(BoxUrl, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json; charset=UTF-8",
+          Accept: "application/json; charset=UTF-8",
+        },
+      });
+      if (!response.ok) {
+        throw new Error("Something Went Wrong :(");
+      }
+      const boxes = await response.json();
+      console.log(BoxUrl);
+      console.log(boxes);
+      setBoxes(boxes);
+    } catch {
+      console.log("Something went wrong!");
+    }
+  };
+  useEffect(() => {
+    fetchBoxes();
+  }, []);
+
+  const OutofStockElement = (
+    <div className="OOS-container">
+      <p style={{ fontSize: 70, color: "red" }}>
+        <TbShoppingBagX /> אין מארזים במלאי
+      </p>
+    </div>
+  );
 
   return (
     <>
-  
       <div className="business-page-container">
         <div className="img-container">
-          <h1>{businessName} | {businessAdress}</h1>
-          <p>Daily Sales Hours : {dailySalesHour}</p>
-          <img className="Business-logo" src="/src/Images/MafiyaLogo.png" alt="Business Logo" />
+          <h1>
+            {businessName} | {businessAdress}
+          </h1>
+          <p>שעות איסוף : {dailySalesHour}</p>
+          <img
+            className="Business-logo"
+            src="/src/Images/MafiyaLogo.png"
+            alt="Business Logo"
+          />
         </div>
         <div className="box-container">
-          <div className="box-headline">
-          <h1>Our Packages</h1>
+          <div className="carousel-wrapper">
+            <div className={boxes.length === 0 ? 'box-container-centered' : 'box-container'}>
+              {boxes.length === 0 ? OutofStockElement : <h1>הקופסאות שלנו :</h1>}
+            </div>
+            {boxes.length !== 0 && <FCBoxCarousel boxes={boxes} />}
           </div>
         </div>
       </div>

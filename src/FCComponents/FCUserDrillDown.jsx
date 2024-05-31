@@ -5,6 +5,7 @@ import {
   faUser,
   faChevronUp,
   faChevronDown,
+  faArrowRightFromBracket
 } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 import FCLoginModal from "./FCLoginModal";
@@ -58,6 +59,20 @@ const FCUserDrillDown = () => {
     setUserData(null);
   };
 
+  function capitalizeFullName(fullName) {
+    // Split the full name into an array of words
+    let words = fullName.split(" ");
+    let capitalized = "";
+
+    // Iterate through each word
+    for (let i = 0; i < words.length; i++) {
+        // Capitalize the first letter of each word and append it to the result
+        capitalized += words[i][0].toUpperCase();
+    }
+
+    return capitalized;
+}
+
   return (
     <>
       <div className="drilldown-container">
@@ -70,36 +85,43 @@ const FCUserDrillDown = () => {
               {userData ? (
                 <span style={{ fontSize: 25, marginBottom: 10 }}>
                   {userData.customerName
-                    ? userData.customerName[0].toUpperCase()
+                    ? capitalizeFullName(userData.customerName)
                     : userData.username[0].toUpperCase()}
                 </span>
               ) : (
                 <FontAwesomeIcon icon={faUser} size="xl" />
               )}
             </Dropdown.Toggle>
-            <Dropdown.Menu
+            <Dropdown.Menu dir="rtl"
               className={`dropdown-menu ${isOpen ? "show" : "hide"}`}
             >
               {userData ? (
                 <>
-                  <Dropdown.Item onClick={() => console.log("Profile")}>
-                    Profile
+                  <Dropdown.Item onClick={() => console.log("Profile")} >
+                    אזור אישי
                   </Dropdown.Item>
-                  <Dropdown.Item onClick={handleLogOut}>Sign Out</Dropdown.Item>
+                  <hr  style={{margin:5}}/>
+                  <Dropdown.Item onClick={handleLogOut}>התנתקות<FontAwesomeIcon icon={faArrowRightFromBracket}  style={{paddingRight:10}}/></Dropdown.Item>
+            
+              <hr  style={{margin:5}}/>
                 </>
               ) : (
                 <>
-                  <Dropdown.Item onClick={handleShowLoginModal}>
-                    Log In
+                  <Dropdown.Item onClick={handleShowLoginModal} >
+                    כניסה
                   </Dropdown.Item>
+                  <hr  style={{margin:5}}/>
                   <Dropdown.Item onClick={() => navigate("/signup")}>
-                    Sign Up
+                    הרשמה
                   </Dropdown.Item>
+                  <hr  style={{margin:5}}/>
                 </>
               )}
-              <Dropdown.Item onClick={() => navigate("/about")}>
-                About Us
+               <Dropdown.Item onClick={() => navigate("/about")}>
+                קצת עלינו!
               </Dropdown.Item>
+              
+            
             </Dropdown.Menu>
           </Dropdown>
         </div>

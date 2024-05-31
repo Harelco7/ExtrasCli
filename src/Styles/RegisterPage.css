@@ -121,9 +121,9 @@
     content: attr(data-on);
     position: absolute;
     font-size: 18px;
-    font-weight: 600;
+    font-weight: 500;
     top: 7px;
-    right: 10px;
+    right:10px;
     color: #222;
     font-family: "Manrope", sans-serif;
   }
@@ -138,14 +138,14 @@
     font-size: 18px;
     display: flex;
     justify-content: center;
-    left: 3px;
+    left: 4px;
     top: 2px;
     text-align: center;
     transition: all 0.3s ease;
     box-shadow: 0px 0px 6px -2px #111;
     padding: 5px 0px;
     color: #222;
-    font-weight: 600;
+    font-weight: 500;
     font-family: "Manrope", sans-serif;
   }
   
@@ -175,7 +175,27 @@
   .btn-color-mode-switch input[type="checkbox"]:checked + label.btn-color-mode-switch-inner:before {
     content: attr(data-off);
     right: auto;
-    left: 10px;
+    left: 25px;
+  }
+
+
+
+
+  @media (min-width: 1024px) and (max-width: 1440px) {
+    
+    .head-container{
+      margin: 15px 0;
+    }
+    .page-container{
+      height: 95vh;
+    }
+    .register-container{
+      margin-bottom: 15px;
+    }
+   
+    .css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input{
+      height: 15px;
+    }
   }
   
   

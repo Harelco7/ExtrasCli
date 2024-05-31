@@ -1,10 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Arimo:ital,wght@0,400..700;1,400..700&display=swap');
+
 .business-page-container {
   position: relative;
   width: 100%;
   height: 100vh; 
   display: flex;
   flex-direction: column;
+
 }
 
 .img-container {
@@ -14,6 +17,8 @@
   background-image: url('../Images/Sweets.jpg'); 
   background-size: cover; 
   background-position: center; 
+  position: relative;
+  bottom: 120px;
 }
 
 .img-container::before {
@@ -30,9 +35,9 @@
   color: white;
   position: relative;
   z-index: 1; 
-
+  margin-right: 10px;
   top: 120px;
-  left: 20px;
+  left: 0;
   font-size: 40px;
   font-weight: 600;
   animation: slide-in-bounce 1s forwards; 
@@ -45,8 +50,9 @@
   position: relative;
   z-index: 1; 
   top: 120px;
-  left: 20px;
-  font-size: 40px;
+  left: 0;
+  margin-right: 10px;
+  font-size: 50px;
   font-weight: 200;
   font-family: "Manrope", sans-serif;
 }
@@ -62,10 +68,12 @@
 .box-container {
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
+  flex-direction: column;
   height: 50%;
   width: 100%;
   background-color: white; /* Adjust as needed */
+  padding: 20px;
 }
 .box-headline{
 display: flex;
@@ -77,34 +85,51 @@ margin-top: 50px;
 
 
 }
+.box-headlinecenter{
+  display: flex;
+  justify-content: center;
+}
+
 .box-headline h1{ 
   font-family: "Manrope", sans-serif;
 font-weight: 400;
 font-size: 50px;
 }
 
-.css-1fu7jd5-MuiButtonBase-root-MuiButton-root{
+
+.muirtl-1fu7jd5-MuiButtonBase-root-MuiButton-root{
   height: 55px;
   background-color: #d67d00;
-  font-family: "Manrope", sans-serif;
+  font-family: "Arimo", "Manrope";
   font-weight: 200;
 }
 
+.carousel-wrapper {
+  margin: 0 auto;
+  padding: 0;
+  justify-content: flex-start;
+}
+
+.OOS-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
 
 
 
 @keyframes slide-in-bounce {
   0% {
-    transform: translateX(100%); 
+    transform: translateX(-100%); 
     opacity: 0; 
   }
   60% {
-    transform: translateX(-10%);
+    transform: translateX(10%);
     opacity: 1;
   }
   80% {
-    transform: translateX(5%); 
+    transform: translateX(-5%); 
     opacity: 1; 
   }
   100% {
@@ -115,7 +140,7 @@ font-size: 50px;
 
 @media (max-width: 834px){
   .img-container{
-    height: 40%;
+    height: 35%;
   }
   .Business-logo{
     display: none;
@@ -130,11 +155,16 @@ font-size: 50px;
   .box-container h1 {
     font-size: 25px;
   }
+  .box-headline h1 {
+    font-size: 35px;
+    margin-left: 20px;
+  }
+ 
 }
 
 @media (min-width: 835px) and (max-width: 1024px){
   .img-container h1 {
-    left: -1.2rem;
+    right: 0;
     font-size: 35px;
   }
   .img-container p {
@@ -143,20 +173,46 @@ font-size: 50px;
   .box-container h1 {
     font-size: 28px;
   }
+  .box-headline h1 {
+    font-size: 35px;
+    margin-left: 60px;
+  }
+
+  .img-container {
+   
+    position: relative;
+    bottom: 120px;
+  }
 }
 
 @media (min-width: 1025px) and (max-width: 1440px){
   .img-container h1 {
     right: 10px;
-    font-size: 55px;
+    font-size: 50px;
   }
   .img-container p {
-    font-size: 50px;
+    font-size: 40px;
   }
   .img-container {
     height: 70%;
+    position: relative;
+    bottom: 60px;
   }
-  .box-container h1 {
+  .box-headline h1 {
     font-size: 35px;
+    margin-left: 70px;
+  }
+  .box-container {
+   position: relative;
+   top: 50px;
+   
+  
+  }
+}
+@media (min-width :1441px){
+
+  .box-headline h1 {
+    font-size: 35px;
+    margin-left: 100px;
   }
 }

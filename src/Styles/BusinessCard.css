@@ -10,6 +10,7 @@
   margin-bottom: 10px;
   transition: transform 0.3s; /* Add transition for smooth scaling */
   margin: 20px;
+ 
 }
 
 /* Hover effect */
@@ -57,24 +58,24 @@
 .card-content {
   padding: 25px;
   text-align: center;
-  
+ 
 }
 
 /* Card content heading */
 .card-content h2 {
-  text-align: left  ;
+  text-align: center;
   font-size: 25px;
   margin-top: 0;
   font-weight: 400;
   font-family: "Manrope", sans-serif;
+  
 }
 
 /* Card content paragraph */
 .card-content p {
   font-size: 14px;
-  display: flex;
-  align-items: flex-start;
-  justify-content: start;
+direction: rtl;
+  text-align: center;
   font-weight: 500;
   font-family: "Manrope", sans-serif;
 }

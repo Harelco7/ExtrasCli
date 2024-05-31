@@ -1,15 +1,25 @@
 import React, { useState, useEffect } from "react";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { Select, MenuItem, TextField, InputLabel,FormControl ,Button} from "@mui/material";
+import {
+  Select,
+  MenuItem,
+  TextField,
+  InputLabel,
+  FormControl,
+  Button,
+} from "@mui/material";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import { faShop } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useNavigate } from "react-router-dom";
+import rtlPlugin from "stylis-plugin-rtl";
+import { prefixer } from "stylis";
+import { CacheProvider } from "@emotion/react";
+import createCache from "@emotion/cache";
 
 import "../Styles/RegisterPage.css";
 
 export default function FCBusinessForm() {
-
   const navigate = useNavigate();
 
   const [BusinessData, setBusinessData] = useState({
@@ -78,7 +88,7 @@ export default function FCBusinessForm() {
   const addBusiness = () => {
     // Your fetch function to add business
     const apiURLAddbusiness =
-      "http://localhost:5048/api/Register/registerBusiness";
+      "https://proj.ruppin.ac.il/bgroup33/test2/tar1/api/Register/registerBusiness";
     fetch(apiURLAddbusiness, {
       method: "PUT",
       headers: {
@@ -96,7 +106,7 @@ export default function FCBusinessForm() {
       .then(
         (result) => {
           console.log("ADD Successfully!", result);
-          navigate("/")
+          navigate("/");
         },
         (error) => {
           console.log("err post=", error);
@@ -116,196 +126,215 @@ export default function FCBusinessForm() {
   };
 
   const theme = createTheme({
-    direction: 'rtl',
+    direction: "rtl",
     palette: {
-      primary: {
-        main: "#000",
-      },
+      mode: "light",
     },
   });
 
-  const toggle = (
-    <div className="btn-container">
-      <label className="switch btn-color-mode-switch">
-        <input value="1" id="color_mode" name="color_mode" type="checkbox" />
-        <label
-          className="btn-color-mode-switch-inner"
-          data-off="Customer"
-          data-on="Business"
-          for="color_mode"
-        ></label>
-      </label>
-    </div>
-  );
+  const cacheRtl = createCache({
+    key: "muirtl",
+    stylisPlugins: [prefixer, rtlPlugin],
+  });
+
+  const iconSize = () => {
+    const screenWidth = window.innerWidth;
+    if (screenWidth >= 1440) {
+      return "5x";
+    } else if (screenWidth >= 1024) {
+      return "3x";
+    } else {
+      return "2x";
+    }
+  };
 
   return (
-    <div>
-      <div className="head-container">
-        <FontAwesomeIcon size="5x" icon={faShop} />
-      </div>
-      <div className="register-container">
-        <form className="inputs-container">
-          <div className="register-inputs-left">
-            <div className="text-field-wrapper">
-              <ThemeProvider theme={theme}>
-                <TextField
-                  label="Business Name"
-                  name="BusinessName"
-                  id="businessName"
-                  variant="outlined"
-                  onChange={handleChange}
-                  value={BusinessData.BusinessName}
-                  fullWidth
-                />
-              </ThemeProvider>
-            </div>
-            <div className="text-field-wrapper">
-            <ThemeProvider theme={theme} >
-                <FormControl variant="outlined" fullWidth >
-                  <InputLabel id="business-type-label">Business Type</InputLabel>
-                  <Select
-                    labelId="business-type-label"
-                    id="businessType"
-                    name="BusinessType"
-                    value={BusinessData.BusinessType}
-                    onChange={handleChange}
-                    label="Business Type"
-                    fullWidth
-                  >
-                    <MenuItem value="">
-                      <em>None</em>
-                    </MenuItem>
-                    <MenuItem value="Coffee House">Coffee House</MenuItem>
-                    <MenuItem value="Restaurant">Restaurant</MenuItem>
-                    <MenuItem value="Bakery">Bakery</MenuItem>
-                    <MenuItem value="Flowers">Flowers</MenuItem>
-                  </Select>
-                </FormControl>
-              </ThemeProvider>
-            </div>
-            <div className="text-field-wrapper">
-              <ThemeProvider theme={theme}>
-                <TextField
-                  label="Contact Info"
-                  name="ContactInfo"
-                  id="contactInfo"
-                  variant="outlined"
-                  onChange={handleChange}
-                  value={BusinessData.ContactInfo}
-                  fullWidth
-                  
-                />
-              </ThemeProvider>
-            </div>
+    <CacheProvider value={cacheRtl}>
+      <ThemeProvider theme={theme}>
+        <div>
+          <div className="head-container">
+            <FontAwesomeIcon size={iconSize()} icon={faShop} />
+          </div>
+          <div className="register-container">
+            <form className="inputs-container">
+              <div className="register-inputs-right">
+                <div className="text-field-wrapper">
+                  <div dir="rtl">
+                    <TextField
+                      label="שם העסק"
+                      name="BusinessName"
+                      id="businessName"
+                      variant="outlined"
+                      onChange={handleChange}
+                      value={BusinessData.BusinessName}
+                      fullWidth
+                    />
+                  </div>
+                </div>
+                <div className="text-field-wrapper">
+                  <div dir="rtl">
+                    <FormControl variant="outlined" fullWidth>
+                      <InputLabel id="business-type-label">
+                        סוג העסק
+                      </InputLabel>
+                      <Select
+                        labelId="business-type-label"
+                        id="businessType"
+                        name="BusinessType"
+                        value={BusinessData.BusinessType}
+                        onChange={handleChange}
+                        label="Business Type"
+                        fullWidth
+                      >
+                        <MenuItem value="">
+                          <em>None</em>
+                        </MenuItem>
+                        <MenuItem value="Coffee House">בית קפה</MenuItem>
+                        <MenuItem value="Restaurant">מסעדה</MenuItem>
+                        <MenuItem value="Bakery">מאפייה</MenuItem>
+                        <MenuItem value="Flowers">פרחים</MenuItem>
+                      </Select>
+                    </FormControl>
+                  </div>
+                </div>
+                <div className="text-field-wrapper">
+                  <div dir="rtl">
+                    <TextField
+                      label="פרטי יצירת קשר"
+                      name="ContactInfo"
+                      id="contactInfo"
+                      variant="outlined"
+                      onChange={handleChange}
+                      value={BusinessData.ContactInfo}
+                      fullWidth
+                    />
+                  </div>
+                </div>
 
-            <div className="text-field-wrapper">
-            <Button style={{backgroundColor:"#ffc107",fontFamily:"Manrope",fontWeight:700}}
-                    component="label"
-                    variant="contained"
-                    startIcon={<CloudUploadIcon />}
-                    fullWidth
-                  >
-                    Upload Business Photo
-                    <input
-                      type="file"
-                      name="BusinessPhoto"
-                      hidden
-                      onChange={handleFileChange}
+                <div className="text-field-wrapper">
+                  <div dir="rtl">
+                    <Button
+                      style={{
+                        backgroundColor: "#ffc107",
+                        fontFamily: "Arimo",
+                        fontWeight: 500,
+                      }}
+                      component="label"
+                      variant="contained"
+                      startIcon={<CloudUploadIcon />}
+                      fullWidth
+                    >
+                      אעלה תמונת רקע של העסק 
+                      <input
+                        type="file"
+                        name="BusinessPhoto"
+                        hidden
+                        onChange={handleFileChange}
+                      />
+                    </Button>
+                  </div>
+                </div>
+                <div className="text-field-wrapper">
+                  <div dir="rtl">
+                    <Button
+                      style={{
+                        backgroundColor: "#ffc107",
+                        fontFamily: "Arimo",
+                        fontWeight: 500,
+                      }}
+                      component="label"
+                      variant="contained"
+                      startIcon={<CloudUploadIcon />}
+                      fullWidth
+                    >
+                      אעלה לוגו של העסק
+                      <input
+                        type="file"
+                        name="BusinessLogo"
+                        hidden
+                        onChange={handleFileChange}
+                      />
+                    </Button>
+                  </div>
+                </div>
+              </div>
+              <div className="register-inputs-left">
+                <div className="text-field-wrapper">
+                  <div dir="rtl">
+                    <TextField
+                      label="שעות פתיחה"
+                      name="OpeningHours"
+                      id="openingHours"
+                      variant="outlined"
+                      onChange={handleChange}
+                      value={BusinessData.OpeningHours}
+                      fullWidth
                     />
-                  </Button>
-            </div>
-            <div className="text-field-wrapper">
-            <Button style={{backgroundColor:"#ffc107",fontFamily:"Manrope",fontWeight:700}}
-                    component="label"
-                    variant="contained"
-                    startIcon={<CloudUploadIcon />}
-                    fullWidth
-                  >
-                    Upload Business Logo
-                    <input
-                      type="file"
-                      name="BusinessLogo"
-                      hidden
-                      onChange={handleFileChange}
+                  </div>
+                </div>
+                <div className="text-field-wrapper">
+                  <div dir="rtl">
+                    <TextField
+                      label="שעות איסוף יומית "
+                      name="DailySalesHour"
+                      id="dailySalesHour"
+                      variant="outlined"
+                      onChange={handleChange}
+                      value={BusinessData.DailySalesHour}
+                      fullWidth
                     />
-                  </Button>
-            </div>
+                  </div>
+                </div>
+                <div className="text-field-wrapper">
+                  <div dir="rtl">
+                    <TextField
+                      label="שם משתמש"
+                      name="Username"
+                      id="username"
+                      variant="outlined"
+                      onChange={handleChange}
+                      value={BusinessData.Username}
+                      fullWidth
+                    />
+                  </div>
+                </div>
+                <div className="text-field-wrapper">
+                  <div dir="rtl">
+                    <TextField
+                      label="סיסמא"
+                      name="Password"
+                      id="password"
+                      type="password"
+                      variant="outlined"
+                      onChange={handleChange}
+                      value={BusinessData.Password}
+                      fullWidth
+                    />
+                  </div>
+                </div>
+                <div className="text-field-wrapper">
+                  <div dir="rtl">
+                    <TextField
+                      label="כתובת"
+                      name="Address"
+                      id="address"
+                      variant="outlined"
+                      onChange={handleChange}
+                      value={BusinessData.Address}
+                      fullWidth
+                    />
+                  </div>
+                </div>
+              </div>
+            </form>
           </div>
-          <div className="register-inputs-right">
-            <div className="text-field-wrapper">
-              <ThemeProvider theme={theme}>
-                <TextField 
-                  label="Opening Hours"
-                  name="OpeningHours"
-                  id="openingHours"
-                  variant="outlined"
-                  onChange={handleChange}
-                  value={BusinessData.OpeningHours}
-                  fullWidth
-                />
-              </ThemeProvider>
-            </div>
-            <div className="text-field-wrapper">
-              <ThemeProvider theme={theme}>
-                <TextField
-                  label="Daily Sales Hour"
-                  name="DailySalesHour"
-                  id="dailySalesHour"
-                  variant="outlined"
-                  onChange={handleChange}
-                  value={BusinessData.DailySalesHour}
-                  fullWidth
-                />
-              </ThemeProvider>
-            </div>
-            <div className="text-field-wrapper">
-              <ThemeProvider theme={theme}>
-                <TextField
-                  label="Username"
-                  name="Username"
-                  id="username"
-                  variant="outlined"
-                  onChange={handleChange}
-                  value={BusinessData.Username}
-                  fullWidth
-                />
-              </ThemeProvider>
-            </div>
-            <div className="text-field-wrapper">
-              <ThemeProvider theme={theme}>
-                <TextField
-                  label="Password"
-                  name="Password"
-                  id="password"
-                  type="password"
-                  variant="outlined"
-                  onChange={handleChange}
-                  value={BusinessData.Password}
-                  fullWidth
-                />
-              </ThemeProvider>
-            </div>
-            <div className="text-field-wrapper">
-              <ThemeProvider theme={theme}>
-                <TextField
-                  label="Address"
-                  name="Address"
-                  id="address"
-                  variant="outlined"
-                  onChange={handleChange}
-                  value={BusinessData.Address}
-                  fullWidth
-                />
-              </ThemeProvider>
-            </div>
+          <div className="button-container">
+            <button type="submit" className="button-submit" onClick={handleSubmit}>
+              הרשמה כבית עסק
+            </button>
           </div>
-        </form>
-      </div>
-      <div className="button-container">
-        <button type="submit" className="button-submit" onClick={handleSubmit}>
-          Sign-Up as a Business
-        </button>
-      </div>
-    </div>
+        </div>
+      </ThemeProvider>
+    </CacheProvider>
   );
 }

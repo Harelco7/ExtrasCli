@@ -45,8 +45,8 @@ export default function RegisterPage() {
               />
               <label
                 className="btn-color-mode-switch-inner"
-                data-off="Customer"
-                data-on="Business"
+                data-off="לקוח"
+                data-on="בית עסק"
                 htmlFor="color_mode"
               ></label>
             </label>

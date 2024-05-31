@@ -1,0 +1,32 @@
+/* BoxCarousel.css */
+
+/* Styling for the carousel wrapper */
+.carousel-wrapper {
+    margin: auto;
+    width: 90%;
+    height: 400px;
+  }
+  
+  /* Styling for the carousel container */
+  .carousel-container {
+    position: relative;
+  }
+  
+
+  
+  /* Media query for smaller screens */
+  @media (max-width: 768px) {
+    /* Adjusting padding and font size for smaller screens */
+    .package-card {
+      padding: 15px;
+      margin: 15px;
+    }
+    .carousel-wrapper{
+        width: 100%;
+    }
+  
+    .package-card h3 {
+      font-size: 1rem;
+    }
+  }
+  

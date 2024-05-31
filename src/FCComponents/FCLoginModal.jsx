@@ -5,6 +5,10 @@ import { TextField } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import logo from "../Images/CircleLogo.png";
 import "../Styles/LoginModal.css";
+import rtlPlugin from "stylis-plugin-rtl";
+import { prefixer } from "stylis";
+import { CacheProvider } from "@emotion/react";
+import createCache from "@emotion/cache";
 
 const FCLoginModal = ({ show, onHide, onSuccessfulLogin }) => {
   const navigate = useNavigate();
@@ -22,7 +26,7 @@ const FCLoginModal = ({ show, onHide, onSuccessfulLogin }) => {
     password,
   };
 
-  const apiURLUser = "http://localhost:5048/api/Login/LoginTest";
+  const apiURLUser = "https://proj.ruppin.ac.il/bgroup33/test2/tar1/api/Login/LoginTest";
 
   const btnLogin = (e) => {
     e.preventDefault();
@@ -67,11 +71,15 @@ const FCLoginModal = ({ show, onHide, onSuccessfulLogin }) => {
   };
 
   const theme = createTheme({
+    direction: "rtl",
     palette: {
-      primary: {
-        main: "#000",
-      },
+      mode: "light",
     },
+  });
+
+  const cacheRtl = createCache({
+    key: "muirtl",
+    stylisPlugins: [prefixer, rtlPlugin],
   });
 
   const handleClickOnSignUp = () => {
@@ -105,22 +113,23 @@ const FCLoginModal = ({ show, onHide, onSuccessfulLogin }) => {
             <img src={logo} alt="" />
           </div>
           <form className="form">
+          <CacheProvider value={cacheRtl}>
             <ThemeProvider theme={theme}>
               <TextField
                 fullWidth
-                label="Username"
+                label="שם משתמש"
                 id="fullWidth"
                 variant="outlined"
                 onChange={(e) => {
                   setUserName(e.target.value);
                 }}
               />
-            </ThemeProvider>
+           
 
-            <ThemeProvider theme={theme}>
+            
               <TextField
                 fullWidth
-                label="Password"
+                label="סיסמא"
                 id="fullWidth"
                 variant="outlined"
                 onChange={(e) => {
@@ -128,6 +137,7 @@ const FCLoginModal = ({ show, onHide, onSuccessfulLogin }) => {
                 }}
               />
             </ThemeProvider>
+            </CacheProvider>
             {error && (
               <p style={{ fontSize: 12, color: "Red", textAlign: "center", margin: 0 }}>
                 {error}
@@ -138,13 +148,13 @@ const FCLoginModal = ({ show, onHide, onSuccessfulLogin }) => {
               <span className="page-link-label">Forgot Password?</span>
             </p>
             <button className="form-btn" onClick={btnLogin}>
-              Log in
+              הירשם
             </button>
           </form>
           <p className="sign-up-label">
-            Don't have an account?
+            עדיין לא נרשמת ?
             <span className="sign-up-link" onClick={handleClickOnSignUp}>
-              Sign up
+              לחץ כאן!
             </span>
           </p>
         </div>

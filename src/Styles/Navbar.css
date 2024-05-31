@@ -13,6 +13,7 @@
     align-items: center;
     height: 100px;
     backdrop-filter: blur(8px); /* Apply blur effect */
+    direction: ltr;
     
   }
   .logo {
