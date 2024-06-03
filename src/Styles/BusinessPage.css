@@ -147,13 +147,14 @@ font-size: 50px;
   }
 
   .img-container h1 {
-    font-size: 20px;
+    font-size: 25px;
   }
   .img-container p {
-    font-size: 15px;
+    font-size: 20px;
+    font-weight: 400;
   }
   .box-container h1 {
-    font-size: 25px;
+    font-size: 30px;
   }
   .box-headline h1 {
     font-size: 35px;
