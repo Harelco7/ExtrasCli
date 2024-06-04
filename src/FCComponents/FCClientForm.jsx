@@ -96,7 +96,7 @@ export default function FCClientForm() {
           (result) => {
             console.log("Added Successfully!", result);
             console.log("Navigating to main page...");
-            navigate("/"); // Navigate to the main page after successful submission
+            navigate("/"); 
           },
           (error) => {
             console.error("Error posting data:", error);
@@ -123,8 +123,8 @@ export default function FCClientForm() {
 
   const getYears = () => {
     const currentYear = new Date().getFullYear();
-    const startYear = currentYear - 16; // Start from 16 years ago
-    const endYear = currentYear - 50; // End at 2008 or earlier
+    const startYear = currentYear - 16;
+    const endYear = currentYear - 80; 
     const yearArray = [];
 
     for (let year = startYear; year >= endYear; year--) {

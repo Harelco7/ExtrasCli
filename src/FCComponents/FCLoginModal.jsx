@@ -87,10 +87,10 @@ const FCLoginModal = ({ show, onHide, onSuccessfulLogin }) => {
     navigate("/signup");
   };
 
-  // Function to determine if the device is mobile
+  
   const isMobile = () => window.innerWidth <= 768;
 
-  // Use useEffect to handle resizing
+ 
   useEffect(() => {
     const handleResize = () => setMobile(isMobile());
     window.addEventListener("resize", handleResize);

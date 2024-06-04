@@ -16,9 +16,9 @@ import "../Styles/UserDrillDown.css";
 
 const FCUserDrillDown = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [showLoginModal, setShowLoginModal] = useState(false); // State to control modal visibility
-  const [showRegisterModal, setShowRegisterModal] = useState(false); // State to control modal visibility
-  const [userData, setUserData] = useState(null); // State to store the user data
+  const [showLoginModal, setShowLoginModal] = useState(false); 
+  const [showRegisterModal, setShowRegisterModal] = useState(false); 
+  const [userData, setUserData] = useState(null); 
 
   const [loggedInUser, setLoggedInUser] = useState(null);
 
@@ -60,13 +60,13 @@ const FCUserDrillDown = () => {
   };
 
   function capitalizeFullName(fullName) {
-    // Split the full name into an array of words
+    
     let words = fullName.split(" ");
     let capitalized = "";
 
-    // Iterate through each word
+    
     for (let i = 0; i < words.length; i++) {
-        // Capitalize the first letter of each word and append it to the result
+        
         capitalized += words[i][0].toUpperCase();
     }
 

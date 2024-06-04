@@ -1,7 +1,7 @@
 import React from 'react';
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
-import '../Styles/BoxCarousel.css'; // Corrected the path to the CSS file
+import '../Styles/BoxCarousel.css'; 
 import FCBoxCard from './FCBoxCard';
 
 const FCBoxCarousel = ({ boxes }) => {

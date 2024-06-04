@@ -13,6 +13,7 @@ import BusinessPage from "./assets/Pages/BusinessPage";
 import MapsPage from "./assets/Pages/MapsPage";
 import RegisterPage from "./assets/Pages/RegisterPage";
 import { BusinessDataProvider } from "..//src/assets/Context/BusinessDataContext.jsx";
+import OrderPage from "./assets/Pages/OrderPage.jsx";
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
           <Route path="/about" element={<AboutPage />} />
           <Route path="/BusinessPage" element={<BusinessPage />} />
           <Route path="/MapPage" element={<MapsPage />} />
+          <Route path="/orderpage" element={<OrderPage/>} />
         </Routes>
       </div>
     </Router>

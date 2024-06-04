@@ -86,7 +86,7 @@ export default function FCBusinessForm() {
   };
 
   const addBusiness = () => {
-    // Your fetch function to add business
+    
     const apiURLAddbusiness =
       "https://proj.ruppin.ac.il/bgroup33/test2/tar1/api/Register/registerBusiness";
     fetch(apiURLAddbusiness, {

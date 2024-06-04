@@ -4,6 +4,7 @@ import { TbShoppingBagX } from "react-icons/tb";
 import "..//..//Styles/BusinessPage.css";
 import FCBoxCarousel from "../../FCComponents/FCBoxCarousel";
 
+
 export default function BusinessPage() {
   const location = useLocation();
   const {

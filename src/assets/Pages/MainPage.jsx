@@ -5,68 +5,41 @@ import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import ToggleViewMode from "../../FCComponents/ToggleViewMode";
 import { useBusinessData } from "..//Context/BusinessDataContext.jsx";
-
+import Skeleton from "@mui/material/Skeleton";
 
 export default function MainPage() {
-
-  const { businessData, loading, errorMessage } = useBusinessData();
-
-  // const apiURL = "https://proj.ruppin.ac.il/bgroup33/test2/tar1/api/Main/Businesses";
-
-
-
-  // const fetchBusinessData = async () => {
-  //   try {
-  //     const response = await fetch(apiURL, {
-  //       method: "GET",
-  //       headers: {
-  //         "Content-Type": "application/json; charset=UTF-8",
-  //         Accept: "application/json; charset=UTF-8",
-  //       },
-  //     });
-  //     if (!response.ok) {
-  //       setErrorMessage("OOPS! Somthing Went Wrong :(");
-  //       throw new Error("Somthing Went Wrong :(");
-  //     }
-  //     const data = await response.json();
-  //     setBusinessData(data);
-  //     setLoading(false);
-  //   } catch {
-  //     setErrorMessage("Somthing Went Wrong :(");
-  //     setLoading(false);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   fetchBusinessData();
-  // }, []);
-
+  const { businessData, errorMessage } = useBusinessData();
+  const [loading, setLoading] = useState(true);
   const [bakerys, setBakery] = useState([]);
-
-  useEffect(() => {
-    let bakeryBusinesses = businessData.filter(
-      (i) => i.businessType === "Bakery"
-    );
-    setBakery(bakeryBusinesses);
-  }, [businessData]);
-
   const [coffee, setCoffee] = useState([]);
-
-  useEffect(() => {
-    let coffeeBusinesses = businessData.filter(
-      (c) => c.businessType === "Coffee House"
-    );
-    setCoffee(coffeeBusinesses);
-  }, [businessData]);
-
   const [flowers, setFlowers] = useState([]);
 
   useEffect(() => {
-    let flowersBusinesses = businessData.filter(
-      (f) => f.businessType === "Flowers"
-    );
-    setFlowers(flowersBusinesses);
-  }, [businessData]);
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 2500); 
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+    if (!loading) {
+      let bakeryBusinesses = businessData.filter(
+        (i) => i.businessType === "Bakery"
+      );
+      setBakery(bakeryBusinesses);
+
+      let coffeeBusinesses = businessData.filter(
+        (c) => c.businessType === "Coffee House"
+      );
+      setCoffee(coffeeBusinesses);
+
+      let flowersBusinesses = businessData.filter(
+        (f) => f.businessType === "Flowers"
+      );
+      setFlowers(flowersBusinesses);
+    }
+  }, [businessData, loading]);
 
   const responsive = {
     superLargeDesktop: {
@@ -94,39 +67,45 @@ export default function MainPage() {
 
   if (loading) {
     return (
-      <div
-        style={{
-          height: "100vh",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <svg
-          className="loader"
-          viewBox="0 0 384 384"
-          xmlns="http://www.w3.org/2000/svg"
+      <>
+        <div style={{ marginTop: 100 }}>
+          <Skeleton
+            style={{ borderRadius: 16 }}
+            variant="h3"
+            width={321}
+            height={50}
+            
+          />
+        </div>
+        <div
+          style={{
+            height: "100vh",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            flexDirection: "row",
+          }}
         >
-          <circle
-            className="active"
-            pathLength="360"
-            fill="transparent"
-            strokeWidth="36"
-            cx="192"
-            cy="192"
-            r="176"
-          ></circle>
-          <circle
-            className="track"
-            pathLength="360"
-            fill="transparent"
-            strokeWidth="36"
-            cx="192"
-            cy="192"
-            r="176"
-          ></circle>
-        </svg>
-      </div>
+          <Skeleton
+            style={{ borderRadius: 16 }}
+            variant="rounded"
+            width={321}
+            height={470}
+          />
+          <Skeleton
+            style={{ borderRadius: 16 }}
+            variant="rounded"
+            width={321}
+            height={470}
+          />
+          <Skeleton
+            style={{ borderRadius: 16 }}
+            variant="rounded"
+            width={321}
+            height={470}
+          />
+        </div>
+      </>
     );
   } else if (errorMessage) {
     return (
@@ -147,7 +126,7 @@ export default function MainPage() {
     return (
       <>
         <div className="view-options-container">
-        <ToggleViewMode/>
+          <ToggleViewMode />
         </div>
         <div className="headlines">
           <h1 style={{ direction: "rtl" }}>מאפיות :</h1>
@@ -157,8 +136,7 @@ export default function MainPage() {
             responsive={responsive}
             className="carousel"
             infinite={true}
-            // centerMode={true}
-            removeArrowOnDeviceType={["tablet", "mobile"]}
+            removeArrowOnDeviceType={["tablet"]}
             direction="rtl"
           >
             {bakerys.map((Bakery, index) => (
@@ -177,8 +155,7 @@ export default function MainPage() {
             responsive={responsive}
             className="carousel"
             infinite={true}
-            // centerMode={true}
-            removeArrowOnDeviceType={["tablet", "mobile"]}
+            removeArrowOnDeviceType={["tablet"]}
           >
             {coffee.map((coffee, index) => (
               <div className="carousel-item" key={index}>
@@ -196,8 +173,7 @@ export default function MainPage() {
             responsive={responsive}
             className="carousel"
             infinite={true}
-            // centerMode={true}
-            removeArrowOnDeviceType={["tablet", "mobile"]}
+            removeArrowOnDeviceType={["tablet"]}
           >
             {flowers.map((flowers, index) => (
               <div className="carousel-item" key={index}>
