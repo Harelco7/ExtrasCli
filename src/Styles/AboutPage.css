@@ -32,7 +32,7 @@
   }
 
   .icons-about {
-    display: flex;
+  display: flex;
   justify-content: center;
   align-items: center;
   gap: 50px; 
@@ -42,4 +42,16 @@
   .icon-item {
     text-align: center;
     max-width: 300px;
+  }
+
+
+
+  @media (max-width: 767px) {
+    .icons-about{
+      flex-direction: column;
+    }
+    .title{
+      color: #d67d00;
+      font-size:60px;
+    }
   }

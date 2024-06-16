@@ -24,6 +24,10 @@
     padding: 3px
     
   }
+
+  span{
+    margin:0
+  }
   .drilldown-container{
     display: flex;
     align-items: center;

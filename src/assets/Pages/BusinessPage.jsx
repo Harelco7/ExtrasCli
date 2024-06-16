@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { TbShoppingBagX } from "react-icons/tb";
-import "..//..//Styles/BusinessPage.css";
+import "../../Styles/BusinessPage.css";
 import FCBoxCarousel from "../../FCComponents/FCBoxCarousel";
-
+import FCBoxCard from "../../FCComponents/FCBoxCard";
 
 export default function BusinessPage() {
   const location = useLocation();
@@ -40,6 +40,7 @@ export default function BusinessPage() {
       console.log("Something went wrong!");
     }
   };
+
   useEffect(() => {
     fetchBoxes();
   }, []);
@@ -66,15 +67,31 @@ export default function BusinessPage() {
             alt="Business Logo"
           />
         </div>
-        <div className="box-container">
-          <div className="carousel-wrapper">
-            <div className={boxes.length === 0 ? 'box-container-centered' : 'box-container'}>
-              {boxes.length === 0 ? OutofStockElement : <h1>הקופסאות שלנו :</h1>}
-            </div>
-            {boxes.length !== 0 && <FCBoxCarousel boxes={boxes} />}
-          </div>
+        <div
+          className={
+            boxes.length === 0 ? "box-container-centered" : "box-container"
+          }
+        >
+          {boxes.length === 0 ? (
+            OutofStockElement
+          ) : (
+            <>
+              <div className="box-title">
+                <h1>המארזים שלנו :</h1>
+              </div>
+              <div className="grid-container">
+                {boxes.map((box, index) => (
+                  <div key={index} className="grid-item">
+                    <FCBoxCard box={box} />
+                  </div>
+                ))}
+              </div>
+            </>
+          )}
         </div>
       </div>
     </>
   );
 }
+
+// {boxes.length !== 0 && <FCBoxCarousel boxes={boxes} />}

@@ -54,19 +54,19 @@ export default function FCClientForm() {
     let tempErrors = {};
     tempErrors.ContactInfo = ClientData.ContactInfo
       ? ""
-      : "Contact Info is required.";
-    tempErrors.Username = ClientData.Username ? "" : "Username is required.";
-    tempErrors.Password = ClientData.Password ? "" : "Password is required.";
-    tempErrors.Address = ClientData.Address ? "" : "Address is required.";
-    tempErrors.Gender = ClientData.Gender ? "" : "Gender is required.";
-    tempErrors.Age = ClientData.Age >= 16 ? "" : "Age is required.";
+      : "דרושים פרטי יצירת קשר.";
+    tempErrors.Username = ClientData.Username ? "" : "דרוש שם משתמש.";
+    tempErrors.Password = ClientData.Password ? "" : "דרושה סיסמא.";
+    tempErrors.Address = ClientData.Address ? "" : "דרושה כתובת.";
+    tempErrors.Gender = ClientData.Gender ? "" : "דרוש מגדר.";
+    tempErrors.Age = ClientData.Age >= 16 ? "" : "דרוש גיל.";
     tempErrors.CustomerName = ClientData.CustomerName
       ? ""
-      : "Customer Name is required.";
-    tempErrors.Email = ClientData.Email ? "" : "Email is required.";
+      : "דרוש שם הלקוח";
+    tempErrors.Email = ClientData.Email ? "" : "דרוש אימייל.";
     tempErrors.phoneNumber = ClientData.phoneNumber
       ? ""
-      : "Phone Number is required.";
+      : "דרוש מספר טלפון.";
     setErrors(tempErrors);
     return Object.values(tempErrors).every((x) => x === "");
   };
@@ -128,7 +128,7 @@ export default function FCClientForm() {
     const yearArray = [];
 
     for (let year = startYear; year >= endYear; year--) {
-      if (year == currentYear - 50) {
+      if (year == endYear) {
         setYears(yearArray);
         return yearArray;
       }

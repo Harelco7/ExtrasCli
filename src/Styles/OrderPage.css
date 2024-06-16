@@ -2,6 +2,7 @@
     max-width: 600px;
     margin: auto;
     padding: 20px;
+    text-align: center;
   }
   
   h2 {
@@ -14,27 +15,41 @@
   }
   
   .quantity-selector {
-    margin-top: 20px;
+  
     display: flex;
     align-items: center;
-  }
+    justify-content: space-evenly;
+    margin: 20px;
+}
   
   .quantity-btn {
     padding: 5px 10px;
-    font-size: 16px;
+    font-size: 30px;
     cursor: pointer;
-    background-color: #007bff;
+    background-color: #113946;
     color: white;
     border: none;
-    border-radius: 4px;
+    border-radius: 50%;
+    height: 60px;
+    width: 60px;
     transition: background-color 0.3s ease;
   }
   
   .quantity-btn:hover {
-    background-color: #0056b3;
+    background-color: #2f6db0;
   }
   
   span {
     margin: 0 10px;
   }
-  
+  .button-checkout{
+    border: none;
+    border-radius: 10px;
+    background-color:#113946 ;
+    color: white  ;
+    padding: 10px;
+    margin: 10px;
+  }
+  .button-checkout:active{
+    background-color: #2f6db0;
+  }

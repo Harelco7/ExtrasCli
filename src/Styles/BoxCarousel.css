@@ -2,9 +2,9 @@
 
 /* Styling for the carousel wrapper */
 .carousel-wrapper {
-    margin: auto;
+    margin: 20px;
     width: 90%;
-    height: 400px;
+    height: 500px;
   }
   
   /* Styling for the carousel container */
@@ -22,7 +22,7 @@
       margin: 15px;
     }
     .carousel-wrapper{
-        width: 100%;
+        width: 90%;
     }
   
     .package-card h3 {

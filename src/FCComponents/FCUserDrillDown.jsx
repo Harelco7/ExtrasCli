@@ -5,20 +5,18 @@ import {
   faUser,
   faChevronUp,
   faChevronDown,
-  faArrowRightFromBracket
+  faArrowRightFromBracket,
 } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 import FCLoginModal from "./FCLoginModal";
 
-
 import "../Styles/UserDrillDown.css";
-
 
 const FCUserDrillDown = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [showLoginModal, setShowLoginModal] = useState(false); 
-  const [showRegisterModal, setShowRegisterModal] = useState(false); 
-  const [userData, setUserData] = useState(null); 
+  const [showLoginModal, setShowLoginModal] = useState(false);
+  const [showRegisterModal, setShowRegisterModal] = useState(false);
+  const [userData, setUserData] = useState(null);
 
   const [loggedInUser, setLoggedInUser] = useState(null);
 
@@ -60,18 +58,15 @@ const FCUserDrillDown = () => {
   };
 
   function capitalizeFullName(fullName) {
-    
     let words = fullName.split(" ");
     let capitalized = "";
 
-    
     for (let i = 0; i < words.length; i++) {
-        
-        capitalized += words[i][0].toUpperCase();
+      capitalized += words[i][0].toUpperCase();
     }
 
     return capitalized;
-}
+  }
 
   return (
     <>
@@ -83,7 +78,7 @@ const FCUserDrillDown = () => {
               style={{ backgroundColor: userData ? "#efa43a" : "" }}
             >
               {userData ? (
-                <span style={{ fontSize: 25, marginBottom: 10 }}>
+                <span style={{ fontSize: 25, margin: 0 }}>
                   {userData.customerName
                     ? capitalizeFullName(userData.customerName)
                     : userData.username[0].toUpperCase()}
@@ -92,36 +87,55 @@ const FCUserDrillDown = () => {
                 <FontAwesomeIcon icon={faUser} size="xl" />
               )}
             </Dropdown.Toggle>
-            <Dropdown.Menu dir="rtl"
+            <Dropdown.Menu
+              dir="rtl"
               className={`dropdown-menu ${isOpen ? "show" : "hide"}`}
             >
               {userData ? (
                 <>
-                  <Dropdown.Item onClick={() => console.log("Profile")} >
-                    אזור אישי
+                  {userData.age ? (
+                    <>
+                      <Dropdown.Item onClick={() => console.log("Profile")}>
+                        אזור אישי
+                      </Dropdown.Item>
+                    </>
+                  ) : (
+                    <>
+                      {" "}
+                      <Dropdown.Item
+                        onClick={() => console.log("Business")}
+                      >
+                        העסק שלי
+                      </Dropdown.Item>
+                    </>
+                  )}
+
+                  <hr style={{ margin: 5 }} />
+                  <Dropdown.Item onClick={handleLogOut}>
+                    התנתקות
+                    <FontAwesomeIcon
+                      icon={faArrowRightFromBracket}
+                      style={{ paddingRight: 10 }}
+                    />
                   </Dropdown.Item>
-                  <hr  style={{margin:5}}/>
-                  <Dropdown.Item onClick={handleLogOut}>התנתקות<FontAwesomeIcon icon={faArrowRightFromBracket}  style={{paddingRight:10}}/></Dropdown.Item>
-            
-              <hr  style={{margin:5}}/>
+
+                  <hr style={{ margin: 5 }} />
                 </>
               ) : (
                 <>
-                  <Dropdown.Item onClick={handleShowLoginModal} >
+                  <Dropdown.Item onClick={handleShowLoginModal}>
                     כניסה
                   </Dropdown.Item>
-                  <hr  style={{margin:5}}/>
+                  <hr style={{ margin: 5 }} />
                   <Dropdown.Item onClick={() => navigate("/signup")}>
                     הרשמה
                   </Dropdown.Item>
-                  <hr  style={{margin:5}}/>
+                  <hr style={{ margin: 5 }} />
                 </>
               )}
-               <Dropdown.Item onClick={() => navigate("/about")}>
+              <Dropdown.Item onClick={() => navigate("/about")}>
                 קצת עלינו!
               </Dropdown.Item>
-              
-            
             </Dropdown.Menu>
           </Dropdown>
         </div>

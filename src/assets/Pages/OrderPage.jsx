@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import "../../Styles/OrderPage.css";
-
+import ShoppingBagTwoToneIcon from "@mui/icons-material/ShoppingBagTwoTone";
+import { useShoppingBag } from "..//Context//ShoppingBagContext.jsx"; // Update the path accordingly
 
 export default function OrderPage() {
   const location = useLocation();
@@ -11,6 +12,7 @@ export default function OrderPage() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [LoggedInUser, setLoggedInUser] = useState({});
   const [box, setBox] = useState(initialBox);
+  const { addItemToBag } = useShoppingBag(); // Use the context
 
   useEffect(() => {
     const userData = JSON.parse(sessionStorage.getItem("userData"));
@@ -31,10 +33,8 @@ export default function OrderPage() {
   };
 
   const handleCheckout = () => {
-   
     const userData = JSON.parse(sessionStorage.getItem("userData"));
     if (userData) {
-      
       console.log(LoggedInUser.customerID, "this is loggedin user");
       setIsLoggedIn(true);
       addOrder();
@@ -50,8 +50,8 @@ export default function OrderPage() {
   };
 
   const addOrder = () => {
-    const apiURLAddOrder = "https://proj.ruppin.ac.il/bgroup33/test2/tar1/api/Box/BuyBox";
-
+    const apiURLAddOrder =
+      "https://proj.ruppin.ac.il/bgroup33/test2/tar1/api/Box/BuyBox";
 
     const order = {
       boxId: box.boxID,
@@ -74,7 +74,6 @@ export default function OrderPage() {
         console.log("res.status", res.status);
         console.log("res.ok", res.ok);
 
-      
         if (!res.ok) {
           return res.text().then((text) => {
             throw new Error(`Error: ${res.status} - ${text}`);
@@ -86,7 +85,7 @@ export default function OrderPage() {
       .then(
         (result) => {
           console.log("Order Added Successfully!", result);
-       
+
           setBox((prevBox) => ({
             ...prevBox,
             quantityAvailable: prevBox.quantityAvailable - quantity,
@@ -98,6 +97,17 @@ export default function OrderPage() {
       );
   };
 
+  const handleAddToBag = () => {
+    const item = {
+      id: box.boxID,
+      name: box.boxName,
+      price: box.price,
+      quantity: quantity
+    };
+    addItemToBag(item);
+    console.log(`Added ${quantity} ${box.boxName}(s) to the shopping bag!`);
+  };
+
   return (
     <div className="order-container">
       <h2>מסך הזמנה</h2>
@@ -107,8 +117,14 @@ export default function OrderPage() {
           <h3>{box.boxName}</h3>
           {box.alergicType !== "none" && <p>אלרגיות: {box.alergicType}</p>}
           <p>{box.description}</p>
-          <p>מחיר: {box.price}</p>
-          <p>מארזים שנותרו: {box.quantityAvailable}</p>
+          <p>
+            מחיר: {box.price}
+            {"₪"}
+          </p>
+          <p>
+            <ShoppingBagTwoToneIcon />
+            מארזים שנותרו : {box.quantityAvailable}
+          </p>
           <div className="quantity-selector">
             <button
               className="quantity-btn"
@@ -129,7 +145,10 @@ export default function OrderPage() {
         <p>No box data available.</p>
       )}
       <button className="button-checkout" onClick={handleCheckout}>
-        הזמנה
+        הזמן עכשיו
+      </button>
+      <button className="button-checkout" onClick={handleAddToBag}>
+        הוסף לסל
       </button>
     </div>
   );

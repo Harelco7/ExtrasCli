@@ -11,7 +11,7 @@ import React from 'react'
    
       <div className= "container">
         <br></br>
-        <h1>קצת עלינו</h1>
+        <h1 className='title'>קצת עלינו</h1>
          <div className="photo-about">
             <br></br>
             <motion.img
@@ -38,19 +38,19 @@ import React from 'react'
           <br></br> <br></br>
           <div className="icons-about">
             <div className="icon-item">
-            <LuHeartHandshake size={100}/>
+            <LuHeartHandshake size={100} color='#d67d00'/>
             <br></br> <br></br>
           <h4>מכירת עודפים</h4>
           <p>עסקים מרוויחים ממכירת מארזים המורכבים מעודפים של סוף היום</p>
             </div>
             <div className="icon-item">
-          <GiTakeMyMoney size={100}/>
+          <GiTakeMyMoney size={100} color='#d67d00'/>
           <br></br> <br></br>
           <h4>חסכון בכסף</h4>
           <p>לקוחות נהנים ממארזים מוזלים במחירים המותאמים לכל כיס</p>
           </div>
           <div className="icon-item">
-            <ImEarth size={100} />
+            <ImEarth size={100} color='#d67d00' />
             <br></br> <br></br>
             <h4>איכות הסביבה</h4>
           <p>צמצום מירבי של תופעת בזבוז משאבים וזריקת עודפי מזון</p>

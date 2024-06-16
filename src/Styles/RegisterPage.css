@@ -29,7 +29,15 @@
     margin-right: 30px;
   }
   
- 
+  .time-wrapper {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+  }
+  
+  .text-field-wrapper.half-width {
+    width: 48%;
+  }
   
   .text-field-wrapper {
     margin-bottom: 10px;

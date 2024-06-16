@@ -25,7 +25,7 @@ const FCBoxCarousel = ({ boxes }) => {
   };
 
   return (
-    <Carousel className="carousel-wrapper" responsive={responsive} >
+    <Carousel className="carousel-wrapper" responsive={responsive} swipeable={true} >
       {boxes.map((box, index) => (
        <FCBoxCard box={box} key= {index}/>
       ))}
