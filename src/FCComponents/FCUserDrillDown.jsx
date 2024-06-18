@@ -103,7 +103,7 @@ const FCUserDrillDown = () => {
                     <>
                       {" "}
                       <Dropdown.Item
-                        onClick={() => console.log("Business")}
+                        onClick={() => navigate("/addbox")}
                       >
                         העסק שלי
                       </Dropdown.Item>
