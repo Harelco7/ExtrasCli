@@ -33,7 +33,7 @@ export default function FCBusinessCard({ data }) {
           <p>
           <FontAwesomeIcon icon={faClock} size="lg" style={{marginLeft:10}}  />
             {data.openingHours}</p>
-          <button onClick={handleOrderNow}>הזמן עכשיו</button>
+          <button onClick={handleOrderNow}>צפייה במארזים </button>
         </div>
       </div>
     </>

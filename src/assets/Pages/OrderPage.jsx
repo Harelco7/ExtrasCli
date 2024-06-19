@@ -2,7 +2,12 @@ import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import "../../Styles/OrderPage.css";
 import ShoppingBagTwoToneIcon from "@mui/icons-material/ShoppingBagTwoTone";
-import { useShoppingBag } from "..//Context//ShoppingBagContext.jsx"; // Update the path accordingly
+import Snackbar from '@mui/material/Snackbar';
+import Alert from '@mui/material/Alert';
+import Typography from '@mui/material/Typography';
+import { useShoppingBag } from "../Context/ShoppingBagContext.jsx";
+import exampleBox from "../../Images/exampleBox.jpg";
+import { LiaAllergiesSolid } from "react-icons/lia";
 
 export default function OrderPage() {
   const location = useLocation();
@@ -13,6 +18,8 @@ export default function OrderPage() {
   const [LoggedInUser, setLoggedInUser] = useState({});
   const [box, setBox] = useState(initialBox);
   const { addItemToBag } = useShoppingBag(); // Use the context
+  const [snackbarAddToBagOpen, setSnackbarAddToBagOpen] = useState(false);
+  const [snackbarOrderOpen, setSnackbarOrderOpen] = useState(false);
 
   useEffect(() => {
     const userData = JSON.parse(sessionStorage.getItem("userData"));
@@ -44,6 +51,7 @@ export default function OrderPage() {
 
     if (isLoggedIn) {
       console.log(`Checking out ${quantity} ${box.boxName}(s)!`);
+      setSnackbarOrderOpen(true); // Show the order snackbar
     } else {
       console.log("You need to login first!");
     }
@@ -102,54 +110,92 @@ export default function OrderPage() {
       id: box.boxID,
       name: box.boxName,
       price: box.price,
-      quantity: quantity
+      quantity: quantity,
     };
     addItemToBag(item);
     console.log(`Added ${quantity} ${box.boxName}(s) to the shopping bag!`);
+    setSnackbarAddToBagOpen(true); // Show the snackbar
+  };
+
+  const handleSnackbarClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setSnackbarAddToBagOpen(false);
+    setSnackbarOrderOpen(false);
   };
 
   return (
-    <div className="order-container">
-      <h2>מסך הזמנה</h2>
-      {box ? (
-        <div>
-          <h3>{box.boxID}</h3>
-          <h3>{box.boxName}</h3>
-          {box.alergicType !== "none" && <p>אלרגיות: {box.alergicType}</p>}
-          <p>{box.description}</p>
-          <p>
-            מחיר: {box.price}
-            {"₪"}
-          </p>
-          <p>
-            <ShoppingBagTwoToneIcon />
-            מארזים שנותרו : {box.quantityAvailable}
-          </p>
-          <div className="quantity-selector">
-            <button
-              className="quantity-btn"
-              onClick={() => handleQuantityChange(-1)}
-            >
-              -
-            </button>
-            <span>{quantity}</span>
-            <button
-              className="quantity-btn"
-              onClick={() => handleQuantityChange(1)}
-            >
-              +
-            </button>
+    <div className="container-wrapper">
+      {/* <h2 style={{ display: "flex", justifyContent: "center", width: "100%", marginBottom: 30, marginTop: 30 }}>הזמנת קופסא</h2> */}
+      <div className="box-img-container">
+        <img src={exampleBox} alt="" />
+      </div>
+      <div className="order-container">
+        {box ? (
+          <div>
+            {/* <h3>{box.boxID}</h3> */}
+            <h3>{box.boxName}</h3>
+            {box.alergicType !== "none" && (
+              <p style={{ fontSize: 20, fontWeight: 400, border: "1px solid black", borderRadius: 10 }}>
+                אלרגיות<LiaAllergiesSolid size={30} />: {box.alergicType}
+              </p>
+            )}
+            <p>{box.description}</p>
+            <p>
+              מחיר: {box.price}
+              {"₪"}
+            </p>
+            <p>
+              <ShoppingBagTwoToneIcon />
+              מארזים שנותרו : {box.quantityAvailable}
+            </p>
+            <div className="quantity-selector">
+              <button className="quantity-btn" onClick={() => handleQuantityChange(-1)}>
+                -
+              </button>
+              <span>{quantity}</span>
+              <button className="quantity-btn" onClick={() => handleQuantityChange(1)}>
+                +
+              </button>
+            </div>
           </div>
-        </div>
-      ) : (
-        <p>No box data available.</p>
-      )}
-      <button className="button-checkout" onClick={handleCheckout}>
-        הזמן עכשיו
-      </button>
-      <button className="button-checkout" onClick={handleAddToBag}>
-        הוסף לסל
-      </button>
+        ) : (
+          <p>No box data available.</p>
+        )}
+        <button className="button-checkout" onClick={handleCheckout}>
+          הזמן עכשיו
+        </button>
+        <button className="button-checkout" onClick={handleAddToBag}>
+          הוסף לסל
+        </button>
+      </div>
+
+      <Snackbar
+        open={snackbarAddToBagOpen}
+        autoHideDuration={3000}
+        onClose={handleSnackbarClose}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+      >
+        <Alert onClose={handleSnackbarClose} severity="success" sx={{ width: '300px', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 1, padding: '0 16px' }}>
+          <Typography variant="body1" style={{ textAlign: 'center', flexGrow: 1 }}>
+            המארז שבחרת נוסף לסל !
+          </Typography>
+        </Alert>
+      </Snackbar>
+
+      <Snackbar
+        open={snackbarOrderOpen}
+        autoHideDuration={6000}
+        onClose={handleSnackbarClose}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+      >
+        <Alert onClose={handleSnackbarClose} severity="success" sx={{ width: '300px', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 1, padding: '0 16px' }}>
+          <Typography variant="body1" style={{ textAlign: 'center', flexGrow: 1 }}>
+            ההזמנה שלך בוצעה בהצלחה!
+          </Typography>
+        </Alert>
+      </Snackbar>
     </div>
   );
 }

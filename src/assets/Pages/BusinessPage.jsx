@@ -2,8 +2,9 @@ import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { TbShoppingBagX } from "react-icons/tb";
 import "../../Styles/BusinessPage.css";
-import FCBoxCarousel from "../../FCComponents/FCBoxCarousel";
 import FCBoxCard from "../../FCComponents/FCBoxCard";
+
+const commonAllergies = ["Nuts", "Fish", "Gluten", "Dairy", "Eggs", "Soy"];
 
 export default function BusinessPage() {
   const location = useLocation();
@@ -16,10 +17,17 @@ export default function BusinessPage() {
   } = location.state;
 
   const [boxes, setBoxes] = useState([]);
+  const [filters, setFilters] = useState(
+    commonAllergies.reduce((filterObject, allergy) => {
+      filterObject[allergy] = false;
+      return filterObject;
+    }, {})
+  );
 
   const BoxUrl =
     "https://proj.ruppin.ac.il/bgroup33/test2/tar1/api/Business/ShowBusiness/" +
     businessID;
+
   const fetchBoxes = async () => {
     try {
       const response = await fetch(BoxUrl, {
@@ -33,8 +41,6 @@ export default function BusinessPage() {
         throw new Error("Something Went Wrong :(");
       }
       const boxes = await response.json();
-      console.log(BoxUrl);
-      console.log(boxes);
       setBoxes(boxes);
     } catch {
       console.log("Something went wrong!");
@@ -44,6 +50,23 @@ export default function BusinessPage() {
   useEffect(() => {
     fetchBoxes();
   }, []);
+
+  const handleFilterChange = (e) => {
+    const { name, checked } = e.target;
+    setFilters((prevFilters) => ({
+      ...prevFilters,
+      [name]: checked,
+    }));
+  };
+
+  const filteredBoxes = boxes.filter((box) => {
+    for (let allergy of commonAllergies) {
+      if (filters[allergy] && box.alergicType && box.alergicType.includes(allergy)) {
+        return false;
+      }
+    }
+    return true;
+  });
 
   const OutofStockElement = (
     <div className="OOS-container">
@@ -67,12 +90,26 @@ export default function BusinessPage() {
             alt="Business Logo"
           />
         </div>
+        <div className="filter-container">
+        <h3>סנן על פי אלרגיות:</h3>
+          {commonAllergies.map((allergy) => (
+            <label key={allergy}>
+              <input
+                type="checkbox"
+                name={allergy}
+                checked={filters[allergy]}
+                onChange={handleFilterChange}
+              />
+              {allergy}
+            </label>
+          ))}
+        </div>
         <div
           className={
-            boxes.length === 0 ? "box-container-centered" : "box-container"
+            filteredBoxes.length === 0 ? "box-container-centered" : "box-container"
           }
         >
-          {boxes.length === 0 ? (
+          {filteredBoxes.length === 0 ? (
             OutofStockElement
           ) : (
             <>
@@ -80,7 +117,7 @@ export default function BusinessPage() {
                 <h1>המארזים שלנו :</h1>
               </div>
               <div className="grid-container">
-                {boxes.map((box, index) => (
+                {filteredBoxes.map((box, index) => (
                   <div key={index} className="grid-item">
                     <FCBoxCard box={box} />
                   </div>
@@ -93,5 +130,7 @@ export default function BusinessPage() {
     </>
   );
 }
+
+
 
 // {boxes.length !== 0 && <FCBoxCarousel boxes={boxes} />}

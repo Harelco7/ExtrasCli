@@ -35,6 +35,8 @@ export default function FCBusinessForm() {
     Address: "",
   });
 
+  const [errors, setErrors] = useState({});
+
   useEffect(() => {
     const fetchCoordinates = async () => {
       if (BusinessData.Address.trim() !== "") {
@@ -80,13 +82,28 @@ export default function FCBusinessForm() {
     fetchCoordinates();
   }, [BusinessData.Address]);
 
+  const validate = () => {
+    let tempErrors = {};
+    tempErrors.BusinessName = BusinessData.BusinessName ? "" : "שדה חובה";
+    tempErrors.BusinessType = BusinessData.BusinessType ? "" : "שדה חובה";
+    tempErrors.ContactInfo = /^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i.test(BusinessData.ContactInfo) ? "" : "דוא\"ל לא תקין";
+    tempErrors.OpeningHours = BusinessData.OpeningHours ? "" : "שדה חובה";
+    tempErrors.DailySalesHour = BusinessData.DailySalesHour ? "" : "שדה חובה";
+    tempErrors.Username = BusinessData.Username ? "" : "שדה חובה";
+    tempErrors.Password = BusinessData.Password.length >= 6 ? "" : "סיסמא חייבת להיות לפחות 6 תווים";
+    tempErrors.Address = BusinessData.Address ? "" : "שדה חובה";
+    setErrors(tempErrors);
+    return Object.values(tempErrors).every((x) => x === "");
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    addBusiness();
+    if (validate()) {
+      addBusiness();
+    }
   };
 
   const addBusiness = () => {
-    
     const apiURLAddbusiness =
       "https://proj.ruppin.ac.il/bgroup33/test2/tar1/api/Register/registerBusiness";
     fetch(apiURLAddbusiness, {
@@ -167,13 +184,15 @@ export default function FCBusinessForm() {
                       variant="outlined"
                       onChange={handleChange}
                       value={BusinessData.BusinessName}
+                      error={!!errors.BusinessName}
+                      helperText={errors.BusinessName}
                       fullWidth
                     />
                   </div>
                 </div>
                 <div className="text-field-wrapper">
                   <div dir="rtl">
-                    <FormControl variant="outlined" fullWidth>
+                    <FormControl variant="outlined" fullWidth error={!!errors.BusinessType}>
                       <InputLabel id="business-type-label">
                         סוג העסק
                       </InputLabel>
@@ -194,6 +213,7 @@ export default function FCBusinessForm() {
                         <MenuItem value="Bakery">מאפייה</MenuItem>
                         <MenuItem value="Flowers">פרחים</MenuItem>
                       </Select>
+                      {errors.BusinessType && <div className="error-text">{errors.BusinessType}</div>}
                     </FormControl>
                   </div>
                 </div>
@@ -206,6 +226,8 @@ export default function FCBusinessForm() {
                       variant="outlined"
                       onChange={handleChange}
                       value={BusinessData.ContactInfo}
+                      error={!!errors.ContactInfo}
+                      helperText={errors.ContactInfo}
                       fullWidth
                     />
                   </div>
@@ -268,6 +290,8 @@ export default function FCBusinessForm() {
                       variant="outlined"
                       onChange={handleChange}
                       value={BusinessData.OpeningHours}
+                      error={!!errors.OpeningHours}
+                      helperText={errors.OpeningHours}
                       fullWidth
                     />
                   </div>
@@ -281,6 +305,8 @@ export default function FCBusinessForm() {
                       variant="outlined"
                       onChange={handleChange}
                       value={BusinessData.DailySalesHour}
+                      error={!!errors.DailySalesHour}
+                      helperText={errors.DailySalesHour}
                       fullWidth
                     />
                   </div>
@@ -294,6 +320,8 @@ export default function FCBusinessForm() {
                       variant="outlined"
                       onChange={handleChange}
                       value={BusinessData.Username}
+                      error={!!errors.Username}
+                      helperText={errors.Username}
                       fullWidth
                     />
                   </div>
@@ -308,6 +336,8 @@ export default function FCBusinessForm() {
                       variant="outlined"
                       onChange={handleChange}
                       value={BusinessData.Password}
+                      error={!!errors.Password}
+                      helperText={errors.Password}
                       fullWidth
                     />
                   </div>
@@ -321,6 +351,8 @@ export default function FCBusinessForm() {
                       variant="outlined"
                       onChange={handleChange}
                       value={BusinessData.Address}
+                      error={!!errors.Address}
+                      helperText={errors.Address}
                       fullWidth
                     />
                   </div>

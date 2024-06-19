@@ -1,8 +1,7 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { GoogleMap, useJsApiLoader, MarkerF, InfoWindowF } from "@react-google-maps/api";
 import { GrLocation } from "react-icons/gr";
 import { GoMoveToStart } from "react-icons/go";
-import { FaLocationArrow } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { useBusinessData } from "../assets/Context/BusinessDataContext.jsx";
 
@@ -16,10 +15,8 @@ const center = {
   lng: 34.7818,
 };
 
-function FCMap() {
+function FCMap({ radius }) {
   const navigate = useNavigate();
-  
-
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
     googleMapsApiKey: "AIzaSyCNC4zj7eDw0flA2nEGmtJpezsnYtwBAlw",
@@ -28,20 +25,53 @@ function FCMap() {
   const { businessData } = useBusinessData();
   const [selectedBusiness, setSelectedBusiness] = useState(null);
   const [userLocation, setUserLocation] = useState(null);
+  const [filteredBusinesses, setFilteredBusinesses] = useState(businessData); // Initialize with all businesses
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
       (position) => {
-        setUserLocation({
+        const userLoc = {
           lat: position.coords.latitude,
           lng: position.coords.longitude,
-        });
+        };
+        setUserLocation(userLoc);
       },
       (error) => {
         console.error("Error getting user location:", error);
       }
     );
   }, []);
+
+
+
+  useEffect(() => {
+    console.log(radius);
+    if (userLocation && radius) {
+      const filtered = businessData.filter((business) => {
+        const distance = calculateDistance(userLocation, { lat: business.latitude, lng: business.longitude });
+        return distance <= radius;
+      });
+      setFilteredBusinesses(filtered);
+    } else {
+      setFilteredBusinesses(businessData); // Show all businesses if no filtering
+    }
+  }, [radius, userLocation, businessData]);
+
+  const calculateDistance = (loc1, loc2) => {
+    const R = 6371; // Radius of the Earth in km
+    const dLat = toRad(loc2.lat - loc1.lat);
+    const dLng = toRad(loc2.lng - loc1.lng);
+    const a =
+      Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+      Math.cos(toRad(loc1.lat)) * Math.cos(toRad(loc2.lat)) *
+      Math.sin(dLng / 2) * Math.sin(dLng / 2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    return R * c;
+  };
+
+  const toRad = (Value) => {
+    return Value * Math.PI / 180;
+  };
 
   const handleMarkerClick = (business) => {
     setSelectedBusiness(business);
@@ -51,8 +81,6 @@ function FCMap() {
     navigate("/BusinessPage", { state: { ...business } });
     window.scrollTo(0, 0);
   };
-
- 
 
   return isLoaded ? (
     <div style={{ position: "relative" }}>
@@ -64,9 +92,8 @@ function FCMap() {
           streetViewControl: false,
           mapTypeControl: false,
         }}
-       
       >
-        {businessData.map((business, index) => (
+        {filteredBusinesses.map((business, index) => (
           <MarkerF
             key={index}
             position={{ lat: business.latitude, lng: business.longitude }}
@@ -103,7 +130,6 @@ function FCMap() {
           </InfoWindowF>
         )}
       </GoogleMap>
-      
     </div>
   ) : (
     <></>
@@ -111,5 +137,3 @@ function FCMap() {
 }
 
 export default FCMap;
-
-

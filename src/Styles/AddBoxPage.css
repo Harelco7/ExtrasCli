@@ -1,0 +1,39 @@
+.formBox {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    width: 600px;
+    margin: auto;
+    padding: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+}
+
+label {
+    font-weight: bold;
+    margin-left: 10px;
+}
+
+input, textarea {
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+button {
+    padding: 0.5rem 1rem;
+    background-color: #2E2E2E;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.alergicButton,.QuantityButton {
+    background-color: #D67D00;
+}
+
+
+

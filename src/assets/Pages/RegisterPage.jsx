@@ -31,7 +31,7 @@ export default function RegisterPage() {
 
   return (
     <div>
-      <div className="page-container">
+      
         <div className="logo-container">
           <div className="btn-container">
             <label className="switch btn-color-mode-switch">
@@ -67,6 +67,6 @@ export default function RegisterPage() {
           )}
         </div>
       </div>
-    </div>
+ 
   );
 }

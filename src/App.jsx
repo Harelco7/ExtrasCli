@@ -8,6 +8,7 @@ import FCNavbar from "../src/FCComponents/FCNavbar";
 import Fab from "@mui/material/Fab";
 import ShoppingBagTwoToneIcon from "@mui/icons-material/ShoppingBagTwoTone";
 
+import AddBoxPage from "./assets/Pages/AddBoxPage.jsx";
 import AboutPage from "./assets/Pages/AboutPage";
 import BusinessPage from "./assets/Pages/BusinessPage";
 import MapsPage from "./assets/Pages/MapsPage";
@@ -44,6 +45,7 @@ function App() {
             <Route path="/BusinessPage" element={<BusinessPage />} />
             <Route path="/MapPage" element={<MapsPage />} />
             <Route path="/orderpage" element={<OrderPage />} />
+            <Route path="/addbox" element={<AddBoxPage/>} />
           </Routes>
           <Fab
             style={{
