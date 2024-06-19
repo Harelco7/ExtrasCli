@@ -10,6 +10,7 @@ import ShoppingBagTwoToneIcon from "@mui/icons-material/ShoppingBagTwoTone";
 
 import AddBoxPage from "./assets/Pages/AddBoxPage.jsx";
 import AboutPage from "./assets/Pages/AboutPage";
+import AddBoxPage from "./assets/Pages/AddBoxPage.jsx";
 import BusinessPage from "./assets/Pages/BusinessPage";
 import MapsPage from "./assets/Pages/MapsPage";
 import RegisterPage from "./assets/Pages/RegisterPage";
@@ -47,6 +48,7 @@ function App() {
             <Route path="/orderpage" element={<OrderPage />} />
             <Route path="/addbox" element={<AddBoxPage/>} />
           </Routes>
+          
           <Fab
             style={{
               position: "fixed",

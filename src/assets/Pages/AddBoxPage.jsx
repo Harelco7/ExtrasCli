@@ -1,8 +1,13 @@
 import React, { useState } from 'react';
+<<<<<<< HEAD
 import '..//..//Styles/AddBoxPage.css';
 import { islocal, localurl, produrl } from '..//..//Settings';
 import { ColorLensRounded } from '@mui/icons-material';
 import axios from 'axios';
+=======
+import '../../Styles/AddBoxPage.css';
+import { islocal, localurl, produrl } from '../Settings';
+>>>>>>> 4900ef0a5779fa8db8ed43c10e5dee6a82931cbc
 
 
 const AddBox = () => {
@@ -12,7 +17,10 @@ const AddBox = () => {
     const [price, setprice] = useState('');
     const [sale_price, setsale_price] = useState('');
     const [boxName, setboxName] = useState('');
+<<<<<<< HEAD
     const [boxImage, setboxImage] = useState('');
+=======
+>>>>>>> 4900ef0a5779fa8db8ed43c10e5dee6a82931cbc
 
     const handleAllergenToggle = (allergen) => {
         setAllergens((prevAllergens) =>
