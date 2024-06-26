@@ -10,7 +10,7 @@ import ShoppingBagTwoToneIcon from "@mui/icons-material/ShoppingBagTwoTone";
 
 import AddBoxPage from "./assets/Pages/AddBoxPage.jsx";
 import AboutPage from "./assets/Pages/AboutPage";
-import AddBoxPage from "./assets/Pages/AddBoxPage.jsx";
+
 import BusinessPage from "./assets/Pages/BusinessPage";
 import MapsPage from "./assets/Pages/MapsPage";
 import RegisterPage from "./assets/Pages/RegisterPage";
@@ -18,9 +18,17 @@ import { BusinessDataProvider } from "..//src/assets/Context/BusinessDataContext
 import OrderPage from "./assets/Pages/OrderPage.jsx";
 import { ShoppingBagProvider } from "..//src//assets/Context/ShoppingBagContext.jsx";
 import ShoppingBagCanvas from "./FCComponents/ShoppingBagCanvas.jsx"; // Adjust the import path
+import MyBusinessPage from "./assets/Pages/MyBusinessPage.jsx";
+
 
 function App() {
   const [showBag, setShowBag] = useState(false);
+  const [businessID, setBusinessID] = useState(null);
+
+  const handleBusinessIDChange = (newBusinessID) => {
+    setBusinessID(newBusinessID);
+    console.log("BusinessID updated to:", newBusinessID); // Optional: for debugging
+  };
 
   const handleShowBag = () => setShowBag(true);
   const handleCloseBag = () => setShowBag(false);
@@ -43,10 +51,11 @@ function App() {
             />
             <Route path="/signup" element={<RegisterPage />} />
             <Route path="/about" element={<AboutPage />} />
-            <Route path="/BusinessPage" element={<BusinessPage />} />
+            <Route path="/BusinessPage" element={<BusinessPage onBusinessIDChange={handleBusinessIDChange}/>} />
             <Route path="/MapPage" element={<MapsPage />} />
             <Route path="/orderpage" element={<OrderPage />} />
             <Route path="/addbox" element={<AddBoxPage/>} />
+            <Route path="/mybusiness" element={<MyBusinessPage/>} />
           </Routes>
           
           <Fab
@@ -63,7 +72,7 @@ function App() {
           >
             <ShoppingBagTwoToneIcon fontSize="large" />
           </Fab>
-          <ShoppingBagCanvas show={showBag} handleClose={handleCloseBag} />
+          <ShoppingBagCanvas show={showBag} handleClose={handleCloseBag} businessID={businessID} />
         </div>
       </Router>
     </ShoppingBagProvider>

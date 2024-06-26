@@ -1,135 +1,254 @@
-import React, { useState } from 'react';
-<<<<<<< HEAD
-import '..//..//Styles/AddBoxPage.css';
-import { islocal, localurl, produrl } from '..//..//Settings';
-import { ColorLensRounded } from '@mui/icons-material';
-import axios from 'axios';
-=======
-import '../../Styles/AddBoxPage.css';
-import { islocal, localurl, produrl } from '../Settings';
->>>>>>> 4900ef0a5779fa8db8ed43c10e5dee6a82931cbc
-
+import React, { useState } from "react";
+import "..//..//Styles/AddBoxPage.css";
+import { islocal, localurl, produrl } from "..//..//Settings";
+import { ColorLensRounded } from "@mui/icons-material";
+import axios from "axios";
+import Snackbar from "@mui/material/Snackbar";
+import Alert from "@mui/material/Alert";
+import ToggleButton from "react-bootstrap/ToggleButton";
 
 const AddBox = () => {
-    const [allergens, setAllergens] = useState([]);
-    const [description, setDescription] = useState('');
-    const [quantity, setQuantity] = useState(1);
-    const [price, setprice] = useState('');
-    const [sale_price, setsale_price] = useState('');
-    const [boxName, setboxName] = useState('');
-<<<<<<< HEAD
-    const [boxImage, setboxImage] = useState('');
-=======
->>>>>>> 4900ef0a5779fa8db8ed43c10e5dee6a82931cbc
+  const [allergens, setAllergens] = useState([]);
+  const [description, setDescription] = useState("");
+  const [quantity, setQuantity] = useState(1);
+  const [price, setprice] = useState("");
+  const [sale_price, setsale_price] = useState("");
+  const [boxName, setboxName] = useState("");
+  const [boxImage, setboxImage] = useState("");
 
-    const handleAllergenToggle = (allergen) => {
-        setAllergens((prevAllergens) =>
-            prevAllergens.includes(allergen)
-                ? prevAllergens.filter((a) => a !== allergen)
-                : [...prevAllergens, allergen]
-        );
-    };
+  const [openSnackbar, setOpenSnackbar] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState("");
+  const [checked, setChecked] = useState(false);
 
-    const uploadImage = async() => {
-        let data = new FormData()
-        data.append('image', boxImage)
-        const response = await axios.post(`${islocal? localurl: produrl}/Pictures/addPicture`, data, {
-            headers: {
-              'Content-Type': 'multipart/form-data',
-            },
-          });
-          console.log(response)
+  const handleOpenSnackbar = (message) => {
+    setSnackbarMessage(message);
+    setOpenSnackbar(true);
+  };
 
+  const handleCloseSnackbar = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
     }
+    setOpenSnackbar(false);
+  };
 
-
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        const userData = JSON.parse(sessionStorage.getItem("userData"));
-
-        const raw = JSON.stringify({
-            "boxName": boxName,
-            "description": description,
-            "price": price,
-            "sale_Price": sale_price,
-            "quantityAvailable": quantity,
-            "boxImage": null,
-            "alergicType": allergens.join('|'),
-            "businessID": userData.businessID
-        });
-
-        const requestOptions = {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json; charset=UTF-8",
-                Accept: "application/json; charset=UTF-8",
-              },
-            body: raw
-        };
-
-        fetch(`${islocal? localurl: produrl}Box/AddBox`, requestOptions)
-            .then((response) => response.json())
-            .then((result) => console.log(result))
-            .catch((error) => console.error(error));
-    };
-
-    return (
-        <>
-       
-        <form className='formBox' onSubmit={handleSubmit}>
-            <h1>שלום , הוספת מארז חדש</h1>
-            <div>
-                <label>שם המארז:</label>
-                <input
-                    type="text"
-                    value={boxName}
-                    onChange={(e) => setboxName(e.target.value)}
-                />
-            </div>
-            <div>
-                <label>העלאת תמונה:</label>
-                <input type="file" accept="image/*" onChange={(e) => setboxImage(e.target.files[0])}/>
-            </div>
-            <div>
-                <label>האם המארז מכיל אלרגנים?</label>
-                <button type="button" className= {allergens.includes('גלוטן') && 'active'} onClick={() => handleAllergenToggle('גלוטן')}>מכיל גלוטן</button>
-                <button type="button" className= {allergens.includes('לקטוז') && 'active'} onClick={() => handleAllergenToggle('לקטוז')}>מכיל לקטוז</button>
-                <button type="button" className= {allergens.includes('אגוזים') && 'active'} onClick={() => handleAllergenToggle('אגוזים')}>מכיל אגוזים</button>
-            </div>
-            <div>
-                <label>תאר את תכולת המארז:</label>
-                <textarea
-                    value={description}
-                    onChange={(e) => setDescription(e.target.value)}
-                    maxLength="100"
-                />
-            </div>
-            <div>
-                <label>כמות מארזים במלאי:</label>
-                <button className='QuantityButton' type="button" onClick={() => setQuantity(quantity - 1)}>-</button>
-                <span>{quantity}</span>
-                <button className='QuantityButton' type="button" onClick={() => setQuantity(quantity + 1)}>+</button>
-            </div>
-            <div>
-                <label>מחיר מקור:</label>
-                <input
-                    type="number"
-                    value={price}
-                    onChange={(e) => setprice(e.target.value)}
-                />
-            </div>
-            <div>
-                <label>מחיר מוזל:</label>
-                <input
-                    type="number"
-                    value={sale_price}
-                    onChange={(e) => setsale_price(e.target.value)}
-                />
-            </div>
-            <button type="submit">פרסום מארז</button>
-        </form>
-        </>
+  const handleAllergenToggle = (allergen) => {
+    setAllergens((prevAllergens) =>
+      prevAllergens.includes(allergen)
+        ? prevAllergens.filter((a) => a !== allergen)
+        : [...prevAllergens, allergen]
     );
+  };
+
+  const uploadBoxImage = async (file,boxid) => {
+    const formData = new FormData();
+    formData.append("file", file);
+    // Optionally append other data such as business ID if necessary
+    formData.append("boxid", boxid);
+  
+    const url = "https://proj.ruppin.ac.il/bgroup33/test2/tar1/api/FileUpload/uploadBoximage";
+  
+    try {
+      const response = await fetch(url, {
+        method: 'POST',
+        body: formData,
+      });
+  
+      if (!response.ok) throw new Error(`Failed to upload Box Image: ${response.statusText}`);
+      
+      const data = await response.json();
+      console.log("Box Image uploaded:", data);
+      return data;
+    } catch (error) {
+      console.error("Error during Box Image upload:", error);
+      return null;
+    }
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const userData = JSON.parse(localStorage.getItem("userData"));
+  
+    const raw = JSON.stringify({
+      boxName: boxName,
+      description: description,
+      price: price,
+      sale_Price: sale_price,
+      quantityAvailable: quantity,
+      boxImage: null, // This will be updated later
+      alergicType: allergens.join("|"),
+      businessID: userData.businessID,
+    });
+  
+    const requestOptions = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json; charset=UTF-8",
+        Accept: "application/json; charset=UTF-8",
+      },
+      body: raw,
+    };
+  
+    try {
+      const response = await fetch(
+        `${islocal ? localurl : produrl}Box/AddBox`,
+        requestOptions
+      );
+      const result = await response.json();
+  
+      if (response.ok) {
+        // Now we have the boxId, proceed with image upload
+        const boxid = result.boxId; // Assuming your API returns the ID as boxId
+        const imageUploadResult = await uploadBoxImage(boxImage, boxid);
+  
+        if (imageUploadResult) {
+          handleOpenSnackbar("המארז נוסף והתמונה הועלתה בהצלחה!");
+        } else {
+          handleOpenSnackbar("המארז נוסף אך ההעלאת תמונה נכשלה!");
+        }
+      } else {
+        throw new Error("Failed to create box");
+      }
+    } catch (error) {
+      console.error("Error in adding box:", error);
+      handleOpenSnackbar("משהו השתבש בעת העלאה!");
+    }
+  };
+  
+
+  return (
+    <>
+      <form className="formBox" onSubmit={handleSubmit}>
+        <h1>שלום , הוספת מארז חדש</h1>
+        <div>
+          <label>שם המארז:</label>
+          <input
+            type="text"
+            value={boxName}
+            onChange={(e) => setboxName(e.target.value)}
+          />
+        </div>
+        <div>
+          <label>העלאת תמונה:</label>
+          <input
+            type="file"
+            accept="image/*"
+            onChange={(e) => setboxImage(e.target.files[0])}
+          />
+        </div>
+        <div>
+  <label>האם המארז מכיל אלרגנים?</label>
+  <ToggleButton
+      className={`mb-2`}
+      style={{
+        backgroundColor: allergens.includes("גלוטן") ? '#4CAF50' : '#f44336', // Green when active, red when inactive
+        color: '#ffffff', // White text color
+        borderColor: allergens.includes("גלוטן") ? '#4CAF50' : '#f44336' // Border color matches background
+      }}
+    id="toggle-gluten" // Unique ID for gluten toggle
+    type="checkbox"
+    variant="outline-primary"
+    checked={allergens.includes("גלוטן")}
+    value="1"
+    onChange={(e) => handleAllergenToggle("גלוטן")}
+  >
+    מכיל גלוטן
+  </ToggleButton>
+
+  <ToggleButton
+      className={`mb-2`}
+      style={{
+        backgroundColor: allergens.includes("לקטוז") ? '#4CAF50' : '#f44336', // Green when active, red when inactive
+        color: '#ffffff', // White text color
+        borderColor: allergens.includes("לקטוז") ? '#4CAF50' : '#f44336' // Border color matches background
+      }}
+    id="toggle-lactose" // Unique ID for lactose toggle
+    type="checkbox"
+    variant="outline-primary"
+    checked={allergens.includes("לקטוז")}
+    value="1"
+    onChange={(e) => handleAllergenToggle("לקטוז")}
+  >
+    מכיל לקטוז
+  </ToggleButton>
+
+  <ToggleButton
+    className={`mb-2`}
+    style={{
+      backgroundColor: allergens.includes("אגוזים") ? '#4CAF50' : '#f44336', // Green when active, red when inactive
+      color: '#ffffff', // White text color
+      borderColor: allergens.includes("אגוזים") ? '#4CAF50' : '#f44336' // Border color matches background
+    }}
+    id="toggle-nuts" // Unique ID for nuts toggle
+    type="checkbox"
+    variant="outline-primary"
+    checked={allergens.includes("אגוזים")}
+    value="1"
+    onChange={(e) => handleAllergenToggle("אגוזים")}
+  >
+    מכיל אגוזים
+  </ToggleButton>
+</div>
+
+        <div>
+          <label>תאר את תכולת המארז:</label>
+          <textarea
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            maxLength="100"
+          />
+        </div>
+        <div>
+          <label>כמות מארזים במלאי:</label>
+          <button
+            className="QuantityButton"
+            type="button"
+            onClick={() => setQuantity(quantity - 1)}
+          >
+            -
+          </button>
+          <span>{quantity}</span>
+          <button
+            className="QuantityButton"
+            type="button"
+            onClick={() => setQuantity(quantity + 1)}
+          >
+            +
+          </button>
+        </div>
+        <div>
+          <label>מחיר מקור:</label>
+          <input
+            type="number"
+            value={price}
+            onChange={(e) => setprice(e.target.value)}
+          />
+        </div>
+        <div>
+          <label>מחיר מוזל:</label>
+          <input
+            type="number"
+            value={sale_price}
+            onChange={(e) => setsale_price(e.target.value)}
+          />
+        </div>
+        <button type="submit">פרסום מארז</button>
+      </form>
+      <Snackbar
+        open={openSnackbar}
+        autoHideDuration={6000}
+        onClose={handleCloseSnackbar}
+      >
+        <Alert
+          onClose={handleCloseSnackbar}
+          severity="success"
+          sx={{ width: "100%" }}
+        >
+          {snackbarMessage}
+        </Alert>
+      </Snackbar>
+    </>
+  );
 };
 
 export default AddBox;

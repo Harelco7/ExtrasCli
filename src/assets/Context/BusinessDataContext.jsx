@@ -5,7 +5,7 @@ const BusinessDataContext = createContext();
 export const useBusinessData = () => useContext(BusinessDataContext);
 
 export const BusinessDataProvider = ({ children }) => {
-  const apiURL = "https://proj.ruppin.ac.il/bgroup33/test2/tar1/api/Main/Businesses";
+  const apiURL = "https://proj.ruppin.ac.il/bgroup33/test2/tar1/api/Main/Businesses";// לבדוק אם להחזיר ל TAR1
   const [businessData, setBusinessData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");

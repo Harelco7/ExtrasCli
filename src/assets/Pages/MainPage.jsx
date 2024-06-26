@@ -14,6 +14,13 @@ export default function MainPage() {
   const [coffee, setCoffee] = useState([]);
   const [flowers, setFlowers] = useState([]);
 
+
+
+  
+
+
+
+
   useEffect(() => {
     const timer = setTimeout(() => {
       setLoading(false);

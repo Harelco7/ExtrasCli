@@ -42,7 +42,7 @@ const FCUserDrillDown = () => {
   }, [loggedInUser]);
 
   useEffect(() => {
-    const storedUserData = sessionStorage.getItem("userData");
+    const storedUserData = localStorage.getItem("userData");
     if (storedUserData) {
       setUserData(JSON.parse(storedUserData));
     }
@@ -53,7 +53,7 @@ const FCUserDrillDown = () => {
   };
 
   const handleLogOut = () => {
-    sessionStorage.clear();
+    localStorage.clear();
     setUserData(null);
   };
 
@@ -102,7 +102,7 @@ const FCUserDrillDown = () => {
                   ) : (
                     <>
                       {" "}
-                      <Dropdown.Item onClick={() => navigate("/addbox")} >
+                      <Dropdown.Item onClick={() => navigate("/mybusiness")} >
                          העסק שלי
                       </Dropdown.Item>
                     </>

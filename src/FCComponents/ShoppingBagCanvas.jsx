@@ -6,16 +6,20 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
 import AlertTitle from "@mui/material/AlertTitle";
+import FCQRCode from "./FCQRCode"
+import { color } from "framer-motion";
 
-const ShoppingBagCanvas = ({ show, handleClose }) => {
-  const { items, removeItemFromBag } = useShoppingBag();
+const ShoppingBagCanvas = ({ show, handleClose,businessID }) => {
+  const { items, removeItemFromBag, clearBag } = useShoppingBag();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [loggedInUser, setLoggedInUser] = useState({});
   const [showAlert, setShowAlert] = useState(true); // State for showing alert
   const [snackbarOpen, setSnackbarOpen] = useState(false); // State for Snackbar
+  const [qrCodeValue, setQrCodeValue] = useState(''); // State for QRCode value
+  const [dialogOpen, setDialogOpen] = useState(false); // State for Dialog
 
   const checkLoginStatus = () => {
-    const userData = JSON.parse(sessionStorage.getItem("userData"));
+    const userData = JSON.parse(localStorage.getItem("userData"));
     if (userData) {
       setIsLoggedIn(true);
       setLoggedInUser(userData);
@@ -29,24 +33,25 @@ const ShoppingBagCanvas = ({ show, handleClose }) => {
   useEffect(() => {
     // Initial check for login status on component mount
     checkLoginStatus();
-    console.log("Mounted");
+  
   }, [show]);
 
   const calculateTotalPrice = () => {
+    console.log("items:",items);
     return items.reduce((total, item) => total + item.price * item.quantity, 0);
   };
 
   const handleCheckout = () => {
-    checkLoginStatus(); // Re-check login status when user attempts to checkout
+    checkLoginStatus();
     if (isLoggedIn) {
-      // Prepare array of orders to send to API
       const orders = items.map((item) => ({
         boxId: item.id,
         quantityBuy: item.quantity,
         customerId: loggedInUser.customerID,
+        BoxDescription : item.desc,
+        businessId: businessID // Uncomment and set this if needed
       }));
-
-      // Map over orders and handle each order individually
+  
       orders.forEach((order) => {
         addOrders(order);
       });
@@ -58,7 +63,7 @@ const ShoppingBagCanvas = ({ show, handleClose }) => {
   const addOrders = (order) => {
     const apiURLAddOrder =
       "https://proj.ruppin.ac.il/bgroup33/test2/tar1/api/Box/BuyBox";
-
+      console.log("Order to be sent check:", order);
     // Send a PUT request for each item
     fetch(apiURLAddOrder, {
       method: "PUT",
@@ -71,6 +76,7 @@ const ShoppingBagCanvas = ({ show, handleClose }) => {
       .then((res) => {
         console.log("Response:", res);
         setSnackbarOpen(true);
+        setDialogOpen(true); // Open the Dialog
         // Check if response is not OK (HTTP status code outside 2xx range)
         if (!res.ok) {
           // If response is not OK, handle error
@@ -110,13 +116,35 @@ const ShoppingBagCanvas = ({ show, handleClose }) => {
     setSnackbarOpen(false);
   };
 
+  const generateQRCodeValue = () => {
+    return Math.random().toString(36).substring(2, 15); // Create a random string
+  };
+
+  const handleCheckoutQR = () => {
+    setQrCodeValue(generateQRCodeValue());
+  };
+
+  const handleCheckoutCombined = () => {
+    handleCheckout();
+    handleCheckoutQR();
+    setTimeout(() => {
+      handleClose(); // Close the Offcanvas after 3 seconds
+      // setDialogOpen(true); // Open the Dialog
+      clearBag();
+    }, 0);
+  };
+
+  const handleDialogClose = () => {
+    setDialogOpen(false);
+  };
+
   return (
     <>
       <Offcanvas
         show={show}
         onHide={handleClose}
         placement="end"
-        style={{ zIndex: 1102 }}
+        style={{ zIndex: 1102, borderRadius:20}}
       >
         <Offcanvas.Header closeButton>
           <Offcanvas.Title style={{ marginLeft: 10 }}>
@@ -133,7 +161,7 @@ const ShoppingBagCanvas = ({ show, handleClose }) => {
                     className="d-flex justify-content-between align-items-center"
                   >
                     <div>
-                      {item.name} - {item.quantity}x {item.price}₪
+                      {item.name} - {item.quantity}x {item.price}₪ 
                     </div>
                     <Button
                       variant="danger"
@@ -148,14 +176,14 @@ const ShoppingBagCanvas = ({ show, handleClose }) => {
               <h5>מחיר כולל: {calculateTotalPrice()}₪</h5>
               <Button
                 variant="primary"
-                onClick={handleCheckout}
+                onClick={handleCheckoutCombined}
                 style={{ marginTop: 10, width: "100%" }}
               >
                 לרכישה
               </Button>
             </>
           ) : (
-            <p style={{ fontSize: 20, fontWeight: "bold" }}>
+            <p style={{ fontSize: 20, fontWeight: "bold"}}>
               סל הקניות שלך ריק!
             </p>
           )}
@@ -184,6 +212,7 @@ const ShoppingBagCanvas = ({ show, handleClose }) => {
           </Snackbar>
         </Offcanvas.Body>
       </Offcanvas>
+      <FCQRCode open={dialogOpen} onClose={handleDialogClose} qrCodeValue={qrCodeValue} />
     </>
   );
 };

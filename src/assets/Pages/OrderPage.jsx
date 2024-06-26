@@ -8,28 +8,36 @@ import Typography from '@mui/material/Typography';
 import { useShoppingBag } from "../Context/ShoppingBagContext.jsx";
 import exampleBox from "../../Images/exampleBox.jpg";
 import { LiaAllergiesSolid } from "react-icons/lia";
+import { islocal, localurl, produrl } from '..//..//Settings';
 
 export default function OrderPage() {
   const location = useLocation();
-  const initialBox = location.state;
-
+  const { box, businessID } = location.state;
+  const [loading, setLoading] = useState(false);
   const [quantity, setQuantity] = useState(1);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [LoggedInUser, setLoggedInUser] = useState({});
-  const [box, setBox] = useState(initialBox);
+  // const [box, setBox] = useState(initialBox);
   const { addItemToBag } = useShoppingBag(); // Use the context
   const [snackbarAddToBagOpen, setSnackbarAddToBagOpen] = useState(false);
   const [snackbarOrderOpen, setSnackbarOrderOpen] = useState(false);
 
   useEffect(() => {
-    const userData = JSON.parse(sessionStorage.getItem("userData"));
+    const userData = JSON.parse(localStorage.getItem("userData"));
     if (userData) {
       setIsLoggedIn(true);
       setLoggedInUser(userData);
-      console.log(userData);
+   
     }
-    console.log(LoggedInUser);
+    
+    
   }, []);
+
+  useEffect(() => {
+    if (isLoggedIn && LoggedInUser) {
+      console.log("Logged in user:", LoggedInUser);
+    }
+  }, [isLoggedIn, LoggedInUser]);
 
   const handleQuantityChange = (value) => {
     const newQuantity = Math.min(
@@ -40,9 +48,9 @@ export default function OrderPage() {
   };
 
   const handleCheckout = () => {
-    const userData = JSON.parse(sessionStorage.getItem("userData"));
+    const userData = JSON.parse(localStorage.getItem("userData"));
     if (userData) {
-      console.log(LoggedInUser.customerID, "this is loggedin user");
+     
       setIsLoggedIn(true);
       addOrder();
     } else {
@@ -58,14 +66,16 @@ export default function OrderPage() {
   };
 
   const addOrder = () => {
-    const apiURLAddOrder =
-      "https://proj.ruppin.ac.il/bgroup33/test2/tar1/api/Box/BuyBox";
-
+    setLoading(true); // Start loading
+    const apiURLAddOrder = `${islocal ? localurl : produrl}Box/BuyBox`;
     const order = {
       boxId: box.boxID,
       quantityBuy: quantity,
       customerId: LoggedInUser.customerID,
+      boxDescription: box.description,
+      businessID: businessID
     };
+
 
     console.log("Order to be sent:", order);
 
@@ -77,46 +87,33 @@ export default function OrderPage() {
       },
       body: JSON.stringify(order),
     })
-      .then((res) => {
-        console.log("res=", res);
-        console.log("res.status", res.status);
-        console.log("res.ok", res.ok);
-
-        if (!res.ok) {
-          return res.text().then((text) => {
-            throw new Error(`Error: ${res.status} - ${text}`);
-          });
-        }
-
-        return res.json();
-      })
-      .then(
-        (result) => {
-          console.log("Order Added Successfully!", result);
-
-          setBox((prevBox) => ({
-            ...prevBox,
-            quantityAvailable: prevBox.quantityAvailable - quantity,
-          }));
-        },
-        (error) => {
-          console.log("err post=", error.message);
-        }
-      );
+    .then(res => res.json())
+    .then(
+      (result) => {
+        console.log("Order Added Successfully!", result);
+        setBox((prevBox) => ({
+          ...prevBox,
+          quantityAvailable: prevBox.quantityAvailable - quantity,
+        }));
+      },
+      (error) => {
+        console.error("Error adding order:", error);
+      }
+    )
+    .finally(() => setLoading(false)); // End loading regardless of result
   };
 
   const handleAddToBag = () => {
     const item = {
-      id: box.boxID,
+      boxId: box.boxID,
       name: box.boxName,
       price: box.price,
-      quantity: quantity,
+      description: box.description
     };
-    addItemToBag(item);
+    addItemToBag(item, quantity); // Pass the selected quantity
     console.log(`Added ${quantity} ${box.boxName}(s) to the shopping bag!`);
     setSnackbarAddToBagOpen(true); // Show the snackbar
   };
-
   const handleSnackbarClose = (event, reason) => {
     if (reason === 'clickaway') {
       return;
@@ -134,7 +131,7 @@ export default function OrderPage() {
       <div className="order-container">
         {box ? (
           <div>
-            {/* <h3>{box.boxID}</h3> */}
+            <h3>{box.boxID}</h3>
             <h3>{box.boxName}</h3>
             {box.alergicType !== "none" && (
               <p style={{ fontSize: 20, fontWeight: 400, border: "1px solid black", borderRadius: 10 }}>

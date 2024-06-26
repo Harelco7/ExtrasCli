@@ -42,7 +42,7 @@ const FCLoginModal = ({ show, onHide, onSuccessfulLogin }) => {
       .then((res) => {
         if (res.ok) {
           return res.json().then((result) => {
-            sessionStorage.setItem("userData", JSON.stringify(result));
+            localStorage.setItem("userData", JSON.stringify(result));
             console.log("Now Logged-In: ", result);
             onHide();
             onSuccessfulLogin(result);

@@ -35,5 +35,21 @@ button {
     background-color: #D67D00;
 }
 
+.toggleButton {
+    color: #ffffff; /* White text by default */
+    border-color: #ddd; /* Default light border */
+  }
+  
+  .toggleButton.active {
+    background-color: #4CAF50; /* Green background when active */
+    border-color: #4CAF50; /* Green border when active */
+  }
+  
+  .toggleButton.inactive {
+    background-color: #f44336; /* Red background when inactive */
+    border-color: #f44336; /* Red border when inactive */
+  }
+  
+
 
 

@@ -6,7 +6,11 @@ import FCBoxCard from "../../FCComponents/FCBoxCard";
 
 const commonAllergies = ["Nuts", "Fish", "Gluten", "Dairy", "Eggs", "Soy"];
 
-export default function BusinessPage() {
+export default function BusinessPage({onBusinessIDChange} ) {
+
+
+
+
   const location = useLocation();
   const {
     businessName,
@@ -23,6 +27,21 @@ export default function BusinessPage() {
       return filterObject;
     }, {})
   );
+
+
+  const updateBusinessID = () => {
+    // Assume businessID is passed through location state when navigating to this component
+    if (location.state && location.state.businessID) {
+      onBusinessIDChange(location.state.businessID);
+    }
+  };
+
+  useEffect(() => {
+    updateBusinessID();
+  }, [location]);
+
+
+
 
   const BoxUrl =
     "https://proj.ruppin.ac.il/bgroup33/test2/tar1/api/Business/ShowBusiness/" +
@@ -42,6 +61,7 @@ export default function BusinessPage() {
       }
       const boxes = await response.json();
       setBoxes(boxes);
+      console.log(boxes);
     } catch {
       console.log("Something went wrong!");
     }
@@ -49,6 +69,7 @@ export default function BusinessPage() {
 
   useEffect(() => {
     fetchBoxes();
+
   }, []);
 
   const handleFilterChange = (e) => {
@@ -119,7 +140,7 @@ export default function BusinessPage() {
               <div className="grid-container">
                 {filteredBoxes.map((box, index) => (
                   <div key={index} className="grid-item">
-                    <FCBoxCard box={box} />
+                    <FCBoxCard box={box} businessID={businessID}  />
                   </div>
                 ))}
               </div>

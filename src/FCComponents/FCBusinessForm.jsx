@@ -86,11 +86,18 @@ export default function FCBusinessForm() {
     let tempErrors = {};
     tempErrors.BusinessName = BusinessData.BusinessName ? "" : "שדה חובה";
     tempErrors.BusinessType = BusinessData.BusinessType ? "" : "שדה חובה";
-    tempErrors.ContactInfo = /^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i.test(BusinessData.ContactInfo) ? "" : "דוא\"ל לא תקין";
+    tempErrors.ContactInfo = /^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i.test(
+      BusinessData.ContactInfo
+    )
+      ? ""
+      : 'דוא"ל לא תקין';
     tempErrors.OpeningHours = BusinessData.OpeningHours ? "" : "שדה חובה";
     tempErrors.DailySalesHour = BusinessData.DailySalesHour ? "" : "שדה חובה";
     tempErrors.Username = BusinessData.Username ? "" : "שדה חובה";
-    tempErrors.Password = BusinessData.Password.length >= 6 ? "" : "סיסמא חייבת להיות לפחות 6 תווים";
+    tempErrors.Password =
+      BusinessData.Password.length >= 6
+        ? ""
+        : "סיסמא חייבת להיות לפחות 6 תווים";
     tempErrors.Address = BusinessData.Address ? "" : "שדה חובה";
     setErrors(tempErrors);
     return Object.values(tempErrors).every((x) => x === "");
@@ -107,7 +114,7 @@ export default function FCBusinessForm() {
     const apiURLAddbusiness =
       "https://proj.ruppin.ac.il/bgroup33/test2/tar1/api/Register/registerBusiness";
     fetch(apiURLAddbusiness, {
-      method: "PUT",
+      method: "POST",
       headers: {
         "Content-Type": "application/json; charset=UTF-8",
         Accept: "application/json; charset=UTF-8",
@@ -192,10 +199,12 @@ export default function FCBusinessForm() {
                 </div>
                 <div className="text-field-wrapper">
                   <div dir="rtl">
-                    <FormControl variant="outlined" fullWidth error={!!errors.BusinessType}>
-                      <InputLabel id="business-type-label">
-                        סוג העסק
-                      </InputLabel>
+                    <FormControl
+                      variant="outlined"
+                      fullWidth
+                      error={!!errors.BusinessType}
+                    >
+                      <InputLabel id="business-type-label">סוג העסק</InputLabel>
                       <Select
                         labelId="business-type-label"
                         id="businessType"
@@ -213,8 +222,25 @@ export default function FCBusinessForm() {
                         <MenuItem value="Bakery">מאפייה</MenuItem>
                         <MenuItem value="Flowers">פרחים</MenuItem>
                       </Select>
-                      {errors.BusinessType && <div className="error-text">{errors.BusinessType}</div>}
+                      {errors.BusinessType && (
+                        <div className="error-text">{errors.BusinessType}</div>
+                      )}
                     </FormControl>
+                  </div>
+                </div>
+                <div className="text-field-wrapper">
+                  <div dir="rtl">
+                    <TextField
+                      label="כתובת"
+                      name="Address"
+                      id="address"
+                      variant="outlined"
+                      onChange={handleChange}
+                      value={BusinessData.Address}
+                      error={!!errors.Address}
+                      helperText={errors.Address}
+                      fullWidth
+                    />
                   </div>
                 </div>
                 <div className="text-field-wrapper">
@@ -230,53 +256,6 @@ export default function FCBusinessForm() {
                       helperText={errors.ContactInfo}
                       fullWidth
                     />
-                  </div>
-                </div>
-
-                <div className="text-field-wrapper">
-                  <div dir="rtl">
-                    <Button
-                      style={{
-                        backgroundColor: "#ffc107",
-                        fontFamily: "Arimo",
-                        fontWeight: 500,
-                      }}
-                      component="label"
-                      variant="contained"
-                      startIcon={<CloudUploadIcon />}
-                      fullWidth
-                    >
-                      אעלה תמונת רקע של העסק 
-                      <input
-                        type="file"
-                        name="BusinessPhoto"
-                        hidden
-                        onChange={handleFileChange}
-                      />
-                    </Button>
-                  </div>
-                </div>
-                <div className="text-field-wrapper">
-                  <div dir="rtl">
-                    <Button
-                      style={{
-                        backgroundColor: "#ffc107",
-                        fontFamily: "Arimo",
-                        fontWeight: 500,
-                      }}
-                      component="label"
-                      variant="contained"
-                      startIcon={<CloudUploadIcon />}
-                      fullWidth
-                    >
-                      אעלה לוגו של העסק
-                      <input
-                        type="file"
-                        name="BusinessLogo"
-                        hidden
-                        onChange={handleFileChange}
-                      />
-                    </Button>
                   </div>
                 </div>
               </div>
@@ -342,26 +321,15 @@ export default function FCBusinessForm() {
                     />
                   </div>
                 </div>
-                <div className="text-field-wrapper">
-                  <div dir="rtl">
-                    <TextField
-                      label="כתובת"
-                      name="Address"
-                      id="address"
-                      variant="outlined"
-                      onChange={handleChange}
-                      value={BusinessData.Address}
-                      error={!!errors.Address}
-                      helperText={errors.Address}
-                      fullWidth
-                    />
-                  </div>
-                </div>
               </div>
             </form>
           </div>
           <div className="button-container">
-            <button type="submit" className="button-submit" onClick={handleSubmit}>
+            <button
+              type="submit"
+              className="button-submit"
+              onClick={handleSubmit}
+            >
               הרשמה כבית עסק
             </button>
           </div>

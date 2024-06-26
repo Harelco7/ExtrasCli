@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import Skeleton from '@mui/material/Skeleton';
 import { MdOutlineAddShoppingCart } from "react-icons/md";
 
-export default function FCBoxCard({ box }) {
+export default function FCBoxCard({ box ,businessID }) {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
 
@@ -19,8 +19,13 @@ export default function FCBoxCard({ box }) {
 
   const handleOrderHere = (event) => {
     event.preventDefault();
-    navigate("/orderpage", { state: box });
-    console.log(box);
+    navigate("/orderpage", { 
+      state: { 
+        box: box,
+        businessID: businessID  // Add businessID to the navigation state
+      }
+    });
+    console.log('Navigating with box:', box, 'and businessID:', businessID);
   };
 
   if (loading) {
@@ -40,6 +45,7 @@ export default function FCBoxCard({ box }) {
         <h2 className="product-title">{box.boxName}</h2>
         {box.alergicType !== "none" && <p>אלרגיה ל: {box.alergicType}</p>}
         <p className="product-description">{box.description}</p>
+        <p className="product-description">{businessID}</p>
         <div className="product-price">
           <span>{box.price + "₪"}</span>
           <div className="quantity-available">

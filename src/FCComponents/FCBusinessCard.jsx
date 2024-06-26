@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLocationDot,faClock } from "@fortawesome/free-solid-svg-icons";
 import "../Styles/BusinessCard.css";
@@ -6,12 +6,14 @@ import { useNavigate } from "react-router-dom";
 
 export default function FCBusinessCard({ data }) {
   const navigate = useNavigate();
+  const[Pic,setPic]=useState()
   
    const handleOrderNow = () => {
     navigate("/BusinessPage", { state: { ...data } });
     window.scrollTo(0, 0); 
   };
 
+ 
   return (
     <>
       <div className="card">

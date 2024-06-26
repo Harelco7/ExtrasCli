@@ -76,7 +76,7 @@ export default function FCClientForm() {
     if (validate()) {
       const apiURLAdd = "https://proj.ruppin.ac.il/bgroup33/test2/tar1/api/Register/registerClient";
       fetch(apiURLAdd, {
-        method: "PUT",
+        method: "POST",
         headers: {
           "Content-Type": "application/json; charset=UTF-8",
           Accept: "application/json; charset=UTF-8",
