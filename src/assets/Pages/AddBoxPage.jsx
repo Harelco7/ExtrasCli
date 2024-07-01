@@ -91,14 +91,14 @@ const AddBox = () => {
   
     try {
       const response = await fetch(
-        `${islocal ? localurl : produrl}Box/AddBox`,
+        `https://proj.ruppin.ac.il/bgroup33/test2/tar1/api/Box/AddBox`,
         requestOptions
       );
       const result = await response.json();
   
       if (response.ok) {
         // Now we have the boxId, proceed with image upload
-        const boxid = result.boxId; // Assuming your API returns the ID as boxId
+        const boxid = result.boxDetails.boxId; // Assuming your API returns the ID as boxId
         const imageUploadResult = await uploadBoxImage(boxImage, boxid);
   
         if (imageUploadResult) {

@@ -7,17 +7,13 @@ import FCBoxCard from "../../FCComponents/FCBoxCard";
 const commonAllergies = ["Nuts", "Fish", "Gluten", "Dairy", "Eggs", "Soy"];
 
 export default function BusinessPage({onBusinessIDChange} ) {
-
-
-
-
   const location = useLocation();
   const {
     businessName,
-    businessType,
     businessAdress,
     dailySalesHour,
     businessID,
+    businessPhoto,
   } = location.state;
 
   const [boxes, setBoxes] = useState([]);
@@ -28,9 +24,7 @@ export default function BusinessPage({onBusinessIDChange} ) {
     }, {})
   );
 
-
   const updateBusinessID = () => {
-    // Assume businessID is passed through location state when navigating to this component
     if (location.state && location.state.businessID) {
       onBusinessIDChange(location.state.businessID);
     }
@@ -40,14 +34,8 @@ export default function BusinessPage({onBusinessIDChange} ) {
     updateBusinessID();
   }, [location]);
 
-
-
-
-  const BoxUrl =
-    "https://proj.ruppin.ac.il/bgroup33/test2/tar1/api/Business/ShowBusiness/" +
-    businessID;
-
   const fetchBoxes = async () => {
+    const BoxUrl = `https://proj.ruppin.ac.il/bgroup33/test2/tar1/api/Business/ShowBusiness/${businessID}`;
     try {
       const response = await fetch(BoxUrl, {
         method: "GET",
@@ -61,15 +49,13 @@ export default function BusinessPage({onBusinessIDChange} ) {
       }
       const boxes = await response.json();
       setBoxes(boxes);
-      console.log(boxes);
-    } catch {
-      console.log("Something went wrong!");
+    } catch (error) {
+      console.error("Fetch failed:", error);
     }
   };
 
   useEffect(() => {
     fetchBoxes();
-
   }, []);
 
   const handleFilterChange = (e) => {
@@ -81,12 +67,9 @@ export default function BusinessPage({onBusinessIDChange} ) {
   };
 
   const filteredBoxes = boxes.filter((box) => {
-    for (let allergy of commonAllergies) {
-      if (filters[allergy] && box.alergicType && box.alergicType.includes(allergy)) {
-        return false;
-      }
-    }
-    return true;
+    return commonAllergies.every(allergy => 
+      !(filters[allergy] && box.alergicType && box.alergicType.includes(allergy))
+    ) && box.quantityAvailable > 0;
   });
 
   const OutofStockElement = (
@@ -112,7 +95,7 @@ export default function BusinessPage({onBusinessIDChange} ) {
           />
         </div>
         <div className="filter-container">
-        <h3>סנן על פי אלרגיות:</h3>
+          <h3>סנן על פי אלרגיות:</h3>
           {commonAllergies.map((allergy) => (
             <label key={allergy}>
               <input
@@ -140,7 +123,7 @@ export default function BusinessPage({onBusinessIDChange} ) {
               <div className="grid-container">
                 {filteredBoxes.map((box, index) => (
                   <div key={index} className="grid-item">
-                    <FCBoxCard box={box} businessID={businessID}  />
+                    <FCBoxCard box={box} businessID={businessID} />
                   </div>
                 ))}
               </div>
@@ -151,7 +134,3 @@ export default function BusinessPage({onBusinessIDChange} ) {
     </>
   );
 }
-
-
-
-// {boxes.length !== 0 && <FCBoxCarousel boxes={boxes} />}

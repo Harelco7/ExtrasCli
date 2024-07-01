@@ -49,7 +49,7 @@ const ShoppingBagCanvas = ({ show, handleClose,businessID }) => {
         quantityBuy: item.quantity,
         customerId: loggedInUser.customerID,
         BoxDescription : item.desc,
-        businessId: businessID // Uncomment and set this if needed
+        businessId:parseInt(businessID)
       }));
   
       orders.forEach((order) => {
@@ -61,9 +61,9 @@ const ShoppingBagCanvas = ({ show, handleClose,businessID }) => {
   };
 
   const addOrders = (order) => {
-    const apiURLAddOrder =
-      "https://proj.ruppin.ac.il/bgroup33/test2/tar1/api/Box/BuyBox";
-      console.log("Order to be sent check:", order);
+    const apiURLAddOrder = "https://proj.ruppin.ac.il/bgroup33/test2/tar1/api/Box/BuyBox";
+    console.log("Order to be sent check:", order);
+    
     // Send a PUT request for each item
     fetch(apiURLAddOrder, {
       method: "PUT",
@@ -73,41 +73,41 @@ const ShoppingBagCanvas = ({ show, handleClose,businessID }) => {
       },
       body: JSON.stringify(order),
     })
-      .then((res) => {
-        console.log("Response:", res);
-        setSnackbarOpen(true);
-        setDialogOpen(true); // Open the Dialog
-        // Check if response is not OK (HTTP status code outside 2xx range)
-        if (!res.ok) {
-          // If response is not OK, handle error
-          return res.text().then((text) => {
-            // Attempt to parse error message from response body
-            throw new Error(`Error: ${res.status} - ${text}`);
-          });
-        }
-
-        // Check if response is JSON
-        const contentType = res.headers.get("content-type");
-        if (!contentType || !contentType.includes("application/json")) {
-          // If response is not JSON, handle unexpected response type
-          throw new Error(`Unexpected response type: ${contentType}`);
-        }
-
-        return res.json(); // Parse response body as JSON
-      })
-      .then(
-        (result) => {
-          // Handle successful response (JSON data)
-          console.log("Order Added Successfully!", result);
-          setSnackbarOpen(true); // Show Snackbar on successful order
-        },
-        (error) => {
-          // Handle fetch or parsing error
-          console.log("Error adding order:", error.message);
-          // Optionally show user-friendly error message or retry mechanism
-        }
-      );
+    .then((res) => {
+      console.log("Response:", res);
+      setSnackbarOpen(true); // Indicate a response has been received
+      // Check if response is not OK (HTTP status code outside 2xx range)
+      if (!res.ok) {
+        // If response is not OK, handle error
+        return res.text().then((text) => {
+          // Attempt to parse error message from response body
+          throw new Error(`Error: ${res.status} - ${text}`);
+        });
+      }
+  
+      // Check if response is JSON
+      const contentType = res.headers.get("content-type");
+      if (!contentType || !contentType.includes("application/json")) {
+        // If response is not JSON, handle unexpected response type
+        throw new Error(`Unexpected response type: ${contentType}`);
+      }
+  
+      return res.json(); // Parse response body as JSON
+    })
+    .then(
+      (result) => {
+        console.log("Order Added Successfully!", result);
+        setSnackbarOpen(true); // Show Snackbar on successful order
+        setDialogOpen(true); // Optionally close the dialog or modal if it's open
+      },
+      (error) => {
+        // Handle fetch or parsing error
+        console.error("Error adding order:", error.message);
+        // Optionally show user-friendly error message or retry mechanism
+      }
+    );
   };
+  
 
   const handleSnackbarClose = (event, reason) => {
     if (reason === "clickaway") {

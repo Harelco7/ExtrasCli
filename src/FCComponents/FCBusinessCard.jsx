@@ -10,6 +10,7 @@ export default function FCBusinessCard({ data }) {
   
    const handleOrderNow = () => {
     navigate("/BusinessPage", { state: { ...data } });
+    console.log(data);
     window.scrollTo(0, 0); 
   };
 
@@ -18,10 +19,10 @@ export default function FCBusinessCard({ data }) {
     <>
       <div className="card">
         <div className="card-image">
-          <img src="/src/Images/breads.jpeg" alt="Bakery Image" />
+          <img src={`https://proj.ruppin.ac.il/bgroup33/test2/images/BusinessImage/${data.businessPhoto}`} alt="Bakery Image" />
           <img
             className="circular-logo"
-            src="/src/Images/BigaLogo.png"
+            src={`https://proj.ruppin.ac.il/bgroup33/test2/images/BusinessLogo/${data.businessLogo}`}
             alt="Bakery Image"
           />
         </div>

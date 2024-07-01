@@ -82,15 +82,19 @@ export default function FCBusinessForm() {
     fetchCoordinates();
   }, [BusinessData.Address]);
 
+  const phonePattern = /^(?:0|\+972)[-. ]?\d{1,3}[-. ]?\d{4}[-. ]?\d{4}$/;
   const validate = () => {
     let tempErrors = {};
     tempErrors.BusinessName = BusinessData.BusinessName ? "" : "שדה חובה";
     tempErrors.BusinessType = BusinessData.BusinessType ? "" : "שדה חובה";
-    tempErrors.ContactInfo = /^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i.test(
-      BusinessData.ContactInfo
-    )
+   
+    if (BusinessData.ContactInfo.startsWith('0')) {
+      BusinessData.ContactInfo = '+972' + BusinessData.ContactInfo.slice(1);
+    }
+    
+    tempErrors.ContactInfo = phonePattern.test(BusinessData.ContactInfo)
       ? ""
-      : 'דוא"ל לא תקין';
+      : 'מספר טלפון לא תקין';
     tempErrors.OpeningHours = BusinessData.OpeningHours ? "" : "שדה חובה";
     tempErrors.DailySalesHour = BusinessData.DailySalesHour ? "" : "שדה חובה";
     tempErrors.Username = BusinessData.Username ? "" : "שדה חובה";

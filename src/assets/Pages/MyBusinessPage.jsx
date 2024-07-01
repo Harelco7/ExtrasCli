@@ -20,6 +20,7 @@ import AccountBalanceWalletTwoToneIcon from "@mui/icons-material/AccountBalanceW
 import DataThresholdingTwoToneIcon from "@mui/icons-material/DataThresholdingTwoTone";
 import TextSnippetTwoToneIcon from "@mui/icons-material/TextSnippetTwoTone";
 import ControlPointTwoToneIcon from "@mui/icons-material/ControlPointTwoTone";
+import AddPhotoAlternateTwoToneIcon from '@mui/icons-material/AddPhotoAlternateTwoTone';
 import { color } from "framer-motion";
 
 export default function MyBusinessPage() {
@@ -189,7 +190,7 @@ export default function MyBusinessPage() {
               id="panel1a-header"
             >
               <Typography style={{ fontSize: 25 }}>
-                <TextSnippetTwoToneIcon /> העלאת תמונת העסק
+              <AddPhotoAlternateTwoToneIcon/> העלאת תמונת העסק
               </Typography>
             </AccordionSummary>
             <AccordionDetails>

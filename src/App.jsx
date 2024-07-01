@@ -20,7 +20,6 @@ import { ShoppingBagProvider } from "..//src//assets/Context/ShoppingBagContext.
 import ShoppingBagCanvas from "./FCComponents/ShoppingBagCanvas.jsx"; // Adjust the import path
 import MyBusinessPage from "./assets/Pages/MyBusinessPage.jsx";
 
-
 function App() {
   const [showBag, setShowBag] = useState(false);
   const [businessID, setBusinessID] = useState(null);
@@ -37,9 +36,10 @@ function App() {
     <ShoppingBagProvider>
       <Router>
         <div>
-          <FCNavbar />
-          <hr style={{ width: "100%", marginTop: 0, color: "#1c1c1cca" }} />
-
+          <BusinessDataProvider>
+            <FCNavbar />
+            <hr style={{ width: "100%", marginTop: 0, color: "#1c1c1cca" }} />
+          </BusinessDataProvider>
           <Routes>
             <Route
               path="/"
@@ -51,13 +51,18 @@ function App() {
             />
             <Route path="/signup" element={<RegisterPage />} />
             <Route path="/about" element={<AboutPage />} />
-            <Route path="/BusinessPage" element={<BusinessPage onBusinessIDChange={handleBusinessIDChange}/>} />
+            <Route
+              path="/BusinessPage"
+              element={
+                <BusinessPage onBusinessIDChange={handleBusinessIDChange} />
+              }
+            />
             <Route path="/MapPage" element={<MapsPage />} />
             <Route path="/orderpage" element={<OrderPage />} />
-            <Route path="/addbox" element={<AddBoxPage/>} />
-            <Route path="/mybusiness" element={<MyBusinessPage/>} />
+            <Route path="/addbox" element={<AddBoxPage />} />
+            <Route path="/mybusiness" element={<MyBusinessPage />} />
           </Routes>
-          
+
           <Fab
             style={{
               position: "fixed",
@@ -72,7 +77,11 @@ function App() {
           >
             <ShoppingBagTwoToneIcon fontSize="large" />
           </Fab>
-          <ShoppingBagCanvas show={showBag} handleClose={handleCloseBag} businessID={businessID} />
+          <ShoppingBagCanvas
+            show={showBag}
+            handleClose={handleCloseBag}
+            businessID={businessID}
+          />
         </div>
       </Router>
     </ShoppingBagProvider>
