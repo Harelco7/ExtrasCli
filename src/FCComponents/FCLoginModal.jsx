@@ -3,7 +3,7 @@ import { Modal } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { TextField } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import logo from "../Images/CircleLogo.png";
+import logo from "..//..//public/Images/CircleLogo.png";
 import "../Styles/LoginModal.css";
 import rtlPlugin from "stylis-plugin-rtl";
 import { prefixer } from "stylis";

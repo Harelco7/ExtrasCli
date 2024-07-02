@@ -1,6 +1,6 @@
 import React from 'react'
  import "..//..//Styles/AboutPage.css" 
- import photo from "..//..//Images/GreenWorld.jpeg"
+ import photo from "..//..//..//public/Images/GreenWorld.jpeg"
  import { LuHeartHandshake } from "react-icons/lu";
  import { GiTakeMyMoney } from "react-icons/gi";
  import { ImEarth } from "react-icons/im";

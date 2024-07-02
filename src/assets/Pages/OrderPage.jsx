@@ -6,7 +6,7 @@ import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
 import Typography from '@mui/material/Typography';
 import { useShoppingBag } from "../Context/ShoppingBagContext.jsx";
-import exampleBox from "../../Images/exampleBox.jpg";
+import exampleBox from "..//..//..//public/Images/exampleBox.jpg";
 import { LiaAllergiesSolid } from "react-icons/lia";
 import { islocal, localurl, produrl } from '..//..//Settings';
 

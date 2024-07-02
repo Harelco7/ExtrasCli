@@ -17,7 +17,7 @@
     
   }
   .logo {
-    background-image: url("../Images/logo.png");
+    background-image: url("/public/Images/logo.png");
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
