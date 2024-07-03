@@ -277,14 +277,14 @@ export default function MyBusinessPage() {
             </Typography>
           </AccordionSummary>
           <AccordionDetails>
-            <Typography>שם העסק: {LoggedInUser.businessName}</Typography>
-            <Typography>סוג העסק : {LoggedInUser.businessType}</Typography>
-            <Typography>פרטי תקשורת : {LoggedInUser.contactInfo}</Typography>
+            <Typography><b>שם העסק: </b>{LoggedInUser.businessName}</Typography>
+            <Typography><b>סוג העסק: </b> {LoggedInUser.businessType}</Typography>
+            <Typography><b>פרטי תקשורת:  </b>{LoggedInUser.contactInfo}</Typography>
             <Typography>
-              שעות איסוף חבילות : {LoggedInUser.dailySalesHour}
+            <b>שעות איסוף קבלה: </b>{LoggedInUser.dailySalesHour}
             </Typography>
             <Typography>
-              שעות פעילות העסק: {LoggedInUser.openingHours}
+            <b>שעות פתיחה: </b>{LoggedInUser.openingHours}
             </Typography>
           </AccordionDetails>
         </Accordion>

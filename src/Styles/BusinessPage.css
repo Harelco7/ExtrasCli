@@ -14,7 +14,7 @@
   position: relative;
   width: 100%;
   height: 50%; 
-  background-image: url('../Images/Sweets.jpg'); 
+  /* background-image: url('https://proj.ruppin.ac.il/bgroup33/test2/images/BusinessImage/${data.businessPhoto}');  */
   background-size: cover; 
   background-position: center; 
   position: relative;
@@ -63,6 +63,8 @@
   left: 50%;
   transform: translateX(-50%);
   height: 200px;
+  border-radius: 50%;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
 }
 
 .box-container {

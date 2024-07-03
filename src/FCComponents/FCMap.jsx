@@ -117,7 +117,7 @@ function FCMap({ radius }) {
             onCloseClick={() => setSelectedBusiness(null)}
           >
             <div style={{ display: "flex", justifyContent: "center", flexDirection: "column" }}>
-              <img style={{ width: "100%", height: 100 }} src="/src/Images/breads.jpeg" alt="Bakery Image" />
+              <img style={{ width: "100%", height: 100,borderRadius:10 }} src={`https://proj.ruppin.ac.il/bgroup33/test2/images/BusinessImage/${selectedBusiness.businessPhoto}`} alt="Bakery Image" />
               <p style={{ fontSize: 25, marginRight: 10, fontWeight: 500 }}>{selectedBusiness.businessName}</p>
               <p style={{ fontSize: 15, fontWeight: 500 }}><GrLocation size={25} /> {selectedBusiness.businessAdress}</p>
               <button 

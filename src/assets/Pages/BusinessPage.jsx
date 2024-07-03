@@ -6,7 +6,7 @@ import FCBoxCard from "../../FCComponents/FCBoxCard";
 
 const commonAllergies = ["Nuts", "Fish", "Gluten", "Dairy", "Eggs", "Soy"];
 
-export default function BusinessPage({onBusinessIDChange} ) {
+export default function BusinessPage({ onBusinessIDChange }) {
   const location = useLocation();
   const {
     businessName,
@@ -14,6 +14,7 @@ export default function BusinessPage({onBusinessIDChange} ) {
     dailySalesHour,
     businessID,
     businessPhoto,
+    businessLogo,
   } = location.state;
 
   const [boxes, setBoxes] = useState([]);
@@ -35,7 +36,7 @@ export default function BusinessPage({onBusinessIDChange} ) {
   }, [location]);
 
   const fetchBoxes = async () => {
-    const BoxUrl = `https://proj.ruppin.ac.il/bgroup33/test2/tar1/api/Business/ShowBusiness/${businessID}`;
+    const BoxUrl = `https://proj.ruppin.ac.il/bgroup33/test2/tar1/api/Business/ShowBusiness/${businessPhoto}`;
     try {
       const response = await fetch(BoxUrl, {
         method: "GET",
@@ -67,9 +68,16 @@ export default function BusinessPage({onBusinessIDChange} ) {
   };
 
   const filteredBoxes = boxes.filter((box) => {
-    return commonAllergies.every(allergy => 
-      !(filters[allergy] && box.alergicType && box.alergicType.includes(allergy))
-    ) && box.quantityAvailable > 0;
+    return (
+      commonAllergies.every(
+        (allergy) =>
+          !(
+            filters[allergy] &&
+            box.alergicType &&
+            box.alergicType.includes(allergy)
+          )
+      ) && box.quantityAvailable > 0
+    );
   });
 
   const OutofStockElement = (
@@ -83,14 +91,18 @@ export default function BusinessPage({onBusinessIDChange} ) {
   return (
     <>
       <div className="business-page-container">
-        <div className="img-container">
+        <div className="img-container"
+          style={{
+            backgroundImage: `url('https://proj.ruppin.ac.il/bgroup33/test2/images/BusinessImage/${businessPhoto}')`,
+          }}
+        >
           <h1>
             {businessName} | {businessAdress}
           </h1>
           <p>שעות איסוף : {dailySalesHour}</p>
           <img
             className="Business-logo"
-            src="/src/Images/MafiyaLogo.png"
+            src={`https://proj.ruppin.ac.il/bgroup33/test2/images/BusinessLogo/${businessLogo}`}
             alt="Business Logo"
           />
         </div>
@@ -110,7 +122,9 @@ export default function BusinessPage({onBusinessIDChange} ) {
         </div>
         <div
           className={
-            filteredBoxes.length === 0 ? "box-container-centered" : "box-container"
+            filteredBoxes.length === 0
+              ? "box-container-centered"
+              : "box-container"
           }
         >
           {filteredBoxes.length === 0 ? (
