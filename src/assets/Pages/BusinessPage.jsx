@@ -36,7 +36,7 @@ export default function BusinessPage({ onBusinessIDChange }) {
   }, [location]);
 
   const fetchBoxes = async () => {
-    const BoxUrl = `https://proj.ruppin.ac.il/bgroup33/test2/tar1/api/Business/ShowBusiness/${businessPhoto}`;
+    const BoxUrl = `https://proj.ruppin.ac.il/bgroup33/test2/tar1/api/Business/ShowBusiness/${businessID}`;
     try {
       const response = await fetch(BoxUrl, {
         method: "GET",
