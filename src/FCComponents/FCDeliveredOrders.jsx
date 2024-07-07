@@ -1,6 +1,6 @@
 import React from "react";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
-import { Box, Button } from "@mui/material";
+import { Box } from "@mui/material";
 
 const FCDeliveredOrders = ({ deliveredOrders }) => {
   const rows = deliveredOrders.map((order, index) => ({
@@ -19,76 +19,72 @@ const FCDeliveredOrders = ({ deliveredOrders }) => {
     {
       field: "OrderNumber",
       headerName: "מספר הזמנה",
-      width: 150,
+      flex: 1,
+      minWidth: 100,
       align: "right",
       headerAlign: "right",
     },
     {
       field: "CustomerID",
       headerName: "מספר לקוח",
-      width: 150,
+      flex: 1,
+      minWidth: 100,
       align: "right",
       headerAlign: "right",
     },
     {
       field: "CustomerName",
       headerName: "שם לקוח",
-      width: 150,
+      flex: 1,
+      minWidth: 100,
       align: "right",
       headerAlign: "right",
     },
     {
       field: "BoxDescription",
       headerName: "תיאור המארז",
-      width: 150,
+      flex: 1,
+      minWidth: 100,
       align: "right",
       headerAlign: "right",
     },
     {
       field: "Quantity",
-      headerName: "כמות ",
-      width: 150,
+      headerName: "כמות",
+      flex: 1,
+      minWidth: 100,
       align: "right",
       headerAlign: "right",
     },
     {
       field: "BoxID",
       headerName: "מספר מארז",
-      width: 150,
+      flex: 1,
+      minWidth: 100,
       align: "right",
       headerAlign: "right",
     },
     {
       field: "OrderStatus",
       headerName: "סטטוס הזמנה",
-      width: 150,
+      flex: 1,
+      minWidth: 100,
       align: "right",
       headerAlign: "right",
     },
     {
       field: "TotalPrice",
       headerName: "מחיר סופי",
-      width: 130,
+      flex: 1,
+      minWidth: 100,
       align: "right",
       headerAlign: "right",
     },
     {
-      field: "actions",
-      headerName: "פעולה",
-      width: 150,
-      renderCell: (params) => (
-        <Box display="flex" gap={1}>
-         
-        </Box>
-      ),
+    
+    
     },
   ];
-
-
-
-
-
-  
 
   return (
     <Box sx={{ width: "100%" }}>
@@ -106,6 +102,9 @@ const FCDeliveredOrders = ({ deliveredOrders }) => {
             },
             "& .MuiDataGrid-columnHeaders": {
               textAlign: "right",
+            },
+            "& .MuiDataGrid-root": {
+              overflowX: "auto",
             },
           }}
         />

@@ -1,9 +1,7 @@
-// src/components/OrdersGrid.js
 import React from "react";
-import { DataGrid ,GridToolbar } from "@mui/x-data-grid";
-
+import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { Box, Button } from "@mui/material";
-import LinearProgress from '@mui/material/LinearProgress';
+
 const FCOrdersGrid = ({ openOrders, onStatusChange }) => {
   const rows = openOrders.map((order, index) => ({
     id: index + 1,
@@ -21,67 +19,76 @@ const FCOrdersGrid = ({ openOrders, onStatusChange }) => {
     {
       field: "OrderNumber",
       headerName: "מספר הזמנה",
-      width: 150,
+      flex: 1,
+      minWidth: 100,
       align: "right",
       headerAlign: "right",
     },
     {
       field: "CustomerID",
       headerName: "מספר לקוח",
-      width: 150,
+      flex: 1,
+      minWidth: 100,
       align: "right",
       headerAlign: "right",
     },
     {
       field: "CustomerName",
       headerName: "שם לקוח",
-      width: 150,
+      flex: 1,
+      minWidth: 100,
       align: "right",
       headerAlign: "right",
     },
     {
       field: "BoxDescription",
       headerName: "תיאור המארז",
-      width: 150,
+      flex: 1,
+      minWidth: 100,
       align: "right",
       headerAlign: "right",
     },
     {
       field: "Quantity",
-      headerName: "כמות ",
-      width: 150,
+      headerName: "כמות",
+      flex: 1,
+      minWidth: 100,
       align: "right",
       headerAlign: "right",
     },
     {
       field: "BoxID",
       headerName: "מספר מארז",
-      width: 150,
+      flex: 1,
+      minWidth: 100,
       align: "right",
       headerAlign: "right",
     },
     {
       field: "OrderStatus",
       headerName: "סטטוס הזמנה",
-      width: 150,
+      flex: 1,
+      minWidth: 100,
       align: "right",
       headerAlign: "right",
     },
     {
       field: "TotalPrice",
       headerName: "מחיר סופי",
-      width: 130,
+      flex: 1,
+      minWidth: 100,
       align: "right",
       headerAlign: "right",
     },
     {
       field: "actions",
       headerName: "פעולה",
-      width: 150,
+      flex: 1,
+      minWidth: 150,
       renderCell: (params) => (
         <Button
           variant="contained"
-         style={{backgroundColor:"#41B06E"}}
+          style={{ backgroundColor: "#41B06E" }}
           onClick={() => handleChangeStatus(params.row)}
         >
           Delivered
@@ -97,7 +104,7 @@ const FCOrdersGrid = ({ openOrders, onStatusChange }) => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ OrderId: order.OrderNumber}),
+        body: JSON.stringify({ OrderId: order.OrderNumber }),
       });
 
       if (!response.ok) {
@@ -105,19 +112,16 @@ const FCOrdersGrid = ({ openOrders, onStatusChange }) => {
       }
 
       console.log("Order status changed to delivered", order.OrderNumber);
-      
     } catch (error) {
       console.error("Error updating order status:", error);
     }
-
-    
   };
 
   return (
     <Box sx={{ width: "100%" }}>
       <Box sx={{ height: 400, width: "100%" }}>
-        <DataGrid 
-        slots={{ toolbar: GridToolbar }}         
+        <DataGrid
+          slots={{ toolbar: GridToolbar }}
           rows={rows}
           columns={columns}
           pageSize={5}
@@ -129,6 +133,9 @@ const FCOrdersGrid = ({ openOrders, onStatusChange }) => {
             },
             "& .MuiDataGrid-columnHeaders": {
               textAlign: "right",
+            },
+            "& .MuiDataGrid-root": {
+              overflowX: "auto",
             },
           }}
         />

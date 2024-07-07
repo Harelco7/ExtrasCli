@@ -1,9 +1,17 @@
 import React, { useState, useEffect } from "react";
-import { GoogleMap, useJsApiLoader, MarkerF, InfoWindowF } from "@react-google-maps/api";
+import {
+  GoogleMap,
+  useJsApiLoader,
+  MarkerF,
+  InfoWindowF,
+} from "@react-google-maps/api";
 import { GrLocation } from "react-icons/gr";
 import { GoMoveToStart } from "react-icons/go";
 import { useNavigate } from "react-router-dom";
 import { useBusinessData } from "../assets/Context/BusinessDataContext.jsx";
+import { IoNavigateCircleOutline } from "react-icons/io5";
+
+
 
 const containerStyle = {
   width: "100%",
@@ -42,13 +50,14 @@ function FCMap({ radius }) {
     );
   }, []);
 
-
-
   useEffect(() => {
     console.log(radius);
     if (userLocation && radius) {
       const filtered = businessData.filter((business) => {
-        const distance = calculateDistance(userLocation, { lat: business.latitude, lng: business.longitude });
+        const distance = calculateDistance(userLocation, {
+          lat: business.latitude,
+          lng: business.longitude,
+        });
         return distance <= radius;
       });
       setFilteredBusinesses(filtered);
@@ -63,14 +72,16 @@ function FCMap({ radius }) {
     const dLng = toRad(loc2.lng - loc1.lng);
     const a =
       Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-      Math.cos(toRad(loc1.lat)) * Math.cos(toRad(loc2.lat)) *
-      Math.sin(dLng / 2) * Math.sin(dLng / 2);
+      Math.cos(toRad(loc1.lat)) *
+        Math.cos(toRad(loc2.lat)) *
+        Math.sin(dLng / 2) *
+        Math.sin(dLng / 2);
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
     return R * c;
   };
 
   const toRad = (Value) => {
-    return Value * Math.PI / 180;
+    return (Value * Math.PI) / 180;
   };
 
   const handleMarkerClick = (business) => {
@@ -81,9 +92,15 @@ function FCMap({ radius }) {
     navigate("/BusinessPage", { state: { ...business } });
     window.scrollTo(0, 0);
   };
+  const navigateToBusiness = (business) => {
+    const origin = `${userLocation.lat},${userLocation.lng}`;
+    const destination = `${business.latitude},${business.longitude}`;
+    const navigateUrl = `https://www.google.com/maps/dir/?api=1&origin=${origin}&destination=${destination}&travelmode=driving`;
+    window.open(navigateUrl, "_blank");
+  };
 
   return isLoaded ? (
-    <div style={{ position: "relative" }}>
+    <div className="allInfo" style={{ position: "relative" }}>
       <GoogleMap
         mapContainerStyle={containerStyle}
         center={userLocation || center}
@@ -101,7 +118,6 @@ function FCMap({ radius }) {
             animation={window.google.maps.Animation.DROP}
           />
         ))}
-
         {userLocation && (
           <MarkerF
             position={userLocation}
@@ -110,25 +126,69 @@ function FCMap({ radius }) {
             }}
           />
         )}
-
         {selectedBusiness && (
           <InfoWindowF
-            position={{ lat: selectedBusiness.latitude, lng: selectedBusiness.longitude }}
+            position={{
+              lat: selectedBusiness.latitude,
+              lng: selectedBusiness.longitude,
+            }}
             onCloseClick={() => setSelectedBusiness(null)}
           >
-            <div style={{ display: "flex", justifyContent: "center", flexDirection: "column" }}>
-              <img style={{ width: "100%", height: 100,borderRadius:10 }} src={`https://proj.ruppin.ac.il/bgroup33/test2/images/BusinessImage/${selectedBusiness.businessPhoto}`} alt="Bakery Image" />
-              <p style={{ fontSize: 25, marginRight: 10, fontWeight: 500 }}>{selectedBusiness.businessName}</p>
-              <p style={{ fontSize: 15, fontWeight: 500 }}><GrLocation size={25} /> {selectedBusiness.businessAdress}</p>
-              <button 
-                style={{ padding: 10, fontSize: 25, textAlign: "center", borderRadius: 10, border: "none", backgroundColor: "#113946", color: "white" }}
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                flexDirection: "column",
+              }}
+            >
+              <img
+                style={{ width: "100%", height: 100, borderRadius: 10 }}
+                src={`https://proj.ruppin.ac.il/bgroup33/test2/images/BusinessImage/${selectedBusiness.businessPhoto}`}
+                alt="Business Image"
+              />
+              <p style={{ fontSize: 25, textAlign:"center", fontWeight: 500 }}>
+                {selectedBusiness.businessName}
+              </p>
+              <p style={{ fontSize: 15, fontWeight: 500 ,textAlign:"center"}}>
+                <GrLocation size={25} /> {selectedBusiness.businessAdress}
+              </p>
+              <button
+                style={{
+                  padding: 10,
+                  fontSize: 25,
+                  textAlign: "center",
+                  borderRadius: 10,
+                  border: "none",
+                  backgroundColor: "#113946",
+                  color: "white",
+                }}
                 onClick={() => handleButtonClick(selectedBusiness)}
               >
                 מעבר לחנות <GoMoveToStart style={{ marginRight: 10 }} />
               </button>
+              <div style={{display:"flex",justifyContent:"center"}}>
+              <button
+                style={{
+                  padding: 10,
+                  marginTop: 10,
+                  fontSize: 25,
+                  width:"100%",
+                  borderRadius: "16px",
+                 textAlign:"center",
+                  border: "none",
+                  backgroundColor: "#4CAF50",
+                  color: "white",
+                }}
+                onClick={() => navigateToBusiness(selectedBusiness)}
+              >
+              נווט<IoNavigateCircleOutline size={"34"} style={{ marginRight: 5 }}  />
+
+              </button>
+              </div>
             </div>
           </InfoWindowF>
         )}
+        כ
       </GoogleMap>
     </div>
   ) : (

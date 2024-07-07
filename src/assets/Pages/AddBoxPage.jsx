@@ -158,18 +158,69 @@ const AddBox = () => {
   <ToggleButton
       className={`mb-2`}
       style={{
-        backgroundColor: allergens.includes("לקטוז") ? '#4CAF50' : '#f44336', // Green when active, red when inactive
+        backgroundColor: allergens.includes("חלבי") ? '#4CAF50' : '#f44336', // Green when active, red when inactive
         color: '#ffffff', // White text color
-        borderColor: allergens.includes("לקטוז") ? '#4CAF50' : '#f44336' // Border color matches background
+        borderColor: allergens.includes("חלבי") ? '#4CAF50' : '#f44336' // Border color matches background
       }}
-    id="toggle-lactose" // Unique ID for lactose toggle
+    id="toggle-Dairy" // Unique ID for gluten toggle
     type="checkbox"
     variant="outline-primary"
-    checked={allergens.includes("לקטוז")}
+    checked={allergens.includes("חלבי")}
     value="1"
-    onChange={(e) => handleAllergenToggle("לקטוז")}
+    onChange={(e) => handleAllergenToggle("חלבי")}
   >
-    מכיל לקטוז
+    חלבי
+  </ToggleButton>
+
+  <ToggleButton
+      className={`mb-2`}
+      style={{
+        backgroundColor: allergens.includes("בשרי") ? '#4CAF50' : '#f44336', // Green when active, red when inactive
+        color: '#ffffff', // White text color
+        borderColor: allergens.includes("בשרי") ? '#4CAF50' : '#f44336' // Border color matches background
+      }}
+    id="toggle-Meat" // Unique ID for gluten toggle
+    type="checkbox"
+    variant="outline-primary"
+    checked={allergens.includes("בשרי")}
+    value="1"
+    onChange={(e) => handleAllergenToggle("בשרי")}
+  >
+  בשרי
+  </ToggleButton>
+
+  <ToggleButton
+      className={`mb-2`}
+      style={{
+        backgroundColor: allergens.includes("צמחוני") ? '#4CAF50' : '#f44336', // Green when active, red when inactive
+        color: '#ffffff', // White text color
+        borderColor: allergens.includes("צמחוני") ? '#4CAF50' : '#f44336' // Border color matches background
+      }}
+    id="toggle-vegetarian" // Unique ID for lactose toggle
+    type="checkbox"
+    variant="outline-primary"
+    checked={allergens.includes("צמחוני")}
+    value="1"
+    onChange={(e) => handleAllergenToggle("צמחוני")}
+  >
+    צמחוני
+  </ToggleButton>
+
+  <ToggleButton
+      className={`mb-2`}
+      style={{
+        backgroundColor: allergens.includes("טבעוני") ? '#4CAF50' : '#f44336', // Green when active, red when inactive
+        color: '#ffffff', // White text color
+        borderColor: allergens.includes("טבעוני") ? '#4CAF50' : '#f44336' // Border color matches background
+      }}
+    id="toggle-vegan" // Unique ID for lactose toggle
+    type="checkbox"
+    variant="outline-primary"
+    checked={allergens.includes("טבעוני")}
+    value="1"
+    onChange={(e) => handleAllergenToggle("טבעוני")}
+  >
+    טבעוני
   </ToggleButton>
 
   <ToggleButton

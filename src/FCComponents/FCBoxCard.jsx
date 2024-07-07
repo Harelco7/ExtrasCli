@@ -44,8 +44,9 @@ export default function FCBoxCard({ box ,businessID }) {
       </div>
       <div className="product-details">
         <h2 className="product-title">{box.boxName}</h2>
-        {box.alergicType !== "none" && <p>אלרגיה ל: {box.alergicType}</p>}
-        <p className="product-description">{box.description}</p>
+        {box.alergicType && box.alergicType !== "none" && (
+  <p>מכיל: {box.alergicType}</p>
+)}        <p className="product-description">{box.description}</p>
         <p className="product-description">{businessID}</p>
         <div className="product-price">
           <span>{box.price + "₪"}</span>
