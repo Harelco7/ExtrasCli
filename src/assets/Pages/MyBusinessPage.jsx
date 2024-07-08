@@ -195,12 +195,12 @@ export default function MyBusinessPage() {
       <div style={{ width: "75%", margin: "0 auto" }}>
         <h1>שלום! ,{LoggedInUser.businessName}</h1>
 
+        <BusinessDataCards businessSales={businessSales} />
         <UploadImagesAccordion handleFileChange={handleFileChange} />
         <OrdersAccordion openOrders={openOrders} deliveredOrders={deliveredOrders} />
         <BusinessDetailsAccordion LoggedInUser={LoggedInUser} handleClickOpenEditDialog={handleClickOpenEditDialog} />
-        <BusinessDataCards businessSales={businessSales} />
 
-        <Accordion defaultExpanded style={{ backgroundColor: "#EEEEEE" }}>
+        <Accordion  style={{ backgroundColor: "#EEEEEE" }}>
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
             aria-controls="panel1a-content"

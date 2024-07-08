@@ -24,8 +24,8 @@ const BusinessDetailsAccordion = ({ LoggedInUser, handleClickOpenEditDialog }) =
       <Typography>
         <b>שעות פתיחה: </b>{LoggedInUser.openingHours}
       </Typography>
-      <Button variant="contained" color="primary" onClick={handleClickOpenEditDialog}>
-        Edit Details
+      <Button variant="contained" style={{backgroundColor:"#d67d00",marginTop:10}} onClick={handleClickOpenEditDialog}>
+        עריכת פרטי בעסק
       </Button>
     </AccordionDetails>
   </Accordion>

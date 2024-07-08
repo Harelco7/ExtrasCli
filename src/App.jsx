@@ -34,7 +34,7 @@ function App() {
 
   return (
     <ShoppingBagProvider>
-      <Router>
+      <Router >
         <div>
           <BusinessDataProvider>
             <FCNavbar />
@@ -43,6 +43,14 @@ function App() {
           <Routes>
             <Route
               path="/"
+              element={
+                <BusinessDataProvider>
+                  <FCMainPage />
+                </BusinessDataProvider>
+              }
+            />
+            <Route
+              path="/MainPage"
               element={
                 <BusinessDataProvider>
                   <FCMainPage />

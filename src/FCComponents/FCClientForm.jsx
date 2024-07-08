@@ -96,7 +96,7 @@ export default function FCClientForm() {
           (result) => {
             console.log("Added Successfully!", result);
             console.log("Navigating to main page...");
-            navigate("/"); 
+            navigate("/MainPage"); 
           },
           (error) => {
             console.error("Error posting data:", error);

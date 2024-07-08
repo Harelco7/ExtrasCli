@@ -2,11 +2,9 @@ import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { TbShoppingBagX } from "react-icons/tb";
 import Button from "@mui/material/Button";
-import FormControlLabel from "@mui/material/FormControlLabel";
 import "../../Styles/BusinessPage.css";
 import FCBoxCard from "../../FCComponents/FCBoxCard";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
 import {
   faStar,
   faWheatAwn,
@@ -123,6 +121,9 @@ export default function BusinessPage({ onBusinessIDChange }) {
             alt="Business Logo"
           />
         </div>
+        <div className="business-desc">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit, qui. Reiciendis dolores explicabo, at cumque nisi, nobis dolore aperiam impedit veniam, aliquam voluptatum ad. Fugit quas sapiente eaque distinctio id?  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magni consequatur autem exercitationem possimus impedit quis sequi a, libero perspiciatis id velit eius culpa quia nostrum optio voluptas aut laudantium? Nulla!
+        </div>
         <div className="allergics-container">
           <div className="allergic-title">
             <h3>סנן על פי אלרגיות:</h3>
@@ -142,7 +143,7 @@ export default function BusinessPage({ onBusinessIDChange }) {
                   width: "60px",
                   height: "60px",
                   fontSize: "16px",
-                  textTransform: "none", // Keeps the text casing as is
+                  textTransform: "none",
                 }}
               >
                 {<FontAwesomeIcon size={"2x"} icon={allergyIcons[allergy]} />}
@@ -164,7 +165,7 @@ export default function BusinessPage({ onBusinessIDChange }) {
               <div className="box-title">
                 <h1>המארזים שלנו :</h1>
                 <p style={{ textAlign: "center", color: "#9b9b9b" }}>
-                  נמצאו 2 מארזים
+                  נמצאו {filteredBoxes.length} מארזים
                 </p>
               </div>
               <div className="grid-container">

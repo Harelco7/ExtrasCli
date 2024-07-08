@@ -40,17 +40,11 @@ const DataCard = ({ icon: Icon, title, number }) => (
 );
 
 const BusinessDataCards = ({ businessSales }) => (
-  <Accordion defaultExpanded style={{ backgroundColor: "#EEEEEE" }}>
-    <AccordionSummary
-      expandIcon={<ExpandMoreIcon />}
-      aria-controls="panel2a-content"
-      id="panel2a-header"
-    >
+ <>
       <Typography style={{ fontSize: 25 }}>
         <DataThresholdingTwoToneIcon /> נתוני מכירות
       </Typography>
-    </AccordionSummary>
-    <AccordionDetails>
+
       <Grid container spacing={2}>
         <Grid item xs={12} sm={4}>
           <DataCard
@@ -74,8 +68,7 @@ const BusinessDataCards = ({ businessSales }) => (
           />
         </Grid>
       </Grid>
-    </AccordionDetails>
-  </Accordion>
+      </>
 );
 
 export default BusinessDataCards;

@@ -129,12 +129,15 @@ export default function FCBusinessForm() {
         console.log("res=", res);
         console.log("res.status", res.status);
         console.log("res.ok", res.ok);
+        if (res.ok) {
+          navigate("/MainPage");
+        }
         return res.json();
       })
       .then(
         (result) => {
           console.log("ADD Successfully!", result);
-          navigate("/");
+       
         },
         (error) => {
           console.log("err post=", error);

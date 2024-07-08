@@ -15,7 +15,7 @@ const FCNavbar = () => {
 
   return (
     <nav className="navbar">
-      <div className="logo" onClick={() => navigate("/")}></div>
+      <div className="logo" onClick={() => navigate("/MainPage")}></div>
       <div className="search-container">
         {/* <div className="searchIcon-wrapper">
         <FontAwesomeIcon icon={faSearch} size="xs" className="search-icon" />
