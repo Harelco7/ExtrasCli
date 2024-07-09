@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { HashRouter as Router, Routes, Route } from "react-router-dom";
 import { useState } from "react";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -6,7 +6,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import FCMainPage from "./assets/Pages/MainPage";
 import FCNavbar from "../src/FCComponents/FCNavbar";
 import Fab from "@mui/material/Fab";
-import ShoppingBagTwoToneIcon from "@mui/icons-material/ShoppingBagTwoTone";
+import { FiShoppingBag } from "react-icons/fi";
+
 
 import AddBoxPage from "./assets/Pages/AddBoxPage.jsx";
 import AboutPage from "./assets/Pages/AboutPage";
@@ -34,37 +35,18 @@ function App() {
 
   return (
     <ShoppingBagProvider>
-      <Router >
+      <Router>
         <div>
           <BusinessDataProvider>
             <FCNavbar />
-            <hr style={{ width: "100%", marginTop: 0, color: "#1c1c1cca" }} />
+            <hr style={{ width: "100%", color: "#1c1c1cca" }} />
           </BusinessDataProvider>
           <Routes>
-            <Route
-              path="/"
-              element={
-                <BusinessDataProvider>
-                  <FCMainPage />
-                </BusinessDataProvider>
-              }
-            />
-            <Route
-              path="/MainPage"
-              element={
-                <BusinessDataProvider>
-                  <FCMainPage />
-                </BusinessDataProvider>
-              }
-            />
+            <Route path="/" element={<BusinessDataProvider><FCMainPage /></BusinessDataProvider>} />
+            <Route path="/MainPage" element={<BusinessDataProvider><FCMainPage /></BusinessDataProvider>} />
             <Route path="/signup" element={<RegisterPage />} />
             <Route path="/about" element={<AboutPage />} />
-            <Route
-              path="/BusinessPage"
-              element={
-                <BusinessPage onBusinessIDChange={handleBusinessIDChange} />
-              }
-            />
+            <Route path="/BusinessPage/:businessId" element={<BusinessPage onBusinessIDChange={handleBusinessIDChange} />} />
             <Route path="/MapPage" element={<MapsPage />} />
             <Route path="/orderpage" element={<OrderPage />} />
             <Route path="/addbox" element={<AddBoxPage />} />
@@ -76,20 +58,16 @@ function App() {
               position: "fixed",
               bottom: "16px",
               right: "16px",
-              height: 70,
-              width: 70,
+              width:"60px",
+              height:"60px",
               zIndex: 1101,
               backgroundColor: "#d67d00",
             }}
             onClick={handleShowBag}
           >
-            <ShoppingBagTwoToneIcon fontSize="large" />
+            <FiShoppingBag fontSize={32} />
           </Fab>
-          <ShoppingBagCanvas
-            show={showBag}
-            handleClose={handleCloseBag}
-            businessID={businessID}
-          />
+          <ShoppingBagCanvas show={showBag} handleClose={handleCloseBag} businessID={businessID} />
         </div>
       </Router>
     </ShoppingBagProvider>

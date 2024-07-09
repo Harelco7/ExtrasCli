@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { TbShoppingBagX } from "react-icons/tb";
 import Button from "@mui/material/Button";
 import "../../Styles/BusinessPage.css";
 import FCBoxCard from "../../FCComponents/FCBoxCard";
+import Fab from "@mui/material/Fab";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faStar,
@@ -13,8 +14,9 @@ import {
   faCarrot,
   faSeedling,
 } from "@fortawesome/free-solid-svg-icons";
+import { WhatsappShareButton } from 'react-share';
+import { SiWhatsapp } from "react-icons/si";
 
-// Mapping of allergies to FontAwesome icons
 const allergyIcons = {
   אגוזים: faStar,
   גלוטן: faWheatAwn,
@@ -27,16 +29,9 @@ const allergyIcons = {
 const commonAllergies = ["אגוזים", "גלוטן", "חלבי", "בשרי", "צמחוני", "טבעוני"];
 
 export default function BusinessPage({ onBusinessIDChange }) {
+  const { businessId } = useParams();
   const location = useLocation();
-  const {
-    businessName,
-    businessAdress,
-    dailySalesHour,
-    businessID,
-    businessPhoto,
-    businessLogo,
-  } = location.state;
-
+  const [businessDetails, setBusinessDetails] = useState({});
   const [boxes, setBoxes] = useState([]);
   const [filters, setFilters] = useState(
     commonAllergies.reduce((filterObject, allergy) => {
@@ -46,14 +41,39 @@ export default function BusinessPage({ onBusinessIDChange }) {
   );
 
   useEffect(() => {
-    if (location.state && location.state.businessID) {
-      onBusinessIDChange(location.state.businessID);
+    onBusinessIDChange(businessId);
+  }, [businessId, onBusinessIDChange]);
+
+  useEffect(() => {
+    const fetchBusinessDetails = async () => {
+      try {
+        const response = await fetch(
+          `https://proj.ruppin.ac.il/bgroup33/test2/tar1/api/Business/GetBusiness/${businessId}`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        if (!response.ok) {
+          throw new Error("Failed to fetch business details");
+        }
+        const businessDetails = await response.json();
+        setBusinessDetails(businessDetails);
+      } catch (error) {
+        console.error("Error fetching business details:", error);
+      }
+    };
+
+    if (businessId) {
+      fetchBusinessDetails();
     }
-  }, [location, onBusinessIDChange]);
+  }, [businessId]);
 
   useEffect(() => {
     const fetchBoxes = async () => {
-      const BoxUrl = `https://proj.ruppin.ac.il/bgroup33/test2/tar1/api/Business/ShowBusiness/${businessID}`;
+      const BoxUrl = `https://proj.ruppin.ac.il/bgroup33/test2/tar1/api/Business/ShowBoxes/${businessId}`;
       try {
         const response = await fetch(BoxUrl, {
           method: "GET",
@@ -73,7 +93,7 @@ export default function BusinessPage({ onBusinessIDChange }) {
     };
 
     fetchBoxes();
-  }, [businessID]);
+  }, [businessId]);
 
   const handleFilterChange = (allergy) => {
     setFilters({
@@ -108,21 +128,38 @@ export default function BusinessPage({ onBusinessIDChange }) {
         <div
           className="img-container"
           style={{
-            backgroundImage: `url('https://proj.ruppin.ac.il/bgroup33/test2/images/BusinessImage/${businessPhoto}')`,
+            backgroundImage: `url('https://proj.ruppin.ac.il/bgroup33/test2/images/BusinessImage/${businessDetails.businessPhoto}')`,
           }}
         >
           <h1>
-            {businessName} | {businessAdress}
+            {businessDetails.businessName} | {businessDetails.businessAdress}
           </h1>
-          <p>שעות איסוף : {dailySalesHour}</p>
+          <p>שעות איסוף : {businessDetails.dailySalesHour}</p>
           <img
             className="Business-logo"
-            src={`https://proj.ruppin.ac.il/bgroup33/test2/images/BusinessLogo/${businessLogo}`}
+            src={`https://proj.ruppin.ac.il/bgroup33/test2/images/BusinessLogo/${businessDetails.businesslogo}`}
             alt="Business Logo"
           />
         </div>
+        <div style={{ position: "fixed", bottom: "90px", right: "6px", zIndex: 1201 }}>
+          <WhatsappShareButton
+            url={`https://proj.ruppin.ac.il/bgroup33/test2/dist/index.html#/BusinessPage/${businessId}`}
+            title={`Check out ${businessDetails.businessName} on our website!`}
+            separator=":: "
+          >
+            <Fab  style={{backgroundColor:"#25D366",width:"60px",height:"60px",color:"white",}}  aria-label="whatsapp">
+              <SiWhatsapp size={32} />
+            </Fab>
+          </WhatsappShareButton>
+        </div>
         <div className="business-desc">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit, qui. Reiciendis dolores explicabo, at cumque nisi, nobis dolore aperiam impedit veniam, aliquam voluptatum ad. Fugit quas sapiente eaque distinctio id?  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magni consequatur autem exercitationem possimus impedit quis sequi a, libero perspiciatis id velit eius culpa quia nostrum optio voluptas aut laudantium? Nulla!
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit, qui.
+          Reiciendis dolores explicabo, at cumque nisi, nobis dolore aperiam
+          impedit veniam, aliquam voluptatum ad. Fugit quas sapiente eaque
+          distinctio id? Lorem ipsum dolor sit amet, consectetur adipisicing
+          elit. Magni consequatur autem exercitationem possimus impedit quis
+          sequi a, libero perspiciatis id velit eius culpa quia nostrum optio
+          voluptas aut laudantium? Nulla!
         </div>
         <div className="allergics-container">
           <div className="allergic-title">
@@ -144,6 +181,7 @@ export default function BusinessPage({ onBusinessIDChange }) {
                   height: "60px",
                   fontSize: "16px",
                   textTransform: "none",
+                  zIndex: 100
                 }}
               >
                 {<FontAwesomeIcon size={"2x"} icon={allergyIcons[allergy]} />}
@@ -171,7 +209,7 @@ export default function BusinessPage({ onBusinessIDChange }) {
               <div className="grid-container">
                 {filteredBoxes.map((box, index) => (
                   <div key={index} className="grid-item">
-                    <FCBoxCard box={box} businessID={businessID} />
+                    <FCBoxCard box={box} businessID={businessId} />
                   </div>
                 ))}
               </div>

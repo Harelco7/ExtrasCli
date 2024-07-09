@@ -109,8 +109,8 @@ const FCLoginModal = ({ show, onHide, onSuccessfulLogin }) => {
     >
       <Modal.Body className="modal-body">
         <div className="form-container">
-          <div className="logo-img">
-            <img src={logo} alt="" />
+          <div className="logo-img" style={{backgroundImage:'url(https://proj.ruppin.ac.il/bgroup33/test2/dist/Images/CircleLogo.png)'}}>
+            
           </div>
           <form className="form">
           <CacheProvider value={cacheRtl}>

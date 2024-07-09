@@ -9,6 +9,7 @@ import { useShoppingBag } from "../Context/ShoppingBagContext.jsx";
 import exampleBox from "..//..//..//public/Images/exampleBox.jpg";
 import { LiaAllergiesSolid } from "react-icons/lia";
 import { islocal, localurl, produrl } from '..//..//Settings';
+import { useParams } from 'react-router-dom';
 
 export default function OrderPage() {
   const location = useLocation();
@@ -21,6 +22,33 @@ export default function OrderPage() {
   const { addItemToBag } = useShoppingBag(); // Use the context
   const [snackbarAddToBagOpen, setSnackbarAddToBagOpen] = useState(false);
   const [snackbarOrderOpen, setSnackbarOrderOpen] = useState(false);
+  const { boxId } = useParams();  // Extract the box ID from the URL
+  useEffect(() => {
+    const fetchBoxDetails = async () => {
+      setLoading(true);
+      try {
+        const response = await fetch(`${islocal ? localurl : produrl}api/Box/GetBox/${boxId}`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json"
+          },
+        });
+        if (!response.ok) {
+          throw new Error("Failed to fetch box details");
+        }
+        const data = await response.json();
+        setBox(data);
+      } catch (error) {
+        console.error("Error fetching box details:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (boxId) {
+      fetchBoxDetails();
+    }
+  }, [boxId]);
 
   useEffect(() => {
     const userData = JSON.parse(localStorage.getItem("userData"));

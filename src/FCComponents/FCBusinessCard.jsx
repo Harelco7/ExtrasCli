@@ -9,7 +9,7 @@ export default function FCBusinessCard({ data }) {
   const[Pic,setPic]=useState()
   
    const handleOrderNow = () => {
-    navigate("/BusinessPage", { state: { ...data } });
+    navigate(`/BusinessPage/${data.businessID}`);
     console.log(data);
     window.scrollTo(0, 0); 
   };

@@ -136,7 +136,7 @@ export default function MainPage() {
           <ToggleViewMode />
         </div>
         <div className="headlines">
-          <h1 style={{ direction: "rtl" }}>מאפיות :</h1>
+          <h1 style={{ direction: "rtl" }}>מאפיות</h1>
         </div>
         <div className="carousel-container">
           <Carousel
@@ -155,7 +155,7 @@ export default function MainPage() {
         </div>
 
         <div className="headlines">
-          <h1 style={{ direction: "rtl" }}>בתי קפה :</h1>
+          <h1 style={{ direction: "rtl" }}>בתי קפה</h1>
         </div>
         <div className="carousel-container">
           <Carousel
@@ -173,7 +173,7 @@ export default function MainPage() {
         </div>
 
         <div className="headlines">
-          <h1 style={{ direction: "rtl" }}>פרחים :</h1>
+          <h1 style={{ direction: "rtl" }}>פרחים</h1>
         </div>
         <div className="carousel-container">
           <Carousel
