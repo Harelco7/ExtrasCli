@@ -8,6 +8,9 @@ import { useBusinessData } from "..//Context/BusinessDataContext.jsx";
 import Skeleton from "@mui/material/Skeleton";
 import { getFavorites } from "..//..//Settings.js";
 
+
+
+
 export default function MainPage() {
   const { businessData, errorMessage } = useBusinessData();
   const [loading, setLoading] = useState(true);
