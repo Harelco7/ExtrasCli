@@ -8,6 +8,9 @@ import Alert from "@mui/material/Alert";
 import AlertTitle from "@mui/material/AlertTitle";
 import FCQRCode from "./FCQRCode"
 import { color } from "framer-motion";
+import Fab from "@mui/material/Fab"; 
+import { FiShoppingBag } from "react-icons/fi";
+import "..//Styles/FloatingButton.css"
 
 const ShoppingBagCanvas = ({ show, handleClose,businessID }) => {
   const { items, removeItemFromBag, clearBag } = useShoppingBag();
@@ -17,6 +20,9 @@ const ShoppingBagCanvas = ({ show, handleClose,businessID }) => {
   const [snackbarOpen, setSnackbarOpen] = useState(false); // State for Snackbar
   const [qrCodeValue, setQrCodeValue] = useState(''); // State for QRCode value
   const [dialogOpen, setDialogOpen] = useState(false); // State for Dialog
+  const [showFloatingButton, setShowFloatingButton] = useState(false);
+  const [boxName, setBoxName] = useState(""); // State for Box Name
+  const [businessName, setBusinessName] = useState(""); // State for Business Name
 
   const checkLoginStatus = () => {
     const userData = JSON.parse(localStorage.getItem("userData"));
@@ -31,13 +37,19 @@ const ShoppingBagCanvas = ({ show, handleClose,businessID }) => {
   };
 
   useEffect(() => {
-    // Initial check for login status on component mount
     checkLoginStatus();
-  
-  }, [show]);
+    if (items.length > 0) {
+      setBoxName(items[0].name);
+    }
+    const businessData = JSON.parse(localStorage.getItem("businessData"));
+    if (businessData) {
+      setBusinessName(businessData.name);
+    } else {
+      setBusinessName("שם העסק לא זמין"); // הודעת ברירת מחדל במקרה שהמידע לא קיים
+    }
+  }, [show, items]);
 
   const calculateTotalPrice = () => {
-    console.log("items:",items);
     return items.reduce((total, item) => total + item.price * item.quantity, 0);
   };
 
@@ -129,8 +141,9 @@ const ShoppingBagCanvas = ({ show, handleClose,businessID }) => {
     handleCheckoutQR();
     setTimeout(() => {
       handleClose(); // Close the Offcanvas after 3 seconds
-      // setDialogOpen(true); // Open the Dialog
+      setDialogOpen(true); // Open the Dialog
       clearBag();
+      setShowFloatingButton(true);
     }, 0);
   };
 
@@ -212,7 +225,16 @@ const ShoppingBagCanvas = ({ show, handleClose,businessID }) => {
           </Snackbar>
         </Offcanvas.Body>
       </Offcanvas>
-      <FCQRCode open={dialogOpen} onClose={handleDialogClose} qrCodeValue={qrCodeValue} />
+      <FCQRCode open={dialogOpen} onClose={handleDialogClose} qrCodeValue={`https://proj.ruppin.ac.il/bgroup33/test2/tar1/api/Business/GetBusiness/223`}  boxName={boxName}
+  businessName={businessName} />
+
+      
+      {showFloatingButton && (
+        <div className="floating-button" onClick={() => setDialogOpen(true)}>
+          <FiShoppingBag fontSize={32} />
+          <span style={{textAlign:"center"}}>ההזמנה שלי</span>
+        </div>
+      )}
     </>
   );
 };

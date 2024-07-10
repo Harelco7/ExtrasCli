@@ -103,3 +103,12 @@ direction: rtl;
     right: 76px;
   }
 }
+
+.favorite-icon {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  font-size: 24px;
+  color: #ffc107; 
+  cursor: pointer;
+}

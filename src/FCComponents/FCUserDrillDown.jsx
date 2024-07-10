@@ -95,7 +95,7 @@ const FCUserDrillDown = () => {
                 <>
                   {userData.age ? (
                     <>
-                      <Dropdown.Item onClick={() => console.log("Profile")}>
+                      <Dropdown.Item onClick={() =>navigate("/favoritepage")}>
                         אזור אישי
                       </Dropdown.Item>
                     </>

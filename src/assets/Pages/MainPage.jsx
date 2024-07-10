@@ -6,6 +6,7 @@ import "react-multi-carousel/lib/styles.css";
 import ToggleViewMode from "../../FCComponents/ToggleViewMode";
 import { useBusinessData } from "..//Context/BusinessDataContext.jsx";
 import Skeleton from "@mui/material/Skeleton";
+import { getFavorites } from "..//..//Settings.js";
 
 export default function MainPage() {
   const { businessData, errorMessage } = useBusinessData();
@@ -13,10 +14,31 @@ export default function MainPage() {
   const [bakerys, setBakery] = useState([]);
   const [coffee, setCoffee] = useState([]);
   const [flowers, setFlowers] = useState([]);
+  const [businessFavorite, setbusinessFavorite] = useState([]);
+  const [userData, setuserData] = useState([]);
 
 
 
-  
+
+  useEffect(() => {
+    async function fetchData() {
+      let userData = localStorage.getItem("userData");
+    if (userData){
+     userData = JSON.parse(userData);
+     setuserData(userData)
+    }  
+   else {
+     alert("not found")
+     return;
+   }
+   const favoriteData = await getFavorites(userData.customerID)
+    if (favoriteData && favoriteData.length > 0) {
+      let temp = favoriteData.map(x => x.businessId)
+      setbusinessFavorite(temp)}
+    }
+    fetchData();
+  },[])
+
 
 
 
@@ -148,7 +170,7 @@ export default function MainPage() {
           >
             {bakerys.map((Bakery, index) => (
               <div className="carousel-item" key={index}>
-                <FCBusinessCard data={Bakery} />
+                <FCBusinessCard userData = {userData} Favorite= {businessFavorite.includes(Bakery.businessID)} data={Bakery} />
               </div>
             ))}
           </Carousel>
@@ -166,7 +188,7 @@ export default function MainPage() {
           >
             {coffee.map((coffee, index) => (
               <div className="carousel-item" key={index}>
-                <FCBusinessCard data={coffee} />
+                <FCBusinessCard userData = {userData} Favorite= {businessFavorite.includes(coffee.businessID)} data={coffee} />
               </div>
             ))}
           </Carousel>
@@ -184,7 +206,7 @@ export default function MainPage() {
           >
             {flowers.map((flowers, index) => (
               <div className="carousel-item" key={index}>
-                <FCBusinessCard data={flowers} />
+                <FCBusinessCard userData = {userData} Favorite= {businessFavorite.includes(flowers.businessID)} data={flowers} />
               </div>
             ))}
           </Carousel>

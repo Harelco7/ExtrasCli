@@ -20,6 +20,8 @@ import OrderPage from "./assets/Pages/OrderPage.jsx";
 import { ShoppingBagProvider } from "..//src//assets/Context/ShoppingBagContext.jsx";
 import ShoppingBagCanvas from "./FCComponents/ShoppingBagCanvas.jsx"; // Adjust the import path
 import MyBusinessPage from "./assets/Pages/MyBusinessPage.jsx";
+import FavoritePage from "..//src/assets/Pages/FavoritesPage.jsx";
+
 
 function App() {
   const [showBag, setShowBag] = useState(false);
@@ -51,6 +53,7 @@ function App() {
             <Route path="/orderpage" element={<OrderPage />} />
             <Route path="/addbox" element={<AddBoxPage />} />
             <Route path="/mybusiness" element={<MyBusinessPage />} />
+            <Route path="/favoritepage" element={<FavoritePage />} />
           </Routes>
 
           <Fab
@@ -68,6 +71,7 @@ function App() {
             <FiShoppingBag fontSize={32} />
           </Fab>
           <ShoppingBagCanvas show={showBag} handleClose={handleCloseBag} businessID={businessID} />
+          
         </div>
       </Router>
     </ShoppingBagProvider>
