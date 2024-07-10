@@ -11,6 +11,8 @@ import { getFavorites } from "..//..//Settings.js";
 
 
 
+
+
 export default function MainPage() {
   const { businessData, errorMessage } = useBusinessData();
   const [loading, setLoading] = useState(true);
