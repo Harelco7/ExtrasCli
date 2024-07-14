@@ -133,11 +133,12 @@ export default function OrderPage() {
 
   const handleAddToBag = () => {
     const item = {
-      boxId: box.boxID,
+      boxId: box.boxId,
       name: box.boxName,
       price: box.price,
       description: box.description
     };
+    console.log("this is item:",item);
     addItemToBag(item, quantity); // Pass the selected quantity
     console.log(`Added ${quantity} ${box.boxName}(s) to the shopping bag!`);
     setSnackbarAddToBagOpen(true); // Show the snackbar

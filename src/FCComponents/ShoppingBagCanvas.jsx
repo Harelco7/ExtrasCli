@@ -6,23 +6,25 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
 import AlertTitle from "@mui/material/AlertTitle";
-import FCQRCode from "./FCQRCode"
-import { color } from "framer-motion";
-import Fab from "@mui/material/Fab"; 
+import FCQRCode from "./FCQRCode";
+import Fab from "@mui/material/Fab";
 import { FiShoppingBag } from "react-icons/fi";
-import "..//Styles/FloatingButton.css"
+import "../Styles/FloatingButton.css";
+import { useBusinessData } from "../assets/Context/BusinessDataContext.jsx"; // Corrected import path
 
-const ShoppingBagCanvas = ({ show, handleClose,businessID }) => {
+const ShoppingBagCanvas = ({ show, handleClose, businessID }) => {
   const { items, removeItemFromBag, clearBag } = useShoppingBag();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [loggedInUser, setLoggedInUser] = useState({});
   const [showAlert, setShowAlert] = useState(true); // State for showing alert
   const [snackbarOpen, setSnackbarOpen] = useState(false); // State for Snackbar
-  const [qrCodeValue, setQrCodeValue] = useState(''); // State for QRCode value
+  const [qrCodeValue, setQrCodeValue] = useState(""); // State for QRCode value
   const [dialogOpen, setDialogOpen] = useState(false); // State for Dialog
   const [showFloatingButton, setShowFloatingButton] = useState(false);
   const [boxName, setBoxName] = useState(""); // State for Box Name
-  const [businessName, setBusinessName] = useState(""); // State for Business Name
+
+  const { businessData } = useBusinessData(); // Correctly use the business data context
+  const [business, setBusiness] = useState({});
 
   const checkLoginStatus = () => {
     const userData = JSON.parse(localStorage.getItem("userData"));
@@ -41,13 +43,32 @@ const ShoppingBagCanvas = ({ show, handleClose,businessID }) => {
     if (items.length > 0) {
       setBoxName(items[0].name);
     }
-    const businessData = JSON.parse(localStorage.getItem("businessData"));
-    if (businessData) {
-      setBusinessName(businessData.name);
-    } else {
-      setBusinessName("שם העסק לא זמין"); // הודעת ברירת מחדל במקרה שהמידע לא קיים
-    }
+    const userData = JSON.parse(localStorage.getItem("userData"));
+    console.log("userData now", userData);
+    console.log("BusinessID", businessID);
   }, [show, items]);
+
+  useEffect(() => {
+    if (show && businessID) {
+      // Only fetch business data when the shopping bag is shown
+      const foundBusiness = GetBusinessData(businessID);
+      setBusiness(foundBusiness || {}); // Set business data or empty object to avoid undefined errors
+    }
+  }, [show, businessID]); // Runs only when the shopping bag is shown or businessID changes
+
+  const GetBusinessData = (businessID) => {
+    // Ensure businessID is a number if businessData contains numeric businessID
+    const numericBusinessID = Number(businessID);
+    console.log("Searching for businessID:", numericBusinessID);
+
+    const business = businessData.find((business) => {
+      console.log("Checking business:", business.businessID);
+      return business.businessID === numericBusinessID;
+    });
+
+    console.log("Found business:", business);
+    return business;
+  };
 
   const calculateTotalPrice = () => {
     return items.reduce((total, item) => total + item.price * item.quantity, 0);
@@ -60,10 +81,10 @@ const ShoppingBagCanvas = ({ show, handleClose,businessID }) => {
         boxId: item.id,
         quantityBuy: item.quantity,
         customerId: loggedInUser.customerID,
-        BoxDescription : item.desc,
-        businessId:parseInt(businessID)
+        BoxDescription: item.desc,
+        businessId: parseInt(businessID),
       }));
-  
+      console.log("orders:", orders);
       orders.forEach((order) => {
         addOrders(order);
       });
@@ -73,10 +94,10 @@ const ShoppingBagCanvas = ({ show, handleClose,businessID }) => {
   };
 
   const addOrders = (order) => {
-    const apiURLAddOrder = "https://proj.ruppin.ac.il/bgroup33/test2/tar1/api/Box/BuyBox";
+    const apiURLAddOrder =
+      "https://proj.ruppin.ac.il/bgroup33/test2/tar1/api/Box/BuyBox";
     console.log("Order to be sent check:", order);
-    
-    // Send a PUT request for each item
+
     fetch(apiURLAddOrder, {
       method: "PUT",
       headers: {
@@ -85,41 +106,33 @@ const ShoppingBagCanvas = ({ show, handleClose,businessID }) => {
       },
       body: JSON.stringify(order),
     })
-    .then((res) => {
-      console.log("Response:", res);
-      setSnackbarOpen(true); // Indicate a response has been received
-      // Check if response is not OK (HTTP status code outside 2xx range)
-      if (!res.ok) {
-        // If response is not OK, handle error
-        return res.text().then((text) => {
-          // Attempt to parse error message from response body
-          throw new Error(`Error: ${res.status} - ${text}`);
-        });
-      }
-  
-      // Check if response is JSON
-      const contentType = res.headers.get("content-type");
-      if (!contentType || !contentType.includes("application/json")) {
-        // If response is not JSON, handle unexpected response type
-        throw new Error(`Unexpected response type: ${contentType}`);
-      }
-  
-      return res.json(); // Parse response body as JSON
-    })
-    .then(
-      (result) => {
-        console.log("Order Added Successfully!", result);
-        setSnackbarOpen(true); // Show Snackbar on successful order
-        setDialogOpen(true); // Optionally close the dialog or modal if it's open
-      },
-      (error) => {
-        // Handle fetch or parsing error
-        console.error("Error adding order:", error.message);
-        // Optionally show user-friendly error message or retry mechanism
-      }
-    );
+      .then((res) => {
+        console.log("Response:", res);
+        setSnackbarOpen(true); // Indicate a response has been received
+        if (!res.ok) {
+          return res.text().then((text) => {
+            throw new Error(`Error: ${res.status} - ${text}`);
+          });
+        }
+
+        const contentType = res.headers.get("content-type");
+        if (!contentType || !contentType.includes("application/json")) {
+          throw new Error(`Unexpected response type: ${contentType}`);
+        }
+
+        return res.json();
+      })
+      .then(
+        (result) => {
+          console.log("Order Added Successfully!", result);
+          setSnackbarOpen(true); // Show Snackbar on successful order
+          setDialogOpen(true); // Optionally close the dialog or modal if it's open
+        },
+        (error) => {
+          console.error("Error adding order:", error.message);
+        }
+      );
   };
-  
 
   const handleSnackbarClose = (event, reason) => {
     if (reason === "clickaway") {
@@ -157,7 +170,7 @@ const ShoppingBagCanvas = ({ show, handleClose,businessID }) => {
         show={show}
         onHide={handleClose}
         placement="end"
-        style={{ zIndex: 1102, borderRadius:20}}
+        style={{ zIndex: 1102, borderRadius: 20 }}
       >
         <Offcanvas.Header closeButton>
           <Offcanvas.Title style={{ marginLeft: 10 }}>
@@ -174,7 +187,7 @@ const ShoppingBagCanvas = ({ show, handleClose,businessID }) => {
                     className="d-flex justify-content-between align-items-center"
                   >
                     <div>
-                      {item.name} - {item.quantity}x {item.price}₪ 
+                      {item.name} - {item.quantity}x {item.price}₪
                     </div>
                     <Button
                       variant="danger"
@@ -196,7 +209,7 @@ const ShoppingBagCanvas = ({ show, handleClose,businessID }) => {
               </Button>
             </>
           ) : (
-            <p style={{ fontSize: 20, fontWeight: "bold"}}>
+            <p style={{ fontSize: 20, fontWeight: "bold" }}>
               סל הקניות שלך ריק!
             </p>
           )}
@@ -208,7 +221,6 @@ const ShoppingBagCanvas = ({ show, handleClose,businessID }) => {
             </Alert>
           )}
 
-          {/* Snackbar for successful order */}
           <Snackbar
             open={snackbarOpen}
             autoHideDuration={3000}
@@ -225,14 +237,19 @@ const ShoppingBagCanvas = ({ show, handleClose,businessID }) => {
           </Snackbar>
         </Offcanvas.Body>
       </Offcanvas>
-      <FCQRCode open={dialogOpen} onClose={handleDialogClose} qrCodeValue={`https://proj.ruppin.ac.il/bgroup33/test2/tar1/api/Business/GetBusiness/223`}  boxName={boxName}
-  businessName={businessName} />
+      <FCQRCode
+        open={dialogOpen}
+        onClose={handleDialogClose}
+        qrCodeValue={`https://proj.ruppin.ac.il/bgroup33/test2/tar1/api/Business/GetBusiness/${businessID}`}
+        boxName={boxName}
+        businessName={business.businessName || "שם העסק לא זמין"}
+        businessAdress={business.businessAdress || "כתובת העסק לא זמינה"}
+      />
 
-      
       {showFloatingButton && (
         <div className="floating-button" onClick={() => setDialogOpen(true)}>
           <FiShoppingBag fontSize={32} />
-          <span style={{textAlign:"center"}}>ההזמנה שלי</span>
+          <span style={{ textAlign: "center" }}>ההזמנה שלי</span>
         </div>
       )}
     </>

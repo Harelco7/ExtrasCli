@@ -22,7 +22,7 @@ export default function FCBoxCard({ box ,businessID }) {
     navigate("/orderpage", { 
       state: { 
         box: box,
-        businessID: businessID  // Add businessID to the navigation state
+        businessID: box.businessID  // Add businessID to the navigation state
       }
     });
     console.log('Navigating with box:', box, 'and businessID:', businessID);
