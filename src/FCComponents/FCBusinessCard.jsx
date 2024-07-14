@@ -35,7 +35,7 @@ export default function FCBusinessCard({ data , userData, Favorite, callBack }) 
       body: raw,
     };
 
-    fetch(`${islocal? localurl:produrl}User/updateFavorite`, requestOptions)
+    fetch(`https://proj.ruppin.ac.il/bgroup33/test2/tar1/api/User/updateFavorite`, requestOptions)
       .then((response) => response.text())
       .then((result) => {
         setIsFavorite(!isFavorite);

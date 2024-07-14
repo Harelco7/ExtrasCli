@@ -1,9 +1,18 @@
 import React from "react";
-import { Accordion, AccordionSummary, AccordionDetails, Typography, Button } from "@mui/material";
+import {
+  Accordion,
+  AccordionSummary,
+  AccordionDetails,
+  Typography,
+  Button,
+} from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import TextSnippetTwoToneIcon from "@mui/icons-material/TextSnippetTwoTone";
 
-const BusinessDetailsAccordion = ({ LoggedInUser, handleClickOpenEditDialog }) => (
+const BusinessDetailsAccordion = ({
+  LoggedInUser,
+  handleClickOpenEditDialog,
+}) => (
   <Accordion defaultExpanded style={{ backgroundColor: "#EEEEEE" }}>
     <AccordionSummary
       expandIcon={<ExpandMoreIcon />}
@@ -15,17 +24,35 @@ const BusinessDetailsAccordion = ({ LoggedInUser, handleClickOpenEditDialog }) =
       </Typography>
     </AccordionSummary>
     <AccordionDetails>
-      <Typography><b>שם העסק: </b>{LoggedInUser.businessName}</Typography>
-      <Typography><b>סוג העסק: </b> {LoggedInUser.businessType}</Typography>
-      <Typography><b>פרטי תקשורת:  </b>{LoggedInUser.contactInfo}</Typography>
       <Typography>
-        <b>שעות איסוף קבלה: </b>{LoggedInUser.dailySalesHour}
+        <b>שם העסק: </b>
+        {LoggedInUser.businessName}
       </Typography>
       <Typography>
-        <b>שעות פתיחה: </b>{LoggedInUser.openingHours}
+        <b>כתובת : </b>
+        {LoggedInUser.address}
       </Typography>
-      <Button variant="contained" style={{backgroundColor:"#d67d00",marginTop:10}} onClick={handleClickOpenEditDialog}>
-        עריכת פרטי בעסק
+      <Typography>
+        <b>סוג העסק: </b> {LoggedInUser.businessType}
+      </Typography>
+      <Typography>
+        <b>פרטי תקשורת: </b>
+        {LoggedInUser.contactInfo}
+      </Typography>
+      <Typography>
+        <b>שעות איסוף קבלה: </b>
+        {LoggedInUser.dailySalesHour}
+      </Typography>
+      <Typography>
+        <b>שעות פתיחה: </b>
+        {LoggedInUser.openingHours}
+      </Typography>
+      <Button
+        variant="contained"
+        style={{ backgroundColor: "#d67d00", marginTop: 10 }}
+        onClick={handleClickOpenEditDialog}
+      >
+        עריכת פרטי העסק
       </Button>
     </AccordionDetails>
   </Accordion>

@@ -3,22 +3,38 @@ import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { Box, Button } from "@mui/material";
 
 const FCOrdersGrid = ({ openOrders, onStatusChange }) => {
-  const rows = openOrders.map((order, index) => ({
-    id: index + 1,
-    OrderNumber: order.orderId,
-    CustomerID: order.customerId,
-    CustomerName: order.customerName,
-    BoxID: order.boxID,
-    TotalPrice: order.totalPrice,
-    BoxDescription: order.boxDescription,
-    OrderStatus: order.orderStatus,
-    Quantity: order.quantityOrdered,
-  }));
+
+  
+  const rows = openOrders.map((order, index) => {
+    // Convert orderDate to a readable format
+    const formattedOrderDate = new Date(order.orderDate).toISOString().split('T')[0];
+  
+    return {
+      id: index + 1,
+      OrderDate: formattedOrderDate,
+      OrderNumber: order.orderId,
+      CustomerID: order.customerId,
+      CustomerName: order.customerName,
+      BoxID: order.boxID,
+      TotalPrice: order.totalPrice,
+      BoxDescription: order.boxDescription,
+      OrderStatus: order.orderStatus,
+      Quantity: order.quantityOrdered,
+    };
+  });
 
   const columns = [
     {
       field: "OrderNumber",
       headerName: "מספר הזמנה",
+      flex: 1,
+      minWidth: 100,
+      align: "right",
+      headerAlign: "right",
+    },
+    {
+      field: "OrderDate",
+      headerName: "תאריך",
       flex: 1,
       minWidth: 100,
       align: "right",

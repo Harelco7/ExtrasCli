@@ -70,8 +70,9 @@ function App() {
           >
             <FiShoppingBag fontSize={32} />
           </Fab>
+          <BusinessDataProvider>
           <ShoppingBagCanvas show={showBag} handleClose={handleCloseBag} businessID={businessID} />
-          
+          </BusinessDataProvider>
         </div>
       </Router>
     </ShoppingBagProvider>
