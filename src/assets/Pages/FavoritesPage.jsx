@@ -6,9 +6,9 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
 import ClientProfileDetails from "../../FCComponents/ClientProfileDetails";
-import Grow from '@mui/material/Grow';
-import Fade from '@mui/material/Fade';
-
+import Grow from "@mui/material/Grow";
+import Fade from "@mui/material/Fade";
+import MyOrdersClient from "../../FCComponents/MyOrdersClient";
 
 const App = () => {
   const [favorites, setFavorites] = useState([]);
@@ -63,38 +63,46 @@ const App = () => {
       </Box>
       {tabValue === 0 && (
         <div className="app">
-        <h1>שלום, בתי העסק המועדפים עליך:</h1>
-        <Fade in={true} timeout={500}>
+          <h3 style={{textAlign:"center"}}>המועדפים שלי</h3>
+          <Fade in={true} timeout={500}>
             <Grow in={true} timeout={500}>
-                <div className="business-list">
-                    {businessFavorite.map((business) => (
-                        <FCBusinessCard 
-                            userData={userData} 
-                            key={business.businessId} 
-                            Favorite={true} 
-                            data={business} 
-                            callBack={removeFavorite} 
-                        />
-                    ))}
-                </div>
+              <div className="business-list">
+                {businessFavorite.map((business) => (
+                  <FCBusinessCard
+                    userData={userData}
+                    key={business.businessId}
+                    Favorite={true}
+                    data={business}
+                    callBack={removeFavorite}
+                  />
+                ))}
+              </div>
             </Grow>
-        </Fade>
-    </div>
-    
+          </Fade>
+        </div>
       )}
       {tabValue === 1 && (
+  <Fade in={true} timeout={500}>
+    <Grow in={true} timeout={1000}>
+      <div>
         <ClientProfileDetails
           userData={userData}
           setUserData={setUserData}
-          
         />
-      )}
-      {tabValue === 2 && (
-        <div className="myOrders">
-          {/* Add details related content here */}
-          <h2>My Orders</h2>
-        </div>
-      )}
+      </div>
+    </Grow>
+  </Fade>
+)}
+{tabValue === 2 && (
+  <Fade in={true} timeout={500}>
+    <Grow in={true} timeout={1000}>
+      <div className="myOrders"> 
+        <MyOrdersClient userData={userData} />
+      </div>
+    </Grow>
+  </Fade>
+)}
+
     </Box>
   );
 };

@@ -33,4 +33,14 @@
     border-radius: 5px;
     cursor: pointer;
   }
+
+
+
+  @media (max-width: 834px) {
+    .business-list, .favorites-list {
+      display: grid;
+      grid-template-columns: 1fr;  /* One column that takes full width */
+    }
+  }
+  
   
