@@ -65,6 +65,10 @@ const ClientProfileDetails = ({ userData }) => {
   };
 
   return (
+    <>
+    <div style={{display:"flex",justifyContent:'center',marginTop:30}}>
+    <h3 style={{display:"flex",justifyContent:"flex-start",alignContent:"center", widows:"80%"}}>פרטים אישיים</h3>
+    </div>
     <div className="alldetails-wrapper">
       <div className="profile-card">
         <div className="right-container">
@@ -144,6 +148,7 @@ const ClientProfileDetails = ({ userData }) => {
         </DialogActions>
       </Dialog>
     </div>
+    </>
   );
 };
 
