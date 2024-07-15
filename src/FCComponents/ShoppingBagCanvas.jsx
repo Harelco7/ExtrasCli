@@ -11,6 +11,7 @@ import Fab from "@mui/material/Fab";
 import { FiShoppingBag } from "react-icons/fi";
 import "../Styles/FloatingButton.css";
 import { useBusinessData } from "../assets/Context/BusinessDataContext.jsx"; // Corrected import path
+import "..//..//src/Styles/ShoppingBagCanvas.css" 
 
 const ShoppingBagCanvas = ({ show, handleClose, businessID }) => {
   const { items, removeItemFromBag, clearBag } = useShoppingBag();

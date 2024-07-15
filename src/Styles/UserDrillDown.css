@@ -38,8 +38,7 @@
     border-radius: 20px;
     padding: 10px;
     flex-direction: row;
-    font-family: "Manrope", sans-serif;
-    
+    font-family: 'Varela Round', sans-serif;
   }
   .dropdown-toggle::after {
 content: none;

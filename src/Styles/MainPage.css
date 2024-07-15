@@ -187,8 +187,9 @@
   height: 30px;
   width: 100%;
   display: flex;
-  justify-content: center;
+  justify-content: right;
   margin: 10px;
+  padding-right: 130px;
   font-size: 50px;
 }
 .view-options-container{
@@ -200,6 +201,7 @@
   justify-content: center;
   align-items: center;
   direction: ltr;
+  font-family: 'Varela Round', sans-serif;
 }
 
 

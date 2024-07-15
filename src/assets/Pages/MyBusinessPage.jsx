@@ -193,7 +193,7 @@ export default function MyBusinessPage() {
   return (
     <div style={{ backgroundColor: "white", height: "150vh" }}>
       <div style={{ width: "75%", margin: "0 auto" }}>
-        <h1>שלום! ,{LoggedInUser.businessName}</h1>
+        <h1>שלום, {LoggedInUser.businessName}</h1>
 
         <BusinessDataCards businessSales={businessSales} />
         <UploadImagesAccordion handleFileChange={handleFileChange} />

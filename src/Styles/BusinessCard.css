@@ -10,7 +10,6 @@
   margin-bottom: 10px;
   transition: transform 0.3s; /* Add transition for smooth scaling */
   margin: 20px;
- 
 }
 
 /* Hover effect */
@@ -58,7 +57,7 @@
 .card-content {
   padding: 25px;
   text-align: center;
- 
+  font-family: 'Varela Round', sans-serif;
 }
 
 /* Card content heading */
@@ -67,8 +66,7 @@
   font-size: 25px;
   margin-top: 0;
   font-weight: 400;
-  font-family: "Manrope", sans-serif;
-  
+  font-family: 'Varela Round', sans-serif;
 }
 
 /* Card content paragraph */
@@ -77,7 +75,7 @@
 direction: rtl;
   text-align: center;
   font-weight: 500;
-  font-family: "Manrope", sans-serif;
+  font-family: 'Varela Round', sans-serif;
 }
 
 /* Card content SVG */
@@ -93,7 +91,7 @@ direction: rtl;
   border: none;
   border-radius: 10px;
   cursor: pointer;
-  font-family: "Manrope", sans-serif;
+  font-family: 'Varela Round', sans-serif;
   font-weight: 500;
 }
 

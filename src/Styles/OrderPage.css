@@ -5,6 +5,7 @@
   height: 80vh; /* Full viewport height */
   flex-direction: column;
   margin-top: 80px;
+  font-family: 'Varela Round', sans-serif;
 }
 
 
@@ -54,14 +55,14 @@
   
   .quantity-btn {
     padding: 5px 10px;
-    font-size: 30px;
+    font-size: 20px;
     cursor: pointer;
     background-color: #113946;
     color: white;
     border: none;
     border-radius: 50%;
-    height: 60px;
-    width: 60px;
+    height: 40px;
+    width: 40px;
     transition: background-color 0.3s ease;
   }
   

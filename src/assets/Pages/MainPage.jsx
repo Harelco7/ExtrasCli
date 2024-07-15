@@ -19,8 +19,6 @@ export default function MainPage() {
   const [userData, setuserData] = useState([]);
 
 
-
-
   useEffect(() => {
     async function fetchData() {
       let userData = localStorage.getItem("userData");
@@ -39,8 +37,6 @@ export default function MainPage() {
     }
     fetchData();
   },[])
-
-
 
 
 
@@ -159,7 +155,7 @@ export default function MainPage() {
           <ToggleViewMode />
         </div>
         <div className="headlines">
-          <h1 style={{ direction: "rtl" }}>מאפיות</h1>
+          <h1 style={{ direction: "rtl" }}>מאפיות :</h1>
         </div>
         <div className="carousel-container">
           <Carousel
@@ -178,7 +174,7 @@ export default function MainPage() {
         </div>
 
         <div className="headlines">
-          <h1 style={{ direction: "rtl" }}>בתי קפה</h1>
+          <h1 style={{ direction: "rtl" }}>בתי קפה :</h1>
         </div>
         <div className="carousel-container">
           <Carousel
@@ -196,7 +192,7 @@ export default function MainPage() {
         </div>
 
         <div className="headlines">
-          <h1 style={{ direction: "rtl" }}>פרחים</h1>
+          <h1 style={{ direction: "rtl" }}>פרחים :</h1>
         </div>
         <div className="carousel-container">
           <Carousel

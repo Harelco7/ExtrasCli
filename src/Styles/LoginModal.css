@@ -13,7 +13,7 @@
   
   .title {
     text-align: center;
-    font-family: "Manrope", sans-serif;
+    font-family: 'Varela Round', sans-serif;
     margin: 10px 0 30px 0;
     font-size: 28px;
     font-weight: 800;
@@ -45,7 +45,7 @@
   
   .page-link-label {
     cursor: pointer;
-    font-family: "Manrope", sans-serif;
+    font-family: 'Varela Round', sans-serif;
     font-size: 9px;
     font-weight: 700;
   }
@@ -56,7 +56,7 @@
   
   .form-btn {
     padding: 10px 15px;
-    font-family: "Manrope", sans-serif;
+    font-family: 'Varela Round', sans-serif;
     font-weight: 500;
     border-radius: 20px;
     border: 0 !important;
@@ -75,7 +75,7 @@
     margin: 0;
     font-size: 10px;
     color: #747474;
-    font-family: "Manrope", sans-serif;
+    font-family: 'Varela Round', sans-serif;
   }
   
   .sign-up-link {
@@ -86,8 +86,7 @@
     color: #113946;
     cursor: pointer;
     font-weight: 800;
-    font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
-          "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+    font-family: 'Varela Round', sans-serif;
   }
   
   .buttons-container {

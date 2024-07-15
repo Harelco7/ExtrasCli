@@ -12,10 +12,12 @@
 
   .text-about {
     text-align: center;
+    font-family: 'Varela Round', sans-serif;
   }
 
   h1 {
     text-align: center;
+    font-family: 'Varela Round', sans-serif;
   }
 
   .photo-about img {
@@ -29,6 +31,7 @@
 
   .text-about {
     font-size: large;
+    font-family: 'Varela Round', sans-serif;
   }
 
   .icons-about {
@@ -37,6 +40,7 @@
   align-items: center;
   gap: 50px; 
   padding: 20px;
+  font-family: 'Varela Round', sans-serif;
   }
 
   .icon-item {
@@ -44,14 +48,19 @@
     max-width: 300px;
   }
 
-
-
   @media (max-width: 767px) {
     .icons-about{
       flex-direction: column;
+      font-family: 'Varela Round', sans-serif;
     }
     .title{
-      color: #d67d00;
+      color: black;
       font-size:60px;
+      font-family: 'Varela Round', sans-serif;
     }
+  }
+
+  .title{
+    font-size:60px;
+    font-family: 'Varela Round', sans-serif;
   }

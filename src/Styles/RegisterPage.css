@@ -6,7 +6,6 @@
     align-items: flex-start; 
     height:100%; 
     margin-bottom: 50px;
-    
 }
 
 .inputs-container {
@@ -45,7 +44,7 @@
 
 .button-submit {
     padding: 10px 15px;
-    font-family: "Manrope", sans-serif;
+    font-family: 'Varela Round', sans-serif;
     border-radius: 20px;
     border: 0 !important;
     outline: 0 !important;
@@ -119,7 +118,7 @@
     top: 7px;
     right: 10px;
     color: #222;
-    font-family: "Manrope", sans-serif;
+    font-family: 'Varela Round', sans-serif;
 }
 
 .btn-color-mode-switch > label.btn-color-mode-switch-inner:after {
@@ -140,7 +139,7 @@
     padding: 5px 0px;
     color: #222;
     font-weight: 500;
-    font-family: "Manrope", sans-serif;
+    font-family: 'Varela Round', sans-serif;
 }
 
 .btn-color-mode-switch input[type="checkbox"] {

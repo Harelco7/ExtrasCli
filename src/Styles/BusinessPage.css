@@ -37,7 +37,7 @@
   font-weight: 600;
   animation: slide-in-bounce 1s forwards; 
   opacity: 0; 
-  font-family: "Manrope", sans-serif;
+  font-family: 'Varela Round', sans-serif;
 }
 
 .img-container p {
@@ -47,10 +47,9 @@
   text-align: center;
   transform: translateY(-50%);
   margin-top: 40px;
-  
   font-size: 30px;
   font-weight: 200;
-  font-family: "Manrope", sans-serif;
+  font-family: 'Varela Round', sans-serif;
 }
 
 .Business-logo {
@@ -80,8 +79,6 @@
 }
 
 
-
-
 .box-container {
   display: flex;
   justify-content: start;
@@ -109,7 +106,7 @@
 }
 
 .box-headline h1 { 
-  font-family: "Manrope", sans-serif;
+  font-family: 'Varela Round', sans-serif;
   font-weight: 400;
   font-size: 50px;
 }

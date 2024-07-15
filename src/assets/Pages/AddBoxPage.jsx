@@ -119,7 +119,6 @@ const AddBox = () => {
   return (
     <>
       <form className="formBox" onSubmit={handleSubmit}>
-        <h1>שלום , הוספת מארז חדש</h1>
         <div>
           <label>שם המארז:</label>
           <input

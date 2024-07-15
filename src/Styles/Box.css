@@ -2,12 +2,9 @@
   display: flex;
   flex-direction: row;
   align-items: center;
- 
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 8px;
-
-  
 }
 
 .product-card:last-child {
@@ -39,18 +36,22 @@
   font-size: 18px;
   font-weight: bold;
   margin-bottom: 8px;
+  font-family: 'Varela Round', sans-serif;
 }
 
 .product-description {
   color: #666;
   margin-bottom: 16px;
   flex-grow: 1;
+  font-family: 'Varela Round', sans-serif;
+
 }
 
 .product-price {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  font-family: 'Varela Round', sans-serif;
 }
 
 .product-price span {
@@ -61,6 +62,7 @@
 .quantity-available {
   margin-right: 16px;
   font-weight: bold;
+  
 }
 
 .add-to-cart {
