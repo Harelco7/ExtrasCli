@@ -1,46 +1,58 @@
+/* General styles */
 .app {
-    padding: 20px;
-  }
-  
+  padding: 20px;
+}
+
+.business-list, .favorites-list {
+  display: grid; 
+  justify-content: center;
+  align-content: center; 
+  gap: 10px; 
+  overflow: hidden;   
+  transition: ease all 0.5s; 
+}
+
+.business-card, .favorite-card {
+ 
+  padding: 10px;
+  border-radius: 5px;
+  text-align: center;
+  margin: auto; 
+}
+
+.business-card img, .favorite-card img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+button {
+  padding: 5px 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+
+@media (max-width: 834px) {
   .business-list, .favorites-list {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    overflow: hidden;   
-    transition: ease all 0.5s; 
+      grid-template-columns: 1fr;
   }
-  
-  .business-card, .favorite-card {
-    border: 1px solid #ccc;
-    padding: 10px;
-    border-radius: 5px;
-    text-align: center;
-  }
-  
-  .business-card img {
-    width: 100px;
-    height: 100px;
-    object-fit: cover;
-    border-radius: 5px;
-  }
-  
-  button {
-    /* margin-top: 10px; */
-    padding: 5px 10px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
+}
 
-
-
-  @media (max-width: 834px) {
-    .business-list, .favorites-list {
-      display: grid;
-      grid-template-columns: 1fr;  /* One column that takes full width */
-    }
+@media (min-width: 835px) and (max-width: 1200px) {
+  .business-list, .favorites-list {
+      grid-template-columns: repeat(2, 1fr); 
+      gap: 15px; 
   }
-  
-  
+}
+
+@media (min-width: 1201px) {
+  .business-list, .favorites-list {
+      grid-template-columns: repeat(4, 1fr); 
+      gap: 20px;
+  }
+}
