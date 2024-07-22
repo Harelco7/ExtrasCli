@@ -63,18 +63,22 @@ const App = () => {
       </Box>
       {tabValue === 0 && (
         <div className="app">
-          <h3 style={{textAlign:"center"}}>המועדפים שלי</h3>
+          <h3 style={{ textAlign: "center" }}>המועדפים שלי</h3>
           <Fade in={true} timeout={500}>
             <Grow in={true} timeout={500}>
               <div className="business-list">
                 {businessFavorite.map((business) => (
-                  <FCBusinessCard
-                    userData={userData}
-                    key={business.businessId}
-                    Favorite={true}
-                    data={business}
-                    callBack={removeFavorite}
-                  />
+                  <div className="business-card">
+                    {" "}
+                    {/* Ensure this class is added */}
+                    <FCBusinessCard
+                      userData={userData}
+                      key={business.businessId}
+                      Favorite={true}
+                      data={business}
+                      callBack={removeFavorite}
+                    />
+                  </div>
                 ))}
               </div>
             </Grow>
@@ -82,27 +86,26 @@ const App = () => {
         </div>
       )}
       {tabValue === 1 && (
-  <Fade in={true} timeout={500}>
-    <Grow in={true} timeout={1000}>
-      <div>
-        <ClientProfileDetails
-          userData={userData}
-          setUserData={setUserData}
-        />
-      </div>
-    </Grow>
-  </Fade>
-)}
-{tabValue === 2 && (
-  <Fade in={true} timeout={500}>
-    <Grow in={true} timeout={1000}>
-      <div className="myOrders"> 
-        <MyOrdersClient userData={userData} />
-      </div>
-    </Grow>
-  </Fade>
-)}
-
+        <Fade in={true} timeout={500}>
+          <Grow in={true} timeout={1000}>
+            <div>
+              <ClientProfileDetails
+                userData={userData}
+                setUserData={setUserData}
+              />
+            </div>
+          </Grow>
+        </Fade>
+      )}
+      {tabValue === 2 && (
+        <Fade in={true} timeout={500}>
+          <Grow in={true} timeout={1000}>
+            <div className="myOrders">
+              <MyOrdersClient userData={userData} />
+            </div>
+          </Grow>
+        </Fade>
+      )}
     </Box>
   );
 };
