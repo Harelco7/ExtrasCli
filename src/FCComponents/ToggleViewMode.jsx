@@ -4,9 +4,11 @@ import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMapLocationDot,faBars } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
-import "..//Styles/ToggleViewMode.css"
+import "..//Styles/ToggleViewMode.css";
+import NotificationBox from './NotificationBox';
 
-export default function ToggleViewMode() {
+export default function ToggleViewMode(props) {
+    const{userData} = props;
     const [alignment, setAlignment] = useState('list');
     const navigate = useNavigate();
 
@@ -22,7 +24,8 @@ export default function ToggleViewMode() {
       }
     };
   
-    return (
+    return (<>
+    <NotificationBox userId= {userData.customerID} />
       <ToggleButtonGroup
         color="primary"
         value={alignment}
@@ -47,5 +50,6 @@ export default function ToggleViewMode() {
           />
         </ToggleButton>
       </ToggleButtonGroup>
+      </>
     );
   };

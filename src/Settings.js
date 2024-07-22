@@ -13,7 +13,7 @@ const getFavorites = (customerId, BusinessDetails = "no") => {
             headers: myHeaders,
         };
 
-        fetch(`https://proj.ruppin.ac.il/bgroup33/test2/tar1/api/User/getFavorite/${customerId}/${BusinessDetails}`, requestOptions)
+        fetch(`${islocal? localurl:produrl}User/getFavorite/${customerId}/${BusinessDetails}`, requestOptions)
             .then((response) => response.json())
             .then((result) => {
                 console.log(result)
@@ -25,4 +25,24 @@ const getFavorites = (customerId, BusinessDetails = "no") => {
             });
     })
 }
-export { produrl, localurl, islocal, getFavorites }
+
+const boxSuggest = (customerId) => {
+    return new Promise((resolve, reject) => {
+    const requestOptions = {
+        method: "GET",
+      };
+      
+      fetch(`${islocal? "localhost:5048/api/":"https://proj.ruppin.ac.il/bgroup33/test2/tar1/api/"}Orders/ShowOrders/${customerId}`, requestOptions)
+        .then((response) => response.json())
+        .then((result) => {
+            console.log("*",result)
+            resolve(result)
+        })
+        .catch((error) => {
+            console.log(error)
+            reject(false)
+        });
+    })
+}
+
+export { produrl, localurl, islocal, getFavorites , boxSuggest}

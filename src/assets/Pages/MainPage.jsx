@@ -7,8 +7,7 @@ import ToggleViewMode from "../../FCComponents/ToggleViewMode";
 import { useBusinessData } from "..//Context/BusinessDataContext.jsx";
 import Skeleton from "@mui/material/Skeleton";
 import { getFavorites } from "..//..//Settings.js";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBell } from '@fortawesome/free-solid-svg-icons';
+import NotificationBox from "../../FCComponents/NotificationBox.jsx";
 
 
 export default function MainPage() {
@@ -32,11 +31,11 @@ export default function MainPage() {
      alert("not found")
      return;
    }
-   const favoriteData = await getFavorites(userData.customerID)
+   if (userData.customerID) {const favoriteData = await getFavorites(userData.customerID)
     if (favoriteData && favoriteData.length > 0) {
       let temp = favoriteData.map(x => x.businessId)
       setbusinessFavorite(temp)}
-    }
+    }}
     fetchData();
   },[])
 
@@ -154,8 +153,7 @@ export default function MainPage() {
     return (
       <>
         <div className="view-options-container">
-        <FontAwesomeIcon icon={faBell} size="2x" color="orange" style= {{ marginRight: "10px"}}/>
-          <ToggleViewMode />
+          <ToggleViewMode userData={userData}/>
         </div>
         <div className="headlines">
           <h1 style={{ direction: "rtl" }}>מאפיות :</h1>
