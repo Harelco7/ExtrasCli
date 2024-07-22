@@ -7,6 +7,8 @@ import ToggleViewMode from "../../FCComponents/ToggleViewMode";
 import { useBusinessData } from "..//Context/BusinessDataContext.jsx";
 import Skeleton from "@mui/material/Skeleton";
 import { getFavorites } from "..//..//Settings.js";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBell } from '@fortawesome/free-solid-svg-icons';
 
 
 export default function MainPage() {
@@ -152,6 +154,7 @@ export default function MainPage() {
     return (
       <>
         <div className="view-options-container">
+        <FontAwesomeIcon icon={faBell} size="2x" color="orange" style= {{ marginRight: "10px"}}/>
           <ToggleViewMode />
         </div>
         <div className="headlines">
