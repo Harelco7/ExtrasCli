@@ -227,7 +227,7 @@ export default function FCBusinessForm() {
                         <MenuItem value="Coffee House">בית קפה</MenuItem>
                         <MenuItem value="Restaurant">מסעדה</MenuItem>
                         <MenuItem value="Bakery">מאפייה</MenuItem>
-                        <MenuItem value="Flowers">פרחים</MenuItem>
+                        <MenuItem value="Flowers">חנות פרחים</MenuItem>
                       </Select>
                       {errors.BusinessType && (
                         <div className="error-text">{errors.BusinessType}</div>
