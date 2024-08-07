@@ -30,7 +30,7 @@ const App = () => {
           setBusinessFavorite(favoriteData);
         }
       } else {
-        alert("not found");
+        console.log("not found");
         return;
       }
     }

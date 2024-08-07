@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -6,6 +6,8 @@ import { faMapLocationDot,faBars } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 import "..//Styles/ToggleViewMode.css";
 import NotificationBox from './NotificationBox';
+import { produrl } from '../Settings';
+
 
 export default function ToggleViewMode(props) {
     const{userData} = props;
@@ -24,8 +26,10 @@ export default function ToggleViewMode(props) {
       }
     };
   
+    
+
     return (<>
-    <NotificationBox userId= {userData.customerID} />
+    <NotificationBox userId= {userData?userData.customerID:null} />
       <ToggleButtonGroup
         color="primary"
         value={alignment}

@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import Skeleton from '@mui/material/Skeleton';
 import { MdOutlineAddShoppingCart } from "react-icons/md";
 
-export default function FCBoxCard({ box ,businessID }) {
+export default function FCBoxCard({ box ,businessID , boxId}) {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
 
@@ -40,19 +40,19 @@ export default function FCBoxCard({ box ,businessID }) {
     <div className="product-card">
       <div className="product-image-placeholder">
       {/* <img src="/src/Images/breads.jpeg" alt="Bakery Image" className="product-image"/> */}
-      <img src={`https://proj.ruppin.ac.il/bgroup33/test2/images/BusinessImage/${businessID}.JPG`} alt="Bakery Image" className="product-image"/>
+      <img src={`https://proj.ruppin.ac.il/bgroup33/test2/images/BoxImage/${boxId}.JPG`} alt="Bakery Image" className="product-image"/>
       </div>
       <div className="product-details">
         <h2 className="product-title">{box.boxName}</h2>
         {box.alergicType && box.alergicType !== "none" && (
-  <p>מכיל: {box.alergicType}</p>
-)}        <p className="product-description">{box.description}</p>
-        <p className="product-description">{businessID}</p>
+          <p>מכיל: {box.alergicType}</p>)}        
+          <p className="product-description">{box.description}</p>
         <div className="product-price">
-          <span>{box.price + "₪"}</span>
           <div className="quantity-available">
-            <span>כמות זמינה: {box.quantityAvailable}</span>
+            <p>כמות זמינה: {box.quantityAvailable}</p>
           </div>
+          <span>{box.price + "₪"}</span> 
+          <p className="sale-price">{box.salePrice + "₪"}</p> 
           <button className="add-to-cart" onClick={handleOrderHere}>
             <MdOutlineAddShoppingCart size={25} />
           </button>

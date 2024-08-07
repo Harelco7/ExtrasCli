@@ -1,15 +1,17 @@
 .product-card {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 8px;
+  
 }
 
 .product-card:last-child {
   margin-right: 0;
 }
+
 .product-image {
   width: 100%;
   height: 100%;
@@ -52,17 +54,22 @@
   align-items: center;
   justify-content: space-between;
   font-family: 'Varela Round', sans-serif;
+  flex-direction: column;
 }
 
 .product-price span {
+  font-size: 20px;
+  color: #666;
+  text-decoration: line-through;
+}
+
+.sale-price{
   font-size: 20px;
   font-weight: bold;
 }
 
 .quantity-available {
-  margin-right: 16px;
   font-weight: bold;
-  
 }
 
 .add-to-cart {
@@ -72,8 +79,7 @@
   border-radius: 4px;
   padding: 8px 16px;
   cursor: pointer;
-  align-self: flex-start;
-  margin-top: auto;
+  align-self: flex-end;
 }
 
 .cart-icon {
@@ -83,8 +89,9 @@
   background-image: url('path/to/cart-icon.svg');
   background-size: contain;
   background-repeat: no-repeat;
-  margin-right: 4px;
+  margin-right: 8px;
 }
+
 
 /* Media queries for responsive design */
 @media (max-width: 835px) {

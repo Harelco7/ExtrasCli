@@ -7,9 +7,11 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBell } from '@fortawesome/free-solid-svg-icons';
+import { produrl } from "../Settings";
+import axios from "axios";
 
 export default function NotificationBox(props) {
-    const {userId} = props
+    const { userId } = props
     const [open, setOpen] = React.useState(false);
     const [boxDetails, setboxDetails] = useState(false);
     const handleClickOpen = () => {
@@ -22,37 +24,39 @@ export default function NotificationBox(props) {
 
     useEffect(() => {
         async function fetch() {
-            // const res = await boxSuggest(userId)
-            // if (res) {
-            //     // setboxSuggest()
-            // }
+            console.log("***")
+            let config = {
+                method: 'get',
+                maxBodyLength: Infinity,
+                url: `https://proj.ruppin.ac.il/bgroup33/test2/tar1/api/Orders/ShowOrders/${userId}`,
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            };
 
-            setboxDetails( {
-                "box_id": 300,
-                "business_id": 200,
-                "order_id": null,
-                "box_name": "דונאטס",
-                "box_description": "5 דונאטס שוקולד",
-                "price": 30.00,
-                "quantity_available": 7,
-                "date_added": "2024-05-30T00:00:00",
-                "box_image": null,
-                "alergic_type": "גלוטן",
-                "sale_price": null,
-                "keyword_id": 700,
-                "box_id1": 300
-            })
+            axios.request(config)
+                .then((response) => {
+                   if(response && response.data && response.data!=0){
+                     setboxDetails(response.data)}
+                    console.log(userId)
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+
         }
-        userId && fetch()
+        userId && !boxDetails && fetch()
     }, [userId])
 
 
-  return (
+    return (
         <React.Fragment>
-            {boxDetails && <Button style={{transform: "translateX(-40vw)"}} onClick={handleClickOpen}>
-            <FontAwesomeIcon icon={faBell} size="2x" color="orange"/>
-            <span style={{position: "absolute", top:0, right:0, padding: "4px", background:"red", color: "white", borderRadius:"50%"}}>1</span>
-            </Button>}
+            { boxDetails && boxDetails.length>0 ? <Button style={{ transform: "translateX(-40vw)" }} onClick={handleClickOpen}>
+                <FontAwesomeIcon icon={faBell} size="2x" color="orange" />
+                <span style={{ position: "absolute", top: 0, right: 0, padding: "4px", background: "red", color: "white", borderRadius: "50%" }}>{boxDetails.length}</span>
+            </Button> :
+                <div style={{ transform: "translateX(-40vw)" }} ><FontAwesomeIcon icon={faBell} size="2x" color="orange" /></div>
+            }
             <Dialog
                 open={open}
                 onClose={handleClose}
@@ -61,8 +65,10 @@ export default function NotificationBox(props) {
             >
                 <DialogTitle id="alert-dialog-title">
                     מצאנו עבורך מארז שאולי תאהב!
-                </DialogTitle>
-                <DialogContent> <p>{boxDetails["box_name"]}</p> <p>{boxDetails["box_description"]}</p> <p>{boxDetails["price"]}</p>
+                </DialogTitle> 
+                <DialogContent> { boxDetails && boxDetails.length>0 && boxDetails.map((x,i) => 
+                    <div key={`boxDetails${i}`}><p>{x["box_name"]}</p> <p>{x["box_description"]}</p> <p>{x["price"]}</p></div>
+)}
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose}>סגירה</Button>

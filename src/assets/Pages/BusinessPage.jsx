@@ -36,6 +36,7 @@ export default function BusinessPage({ onBusinessIDChange }) {
   const location = useLocation();
   const [businessDetails, setBusinessDetails] = useState({});
   const [boxes, setBoxes] = useState([]);
+  console.log (boxes);
   const [filters, setFilters] = useState(
     commonAllergies.reduce((filterObject, allergy) => {
       filterObject[allergy] = false;
@@ -215,13 +216,7 @@ export default function BusinessPage({ onBusinessIDChange }) {
       </div>
       {/* Business description */}
       <div className="business-desc">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit, qui.
-        Reiciendis dolores explicabo, at cumque nisi, nobis dolore aperiam
-        impedit veniam, aliquam voluptatum ad. Fugit quas sapiente eaque
-        distinctio id? Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-        Magni consequatur autem exercitationem possimus impedit quis sequi a,
-        libero perspiciatis id velit eius culpa quia nostrum optio voluptas aut
-        laudantium? Nulla!
+        {businessDetails.businessDescription}
       </div>
       {/* Allergy filters */}
       <div className="allergics-container">
@@ -265,7 +260,7 @@ export default function BusinessPage({ onBusinessIDChange }) {
               <div className="grid-container">
                 {boxes.map((box, index) => (
                   <div key={index} className="grid-item">
-                    <FCBoxCard box={box} businessID={businessId} />
+                    <FCBoxCard box={box} businessID={businessId} boxId={box.boxId}/>
                   </div>
                 ))}
               </div>

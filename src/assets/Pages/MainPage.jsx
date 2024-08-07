@@ -7,7 +7,7 @@ import ToggleViewMode from "../../FCComponents/ToggleViewMode";
 import { useBusinessData } from "..//Context/BusinessDataContext.jsx";
 import Skeleton from "@mui/material/Skeleton";
 import { getFavorites } from "..//..//Settings.js";
-import NotificationBox from "../../FCComponents/NotificationBox.jsx";
+
 
 
 export default function MainPage() {
@@ -28,7 +28,7 @@ export default function MainPage() {
      setuserData(userData)
     }  
    else {
-     alert("not found")
+     console.log("not found")
      return;
    }
    if (userData.customerID) {const favoriteData = await getFavorites(userData.customerID)

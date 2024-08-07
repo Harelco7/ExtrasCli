@@ -151,6 +151,7 @@ export default function OrderPage() {
     setSnackbarOrderOpen(false);
   };
 
+  console.log(box)
   return (
     <div className="container-wrapper">
       {/* <h2 style={{ display: "flex", justifyContent: "center", width: "100%", marginBottom: 30, marginTop: 30 }}>הזמנת קופסא</h2> */}
@@ -169,7 +170,7 @@ export default function OrderPage() {
             )}
             <p>{box.description}</p>
             <p>
-              מחיר: {box.price}
+              מחיר: {box.salePrice}
               {"₪"}
             </p>
             <p>
