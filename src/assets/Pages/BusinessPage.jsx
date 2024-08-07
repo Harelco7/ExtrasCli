@@ -16,6 +16,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { WhatsappShareButton } from "react-share";
 import { SiWhatsapp } from "react-icons/si";
+import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 
 // Icon mapping for common allergies
 const allergyIcons = {
@@ -29,6 +30,26 @@ const allergyIcons = {
 
 // List of common allergies
 const commonAllergies = ["אגוזים", "גלוטן", "חלבי", "בשרי", "צמחוני", "טבעוני"];
+
+const createGoogleCalendarEvent = (salesHour, reminderMinutes) => {
+  const [startHour, startMinute] = salesHour.split("-")[0].split(":").map(Number);
+  const eventStartTime = new Date();
+  eventStartTime.setHours(startHour, startMinute - reminderMinutes, 0);
+
+  const eventEndTime = new Date(eventStartTime.getTime() + 10 * 60 * 1000);
+
+  const startTimeISO = eventStartTime.toISOString().replace(/-|:|\.\d\d\d/g, "");
+  const endTimeISO = eventEndTime.toISOString().replace(/-|:|\.\d\d\d/g, "");
+
+  const calendarUrl = `https://www.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(
+    "ניתן לרכוש מארזים מבית העסק בעוד 10 דקות"
+  )}&dates=${startTimeISO}/${endTimeISO}&details=${encodeURIComponent(
+    "Reminder to purchase boxes from the business"
+  )}&sf=true&output=xml`;
+
+  return calendarUrl;
+};
+
 
 // Main React component for the Business Page
 export default function BusinessPage({ onBusinessIDChange }) {
@@ -252,6 +273,17 @@ export default function BusinessPage({ onBusinessIDChange }) {
           ))}
         </div>
       </div>
+      <Button
+  variant="contained"
+  color="primary"
+  onClick={() => window.open(createGoogleCalendarEvent(businessDetails.dailySalesHour), "_blank")}
+  style={{ backgroundColor: "#d67d00", marginTop: 10 }}
+  
+>
+  הוסף תזכורת ל- Google Calendar
+  {<CalendarTodayIcon />}
+</Button>
+
       {/* Box display or countdown */}
       <div>
         {showBoxes ? (
