@@ -188,6 +188,27 @@ export default function BusinessPage({ onBusinessIDChange }) {
     return () => clearInterval(timer);
   };
 
+   // Filter boxes based on selected allergens
+   const filteredBoxes = boxes.filter((box) => {
+    for (let allergy in filters) {
+      // Check if the filter is enabled
+      if (filters[allergy]) {
+        if (["אגוזים", "גלוטן", "חלבי", "בשרי"].includes(allergy)) {
+          // Exclude box if it contains any of these allergens
+          if (box.alergicType && box.alergicType.includes(allergy)) {
+            return false; // Exclude this box
+          }
+        } else if (["צמחוני", "טבעוני"].includes(allergy)) {
+          // Include box if it contains "צמחוני" or "טבעוני"
+          if (box.alergicType && !box.alergicType.includes(allergy)) {
+            return false; // Exclude if it doesn't contain "צמחוני" or "טבעוני"
+          }
+        }
+      }
+    }
+    return true; // Include this box in the filtered list
+  });
+
   // Conditional rendering of the business page
   return (
     <div className="business-page-container">
@@ -275,33 +296,38 @@ export default function BusinessPage({ onBusinessIDChange }) {
     </div>
   </div>
 )}
-      <Button
-  variant="contained"
-  color="primary"
-  onClick={() => window.open(createGoogleCalendarEvent(businessDetails.dailySalesHour), "_blank")}
-  style={{ backgroundColor: "#d67d00", marginTop: 10 }}
-  
->
-  הוסף תזכורת ל- Google Calendar
-  {<CalendarTodayIcon />}
-</Button>
-
+     {!showBoxes && (
+  <Button
+    variant="contained"
+    color="primary"
+    onClick={() =>
+      window.open(
+        createGoogleCalendarEvent(businessDetails.dailySalesHour),
+        "_blank"
+      )
+    }
+    style={{ backgroundColor: "#d67d00", marginTop: 10 }}
+  >
+הוסף תזכורת ליומן
+    {<CalendarTodayIcon />}
+  </Button>
+)}
       {/* Box display or countdown */}
       <div>
         {showBoxes ? (
           <div className="box-container">
-            {boxes.length > 0 ? (
-              <div className="grid-container">
-                {boxes.map((box, index) => (
-                  <div key={index} className="grid-item">
-                    <FCBoxCard box={box} businessID={businessId} boxId={box.boxId}/>
-                  </div>
-                ))}
-              </div>
-            ) : (
+          {filteredBoxes.length > 0 ? (
+            <div className="grid-container">
+              {filteredBoxes.map((box, index) => (
+                <div key={index} className="grid-item">
+                  <FCBoxCard box={box} businessID={businessId} boxId={box.boxId}/>
+                </div>
+              ))}
+            </div>
+          ) : (
               <div className="OOS-container">
                 <p style={{ fontSize: 70, color: "red" }}>
-                  <TbShoppingBagX /> אין מארזים במלאי
+                   אין מארזים תואמים לחיפוש <TbShoppingBagX />
                 </p>
               </div>
             )}
