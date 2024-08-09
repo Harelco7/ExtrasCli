@@ -32,9 +32,19 @@ const allergyIcons = {
 const commonAllergies = ["אגוזים", "גלוטן", "חלבי", "בשרי", "צמחוני", "טבעוני"];
 
 const createGoogleCalendarEvent = (salesHour, reminderMinutes) => {
+  if (!salesHour || !salesHour.includes("-")) {
+    console.error("Invalid sales hour format:", salesHour);
+    return;
+  }
+
   const [startHour, startMinute] = salesHour.split("-")[0].split(":").map(Number);
   const eventStartTime = new Date();
   eventStartTime.setHours(startHour, startMinute - reminderMinutes, 0);
+
+  if (isNaN(eventStartTime.getTime())) {
+    console.error("Invalid time value:", eventStartTime);
+    return;
+  }
 
   const eventEndTime = new Date(eventStartTime.getTime() + 10 * 60 * 1000);
 
@@ -47,8 +57,10 @@ const createGoogleCalendarEvent = (salesHour, reminderMinutes) => {
     "Reminder to purchase boxes from the business"
   )}&sf=true&output=xml`;
 
+  console.log(calendarUrl); // Check the URL in the console
   return calendarUrl;
 };
+
 
 
 // Main React component for the Business Page

@@ -28,7 +28,7 @@ const FCQRCode = ({
           <QRCode value={qrCodeValue} />
           <p style={{ marginTop: 10, fontSize: 16 }}>
             <br />
-            נא לצלם מסך זה ולהראות לבית העסק
+            נא להראות את הקוד לבית העסק
             <CameraAltIcon style={{ marginLeft: 5, verticalAlign: "middle" }} />
             <br />
           </p>

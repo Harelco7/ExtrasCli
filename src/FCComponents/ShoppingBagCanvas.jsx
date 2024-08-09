@@ -171,6 +171,7 @@ const ShoppingBagCanvas = ({ show, handleClose, businessID }) => {
         show={show}
         onHide={handleClose}
         placement="end"
+        scroll={true} // מאפשר גלילה בתוך ה-Offcanvas
         style={{ zIndex: 1102, borderRadius: 20 }}
       >
         <Offcanvas.Header closeButton>
