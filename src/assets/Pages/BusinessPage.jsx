@@ -240,39 +240,41 @@ export default function BusinessPage({ onBusinessIDChange }) {
         {businessDetails.businessDescription}
       </div>
       {/* Allergy filters */}
-      <div className="allergics-container">
-        <div className="allergic-title">
-          <h3>סנן על פי אלרגיות:</h3>
-        </div>
-        <div className="allergic-buttons">
-          {commonAllergies.map((allergy) => (
-            <Button
-              key={allergy}
-              title={allergy}
-              onClick={() =>
-                setFilters({
-                  ...filters,
-                  [allergy]: !filters[allergy],
-                })
-              }
-              style={{
-                margin: "5px",
-                backgroundColor: filters[allergy] ? "#4caf50" : "white",
-                color: filters[allergy] ? "white" : "black",
-                border: "1px solid black",
-                borderRadius: "50%",
-                width: "60px",
-                height: "60px",
-                fontSize: "16px",
-                textTransform: "none",
-                zIndex: 100,
-              }}
-            >
-              <FontAwesomeIcon size={"2x"} icon={allergyIcons[allergy]} />
-            </Button>
-          ))}
-        </div>
-      </div>
+      {businessDetails.businessType !== "Flowers" && (
+  <div className="allergics-container">
+    <div className="allergic-title">
+      <h3>סנן על פי אלרגיות:</h3>
+    </div>
+    <div className="allergic-buttons">
+      {commonAllergies.map((allergy) => (
+        <Button
+          key={allergy}
+          title={allergy}
+          onClick={() =>
+            setFilters({
+              ...filters,
+              [allergy]: !filters[allergy],
+            })
+          }
+          style={{
+            margin: "5px",
+            backgroundColor: filters[allergy] ? "#4caf50" : "white",
+            color: filters[allergy] ? "white" : "black",
+            border: "1px solid black",
+            borderRadius: "50%",
+            width: "60px",
+            height: "60px",
+            fontSize: "16px",
+            textTransform: "none",
+            zIndex: 100,
+          }}
+        >
+          <FontAwesomeIcon size={"2x"} icon={allergyIcons[allergy]} />
+        </Button>
+      ))}
+    </div>
+  </div>
+)}
       <Button
   variant="contained"
   color="primary"
