@@ -161,18 +161,25 @@ useEffect(() => {
   const handleCheckoutCombined = () => {
     handleCheckout();
     handleCheckoutQR();
-    setAllowScroll(true);
+    // setAllowScroll(true);
     setTimeout(() => {
+      setDialogOpen(true); // Open the Dialog before closing Offcanvas
       handleClose(); // Close the Offcanvas after 3 seconds
-      setDialogOpen(true); // Open the Dialog
       clearBag();
       setShowFloatingButton(true);
       localStorage.setItem('floatingButtonVisible', 'true'); // שמירת המצב ב-localStorage
     }, 0);
   };
+  
+  
 
   const handleDialogClose = () => {
     setDialogOpen(false);
+  };
+
+  const handleCollectOrder = () => {
+    setShowFloatingButton(false); // מסתיר את הכפתור הצף
+    setDialogOpen(false); // סוגר את הדיאלוג של ה-QRCode
   };
 
   return (
@@ -256,6 +263,7 @@ useEffect(() => {
         boxName={boxName}
         businessName={business.businessName || "שם העסק לא זמין"}
         businessAdress={business.businessAdress || "כתובת העסק לא זמינה"}
+        onCollect={handleCollectOrder}
       />
 
       {showFloatingButton && (
