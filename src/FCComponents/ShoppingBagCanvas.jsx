@@ -57,6 +57,14 @@ const ShoppingBagCanvas = ({ show, handleClose, businessID }) => {
     }
   }, [show, businessID]); // Runs only when the shopping bag is shown or businessID changes
 
+// הוספת useEffect לטעינת מצב הכפתור הצף מ-localStorage
+useEffect(() => {
+  const isFloatingButtonVisible = localStorage.getItem('floatingButtonVisible') === 'true';
+  if (isFloatingButtonVisible) {
+    setShowFloatingButton(true); // אם המצב שמור, הכפתור הצף יופיע
+  }
+}, []); // פועל רק בטעינה ראשונה של העמוד
+  
   const GetBusinessData = (businessID) => {
     // Ensure businessID is a number if businessData contains numeric businessID
     const numericBusinessID = Number(businessID);
@@ -153,11 +161,13 @@ const ShoppingBagCanvas = ({ show, handleClose, businessID }) => {
   const handleCheckoutCombined = () => {
     handleCheckout();
     handleCheckoutQR();
+    setAllowScroll(true);
     setTimeout(() => {
       handleClose(); // Close the Offcanvas after 3 seconds
       setDialogOpen(true); // Open the Dialog
       clearBag();
       setShowFloatingButton(true);
+      localStorage.setItem('floatingButtonVisible', 'true'); // שמירת המצב ב-localStorage
     }, 0);
   };
 
@@ -171,7 +181,7 @@ const ShoppingBagCanvas = ({ show, handleClose, businessID }) => {
         show={show}
         onHide={handleClose}
         placement="end"
-        scroll={true} // מאפשר גלילה בתוך ה-Offcanvas
+         scroll={true} // מאפשר גלילה בתוך ה-Offcanvas
         style={{ zIndex: 1102, borderRadius: 20 }}
       >
         <Offcanvas.Header closeButton>
