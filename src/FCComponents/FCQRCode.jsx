@@ -22,6 +22,7 @@ const FCQRCode = ({
 
   const handleCollect = () => {
     setSnackbarOpen(true); // פותח את ה-Snackbar עם ההודעה
+    localStorage.removeItem('orderPlaced'); // מסיר את המידע על ההזמנה מ-localStorage
     onCollect(); // מפעיל את הפונקציה שסוגרת את הדיאלוג ומסתירה את הכפתור הצף
   };
 

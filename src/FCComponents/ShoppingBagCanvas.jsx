@@ -57,6 +57,7 @@ const ShoppingBagCanvas = ({ show, handleClose, businessID }) => {
     }
   }, [show, businessID]); // Runs only when the shopping bag is shown or businessID changes
 
+ 
 // הוספת useEffect לטעינת מצב הכפתור הצף מ-localStorage
 useEffect(() => {
   const isFloatingButtonVisible = localStorage.getItem('floatingButtonVisible') === 'true';
@@ -161,7 +162,6 @@ useEffect(() => {
   const handleCheckoutCombined = () => {
     handleCheckout();
     handleCheckoutQR();
-    // setAllowScroll(true);
     setTimeout(() => {
       setDialogOpen(true); // Open the Dialog before closing Offcanvas
       handleClose(); // Close the Offcanvas after 3 seconds
@@ -175,11 +175,13 @@ useEffect(() => {
 
   const handleDialogClose = () => {
     setDialogOpen(false);
+    localStorage.removeItem('floatingButtonVisible'); // מסיר את המצב מ-localStorage
   };
 
   const handleCollectOrder = () => {
     setShowFloatingButton(false); // מסתיר את הכפתור הצף
     setDialogOpen(false); // סוגר את הדיאלוג של ה-QRCode
+    localStorage.removeItem('floatingButtonVisible'); // מסיר את המצב מ-localStorage
   };
 
   return (
@@ -256,6 +258,7 @@ useEffect(() => {
           </Snackbar>
         </Offcanvas.Body>
       </Offcanvas>
+      
       <FCQRCode
         open={dialogOpen}
         onClose={handleDialogClose}
