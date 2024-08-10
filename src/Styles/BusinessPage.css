@@ -160,6 +160,13 @@
   margin-top: 70%;
 }
 
+.business-desc{
+  font-family: 'Varela Round', sans-serif;
+}
+
+.allergic-title{
+  font-family: 'Varela Round', sans-serif;
+}
 
 
 @keyframes slide-in-bounce {

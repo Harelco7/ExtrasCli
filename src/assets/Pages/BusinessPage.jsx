@@ -66,6 +66,7 @@ export default function BusinessPage({ onBusinessIDChange }) {
   );
   const [countdown, setCountdown] = useState(null);
   const [showBoxes, setShowBoxes] = useState(false);
+  
 
   // Effect hook to update the business ID via the parent component's callback
   useEffect(() => {
@@ -187,6 +188,10 @@ export default function BusinessPage({ onBusinessIDChange }) {
     const timer = setInterval(updateCountdown, 1000); // Ensure it runs every second
     return () => clearInterval(timer);
   };
+  
+  const businessDescription = businessDetails.businessDescription || '';
+  const sentences = businessDescription.split('.').filter(Boolean); 
+  
 
   // Conditional rendering of the business page
   return (
@@ -237,8 +242,12 @@ export default function BusinessPage({ onBusinessIDChange }) {
       </div>
       {/* Business description */}
       <div className="business-desc">
-        {businessDetails.businessDescription}
+        {sentences.map((sentence, index) => (
+      <div key={index}>
+        {sentence.trim()}.<br />
+      </div> ))}
       </div>
+      
       {/* Allergy filters */}
       <div className="allergics-container">
         <div className="allergic-title">
