@@ -39,7 +39,6 @@ export default function FCBoxCard({ box ,businessID , boxId}) {
   return (
     <div className="product-card">
       <div className="product-image-placeholder">
-      {/* <img src="/src/Images/breads.jpeg" alt="Bakery Image" className="product-image"/> */}
       <img src={`https://proj.ruppin.ac.il/bgroup33/test2/images/BoxImage/${boxId}.JPG`} alt="Bakery Image" className="product-image"/>
       </div>
       <div className="product-details">

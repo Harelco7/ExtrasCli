@@ -285,7 +285,7 @@ export default function BusinessPage({ onBusinessIDChange }) {
       {businessDetails.businessType !== "Flowers" && (
   <div className="allergics-container">
     <div className="allergic-title">
-      <h3>סנן על פי אלרגיות:</h3>
+      <h3>סנן מארזים על פי אלרגיות:</h3>
     </div>
     <div className="allergic-buttons">
       {commonAllergies.map((allergy) => (
@@ -317,22 +317,6 @@ export default function BusinessPage({ onBusinessIDChange }) {
     </div>
   </div>
 )}
-     {!showBoxes && (
-  <Button
-    variant="contained"
-    color="primary"
-    onClick={() =>
-      window.open(
-        createGoogleCalendarEvent(businessDetails.dailySalesHour),
-        "_blank"
-      )
-    }
-    style={{ backgroundColor: "#d67d00", marginTop: 10 }}
-  >
-הוסף תזכורת ליומן
-    {<CalendarTodayIcon />}
-  </Button>
-)}
       {/* Box display or countdown */}
       <div>
         {showBoxes ? (
@@ -355,12 +339,24 @@ export default function BusinessPage({ onBusinessIDChange }) {
           </div>
         ) : (
           <div className="countdown-container">
+            <h3>מארזים מוזלים יעלו בעוד</h3>
             <div className="countdown-display">
               <span>{countdown}</span>
             </div>
           </div>
         )}
       </div>
+      {!showBoxes && (
+  <Button variant="contained" color="primary" className= "btn-calendar" onClick={() =>
+      window.open(
+        createGoogleCalendarEvent(businessDetails.dailySalesHour),
+        "_blank"
+      )}
+    style={{ backgroundColor: "#d67d00", marginTop: 10 , marginBottom: 10 , fontFamily: "Varela Round"}} >
+    {<CalendarTodayIcon />}
+הוסף תזכורת ליומן 
+  </Button>
+)}
     </div>
   );
 }
