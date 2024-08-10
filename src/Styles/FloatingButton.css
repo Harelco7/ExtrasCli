@@ -14,13 +14,13 @@
   }
   
   .floating-button {
-    position: fixed;
+    position: sticky;
     bottom: 16px;
     left: 16px;
     right: 90%;
     height: 90px;
     width: 90px;
-    z-index: 1101;
+     z-index: 1101; 
     background-color: white;
     border: 2px solid #d67d00;
     color: #d67d00;

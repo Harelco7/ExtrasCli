@@ -32,9 +32,19 @@ const allergyIcons = {
 const commonAllergies = ["אגוזים", "גלוטן", "חלבי", "בשרי", "צמחוני", "טבעוני"];
 
 const createGoogleCalendarEvent = (salesHour, reminderMinutes) => {
+  if (!salesHour || !salesHour.includes("-")) {
+    console.error("Invalid sales hour format:", salesHour);
+    return;
+  }
+
   const [startHour, startMinute] = salesHour.split("-")[0].split(":").map(Number);
   const eventStartTime = new Date();
   eventStartTime.setHours(startHour, startMinute - reminderMinutes, 0);
+
+  if (isNaN(eventStartTime.getTime())) {
+    console.error("Invalid time value:", eventStartTime);
+    return;
+  }
 
   const eventEndTime = new Date(eventStartTime.getTime() + 10 * 60 * 1000);
 
@@ -47,8 +57,10 @@ const createGoogleCalendarEvent = (salesHour, reminderMinutes) => {
     "Reminder to purchase boxes from the business"
   )}&sf=true&output=xml`;
 
+  console.log(calendarUrl); // Check the URL in the console
   return calendarUrl;
 };
+
 
 
 // Main React component for the Business Page
@@ -193,6 +205,27 @@ export default function BusinessPage({ onBusinessIDChange }) {
   const sentences = businessDescription.split('.').filter(Boolean); 
   
 
+   // Filter boxes based on selected allergens
+   const filteredBoxes = boxes.filter((box) => {
+    for (let allergy in filters) {
+      // Check if the filter is enabled
+      if (filters[allergy]) {
+        if (["אגוזים", "גלוטן", "חלבי", "בשרי"].includes(allergy)) {
+          // Exclude box if it contains any of these allergens
+          if (box.alergicType && box.alergicType.includes(allergy)) {
+            return false; // Exclude this box
+          }
+        } else if (["צמחוני", "טבעוני"].includes(allergy)) {
+          // Include box if it contains "צמחוני" or "טבעוני"
+          if (box.alergicType && !box.alergicType.includes(allergy)) {
+            return false; // Exclude if it doesn't contain "צמחוני" or "טבעוני"
+          }
+        }
+      }
+    }
+    return true; // Include this box in the filtered list
+  });
+
   // Conditional rendering of the business page
   return (
     <div className="business-page-container">
@@ -249,66 +282,73 @@ export default function BusinessPage({ onBusinessIDChange }) {
       </div>
       
       {/* Allergy filters */}
-      <div className="allergics-container">
-        <div className="allergic-title">
-          <h3>סנן על פי אלרגיות:</h3>
-        </div>
-        <div className="allergic-buttons">
-          {commonAllergies.map((allergy) => (
-            <Button
-              key={allergy}
-              title={allergy}
-              onClick={() =>
-                setFilters({
-                  ...filters,
-                  [allergy]: !filters[allergy],
-                })
-              }
-              style={{
-                margin: "5px",
-                backgroundColor: filters[allergy] ? "#4caf50" : "white",
-                color: filters[allergy] ? "white" : "black",
-                border: "1px solid black",
-                borderRadius: "50%",
-                width: "60px",
-                height: "60px",
-                fontSize: "16px",
-                textTransform: "none",
-                zIndex: 100,
-              }}
-            >
-              <FontAwesomeIcon size={"2x"} icon={allergyIcons[allergy]} />
-            </Button>
-          ))}
-        </div>
-      </div>
-      <Button
-  variant="contained"
-  color="primary"
-  onClick={() => window.open(createGoogleCalendarEvent(businessDetails.dailySalesHour), "_blank")}
-  style={{ backgroundColor: "#d67d00", marginTop: 10 }}
-  
->
-  הוסף תזכורת ל- Google Calendar
-  {<CalendarTodayIcon />}
-</Button>
-
+      {businessDetails.businessType !== "Flowers" && (
+  <div className="allergics-container">
+    <div className="allergic-title">
+      <h3>סנן על פי אלרגיות:</h3>
+    </div>
+    <div className="allergic-buttons">
+      {commonAllergies.map((allergy) => (
+        <Button
+          key={allergy}
+          title={allergy}
+          onClick={() =>
+            setFilters({
+              ...filters,
+              [allergy]: !filters[allergy],
+            })
+          }
+          style={{
+            margin: "5px",
+            backgroundColor: filters[allergy] ? "#4caf50" : "white",
+            color: filters[allergy] ? "white" : "black",
+            border: "1px solid black",
+            borderRadius: "50%",
+            width: "60px",
+            height: "60px",
+            fontSize: "16px",
+            textTransform: "none",
+            zIndex: 100,
+          }}
+        >
+          <FontAwesomeIcon size={"2x"} icon={allergyIcons[allergy]} />
+        </Button>
+      ))}
+    </div>
+  </div>
+)}
+     {!showBoxes && (
+  <Button
+    variant="contained"
+    color="primary"
+    onClick={() =>
+      window.open(
+        createGoogleCalendarEvent(businessDetails.dailySalesHour),
+        "_blank"
+      )
+    }
+    style={{ backgroundColor: "#d67d00", marginTop: 10 }}
+  >
+הוסף תזכורת ליומן
+    {<CalendarTodayIcon />}
+  </Button>
+)}
       {/* Box display or countdown */}
       <div>
         {showBoxes ? (
           <div className="box-container">
-            {boxes.length > 0 ? (
-              <div className="grid-container">
-                {boxes.map((box, index) => (
-                  <div key={index} className="grid-item">
-                    <FCBoxCard box={box} businessID={businessId} boxId={box.boxId}/>
-                  </div>
-                ))}
-              </div>
-            ) : (
+          {filteredBoxes.length > 0 ? (
+            <div className="grid-container">
+              {filteredBoxes.map((box, index) => (
+                <div key={index} className="grid-item">
+                  <FCBoxCard box={box} businessID={businessId} boxId={box.boxId}/>
+                </div>
+              ))}
+            </div>
+          ) : (
               <div className="OOS-container">
                 <p style={{ fontSize: 70, color: "red" }}>
-                  <TbShoppingBagX /> אין מארזים במלאי
+                   אין מארזים תואמים לחיפוש <TbShoppingBagX />
                 </p>
               </div>
             )}

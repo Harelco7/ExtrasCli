@@ -57,6 +57,15 @@ const ShoppingBagCanvas = ({ show, handleClose, businessID }) => {
     }
   }, [show, businessID]); // Runs only when the shopping bag is shown or businessID changes
 
+ 
+// הוספת useEffect לטעינת מצב הכפתור הצף מ-localStorage
+useEffect(() => {
+  const isFloatingButtonVisible = localStorage.getItem('floatingButtonVisible') === 'true';
+  if (isFloatingButtonVisible) {
+    setShowFloatingButton(true); // אם המצב שמור, הכפתור הצף יופיע
+  }
+}, []); // פועל רק בטעינה ראשונה של העמוד
+  
   const GetBusinessData = (businessID) => {
     // Ensure businessID is a number if businessData contains numeric businessID
     const numericBusinessID = Number(businessID);
@@ -154,15 +163,25 @@ const ShoppingBagCanvas = ({ show, handleClose, businessID }) => {
     handleCheckout();
     handleCheckoutQR();
     setTimeout(() => {
+      setDialogOpen(true); // Open the Dialog before closing Offcanvas
       handleClose(); // Close the Offcanvas after 3 seconds
-      setDialogOpen(true); // Open the Dialog
       clearBag();
       setShowFloatingButton(true);
+      localStorage.setItem('floatingButtonVisible', 'true'); // שמירת המצב ב-localStorage
     }, 0);
   };
+  
+  
 
   const handleDialogClose = () => {
     setDialogOpen(false);
+    localStorage.removeItem('floatingButtonVisible'); // מסיר את המצב מ-localStorage
+  };
+
+  const handleCollectOrder = () => {
+    setShowFloatingButton(false); // מסתיר את הכפתור הצף
+    setDialogOpen(false); // סוגר את הדיאלוג של ה-QRCode
+    localStorage.removeItem('floatingButtonVisible'); // מסיר את המצב מ-localStorage
   };
 
   return (
@@ -171,6 +190,7 @@ const ShoppingBagCanvas = ({ show, handleClose, businessID }) => {
         show={show}
         onHide={handleClose}
         placement="end"
+         scroll={true} // מאפשר גלילה בתוך ה-Offcanvas
         style={{ zIndex: 1102, borderRadius: 20 }}
       >
         <Offcanvas.Header closeButton>
@@ -238,6 +258,7 @@ const ShoppingBagCanvas = ({ show, handleClose, businessID }) => {
           </Snackbar>
         </Offcanvas.Body>
       </Offcanvas>
+      
       <FCQRCode
         open={dialogOpen}
         onClose={handleDialogClose}
@@ -245,6 +266,7 @@ const ShoppingBagCanvas = ({ show, handleClose, businessID }) => {
         boxName={boxName}
         businessName={business.businessName || "שם העסק לא זמין"}
         businessAdress={business.businessAdress || "כתובת העסק לא זמינה"}
+        onCollect={handleCollectOrder}
       />
 
       {showFloatingButton && (
