@@ -24,16 +24,19 @@ export default function FCBusinessCard({ data , userData, Favorite, callBack }) 
 
 
     const raw = JSON.stringify({
-      "BusinessId": data.businessID?data.businessID:data.businessId,
+      "BusinessID": data.businessID ? data.businessID : data.businessId, // Match C# case
       "CustomerId": userData.customerID,
-      "IsFavorite": !isFavorite ? "yes":"no"
+      "IsFavorite": !isFavorite ? "yes" : "no"
     });
+    
 
     const requestOptions = {
       method: "POST",
       headers: myHeaders,
       body: raw,
     };
+    console.log(raw);
+    
 
     fetch(`https://proj.ruppin.ac.il/bgroup33/test2/tar1/api/User/updateFavorite`, requestOptions)
       .then((response) => response.text())
