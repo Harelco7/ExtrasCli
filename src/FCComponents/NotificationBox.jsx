@@ -9,6 +9,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBell } from '@fortawesome/free-solid-svg-icons';
 import { produrl } from "../Settings";
 import axios from "axios";
+import "../Styles/NotificationBox.css";
+
 
 export default function NotificationBox(props) {
     const { userId } = props
@@ -36,8 +38,9 @@ export default function NotificationBox(props) {
 
             axios.request(config)
                 .then((response) => {
-                   if(response && response.data && response.data!=0){
-                     setboxDetails(response.data)}
+                    if (response && response.data && response.data != 0) {
+                        setboxDetails(response.data)
+                    }
                     console.log(userId)
                 })
                 .catch((error) => {
@@ -50,10 +53,10 @@ export default function NotificationBox(props) {
 
 
     return (
-        <React.Fragment>
-            { boxDetails && boxDetails.length>0 ? <Button style={{ transform: "translateX(-40vw)" }} onClick={handleClickOpen}>
+        <div>
+            {boxDetails && boxDetails.length > 0 ? <Button style={{ transform: "translateX(-40vw)" }} onClick={handleClickOpen}>
                 <FontAwesomeIcon icon={faBell} size="2x" color="orange" />
-                <span style={{ position: "absolute", top: 0, right: 0, padding: "4px", background: "red", color: "white", borderRadius: "50%" }}>{boxDetails.length}</span>
+                <span className="notification" style={{ position: "absolute", top: -3, right: -3, padding: "1px", background: "red", color: "white", borderRadius: "50%", width: "20px", height: "20px", fontSize: "12px" }}>{boxDetails.length}</span>
             </Button> :
                 <div style={{ transform: "translateX(-40vw)" }} ><FontAwesomeIcon icon={faBell} size="2x" color="orange" /></div>
             }
@@ -63,20 +66,24 @@ export default function NotificationBox(props) {
                 aria-labelledby="alert-dialog-title"
                 aria-describedby="alert-dialog-description"
             >
-                <DialogTitle id="alert-dialog-title">
-                    מצאנו עבורך מארז שאולי תאהב!
-                </DialogTitle> 
-                <DialogContent> { boxDetails && boxDetails.length>0 && boxDetails.map((x,i) => 
-                    <div key={`boxDetails${i}`}><p>{x["box_name"]}</p> <p>{x["box_description"]}</p> <p>{x["price"]}</p></div>
-)}
-                </DialogContent>
-                <DialogActions>
-                    <Button onClick={handleClose}>סגירה</Button>
-                    <Button onClick={handleClose} autoFocus>
+                <Button onClick={handleClose} className="btn-close"></Button>
+                <DialogTitle className="alert-dialog-title">
+                    מצאנו עבורך מארזים שאולי תאהב!
+                </DialogTitle>
+                <DialogContent className="dialog-content"> {boxDetails && boxDetails.length > 0 && boxDetails.map((x, i) =>
+                    <div key={`boxDetails${i}`} className="box-suggestion">
+                        <h6>{x["box_name"]}</h6>
+                        <p>{x["box_description"]}</p>
+                        <p>מחיר מקורי: {x["price"]}₪</p>
+                        <p>מחיר מוזל: {x["sale_price"]}₪</p>
+                        <DialogActions>
+                    <Button onClick={handleClose} autoFocus className="btn-order">
                         הזמן עכשיו
                     </Button>
                 </DialogActions>
+                    </div>)}
+                </DialogContent>
             </Dialog>
-        </React.Fragment>
+        </div>
     );
 }

@@ -152,6 +152,7 @@ export default function OrderPage() {
   };
 
   console.log(box)
+  
   return (
     <div className="container-wrapper">
       {/* <h2 style={{ display: "flex", justifyContent: "center", width: "100%", marginBottom: 30, marginTop: 30 }}>הזמנת קופסא</h2> */}
