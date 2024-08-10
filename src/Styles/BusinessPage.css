@@ -123,12 +123,38 @@
   align-self: center;
 }
 
-.grid-container {
+/* .grid-container {
   display: grid;
-  grid-template-columns: 1fr; /* Single column */
+  grid-template-columns: 1fr; 
   gap: 20px;
   padding: 20px;
   width: 100%;
+} */
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* שלוש עמודות */
+  gap: 20px;
+  padding: 20px;
+  width: 100%;
+}
+
+@media (max-width: 834px) {
+  .grid-container {
+    grid-template-columns: 1fr; /* עמודה אחת במסכים קטנים */
+  }
+}
+
+@media (min-width: 835px) and (max-width: 1024px) {
+  .grid-container {
+    grid-template-columns: repeat(2, 1fr); /* שתי עמודות במסכים בינוניים */
+  }
+}
+
+@media (min-width: 1025px) {
+  .grid-container {
+    grid-template-columns: repeat(3, 1fr); /* שלוש עמודות במסכים גדולים */
+  }
 }
 
 .grid-item {
@@ -160,6 +186,13 @@
   margin-top: 70%;
 }
 
+.business-desc{
+  font-family: 'Varela Round', sans-serif;
+}
+
+.allergic-title{
+  font-family: 'Varela Round', sans-serif;
+}
 
 
 @keyframes slide-in-bounce {
