@@ -31,7 +31,7 @@ const allergyIcons = {
 // List of common allergies
 const commonAllergies = ["אגוזים", "גלוטן", "חלבי", "בשרי", "צמחוני", "טבעוני"];
 
-const createGoogleCalendarEvent = (salesHour, reminderMinutes) => {
+const createGoogleCalendarEvent = (salesHour) => {
   if (!salesHour || !salesHour.includes("-")) {
     console.error("Invalid sales hour format:", salesHour);
     return;
@@ -39,7 +39,7 @@ const createGoogleCalendarEvent = (salesHour, reminderMinutes) => {
 
   const [startHour, startMinute] = salesHour.split("-")[0].split(":").map(Number);
   const eventStartTime = new Date();
-  eventStartTime.setHours(startHour, startMinute - reminderMinutes, 0);
+  eventStartTime.setHours(startHour - 1, startMinute + 30, 0); // Set reminder 30 minutes before
 
   if (isNaN(eventStartTime.getTime())) {
     console.error("Invalid time value:", eventStartTime);
@@ -52,15 +52,14 @@ const createGoogleCalendarEvent = (salesHour, reminderMinutes) => {
   const endTimeISO = eventEndTime.toISOString().replace(/-|:|\.\d\d\d/g, "");
 
   const calendarUrl = `https://www.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(
-    "ניתן לרכוש מארזים מבית העסק בעוד 10 דקות"
+    "תזכורת להזמין מארזים"
   )}&dates=${startTimeISO}/${endTimeISO}&details=${encodeURIComponent(
-    "Reminder to purchase boxes from the business"
+    "Reminder to collect boxes from the business"
   )}&sf=true&output=xml`;
 
   console.log(calendarUrl); // Check the URL in the console
   return calendarUrl;
 };
-
 
 
 // Main React component for the Business Page
@@ -226,7 +225,7 @@ export default function BusinessPage({ onBusinessIDChange }) {
     return true; // Include this box in the filtered list
   });
 
-  const shouldShowFilters = businessDetails.businessType !== "Flowers" && filteredBoxes.length > 0 && !showBoxes;
+  const shouldShowFilters = businessDetails.businessType !== "Flowers" && boxes.length > 0;
   
   // Conditional rendering of the business page
   return (
@@ -319,6 +318,7 @@ export default function BusinessPage({ onBusinessIDChange }) {
     </div>
   </div>
 )}
+
       {/* Box display or countdown */}
       <div>
         {showBoxes ? (
@@ -334,7 +334,7 @@ export default function BusinessPage({ onBusinessIDChange }) {
           ) : (
               <div className="OOS-container">
                 <p style={{ fontSize: 70, color: "red" }}>
-                   אין מארזים תואמים לחיפוש <TbShoppingBagX />
+                   אין מארזים במלאי <TbShoppingBagX />
                 </p>
               </div>
             )}
@@ -355,8 +355,8 @@ export default function BusinessPage({ onBusinessIDChange }) {
         "_blank"
       )}
     style={{ backgroundColor: "#d67d00", marginTop: 10 , marginBottom: 10 , fontFamily: "Varela Round"}} >
-    {<CalendarTodayIcon />}
-הוסף תזכורת ליומן 
+    הוסף תזכורת ליומן 
+{<CalendarTodayIcon />}
   </Button>
 )}
     </div>
