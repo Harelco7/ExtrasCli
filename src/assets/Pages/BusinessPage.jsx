@@ -226,6 +226,8 @@ export default function BusinessPage({ onBusinessIDChange }) {
     return true; // Include this box in the filtered list
   });
 
+  const shouldShowFilters = businessDetails.businessType !== "Flowers" && filteredBoxes.length > 0 && !showBoxes;
+  
   // Conditional rendering of the business page
   return (
     <div className="business-page-container">
@@ -282,7 +284,7 @@ export default function BusinessPage({ onBusinessIDChange }) {
       </div>
       
       {/* Allergy filters */}
-      {businessDetails.businessType !== "Flowers" && (
+      {shouldShowFilters && (
   <div className="allergics-container">
     <div className="allergic-title">
       <h3>סנן מארזים על פי אלרגיות:</h3>
