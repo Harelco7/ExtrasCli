@@ -68,7 +68,7 @@ export default function BusinessPage({ onBusinessIDChange }) {
   const location = useLocation();
   const [businessDetails, setBusinessDetails] = useState({});
   const [boxes, setBoxes] = useState([]);
-  console.log (boxes);
+  console.log(boxes);
   const [filters, setFilters] = useState(
     commonAllergies.reduce((filterObject, allergy) => {
       filterObject[allergy] = false;
@@ -77,12 +77,40 @@ export default function BusinessPage({ onBusinessIDChange }) {
   );
   const [countdown, setCountdown] = useState(null);
   const [showBoxes, setShowBoxes] = useState(false);
-  
+  const [userData, setUserData] = useState(null);
+  const [isViewingAsAdmin, setIsViewingAsAdmin] = useState(false);
 
   // Effect hook to update the business ID via the parent component's callback
   useEffect(() => {
     onBusinessIDChange(businessId);
   }, [businessId, onBusinessIDChange]);
+
+  useEffect(() => {
+    const storedUserData = localStorage.getItem("userData");
+    console.log("Raw userData from localStorage:", storedUserData);
+
+    if (storedUserData) {
+      const parsedUserData = JSON.parse(storedUserData);
+      console.log("Parsed User Data Loaded: ", parsedUserData);
+      if (parsedUserData.businessName) {
+        parsedUserData.role = "admin";
+      } else {
+        parsedUserData.role = "customer";
+      }
+      localStorage.setItem("userData", JSON.stringify(parsedUserData));
+      setUserData(parsedUserData);
+      console.log("User Role: ", parsedUserData.role);
+    } else {
+      console.log("No user data found in localStorage");
+    }
+  }, []);
+
+  const isAdmin = userData && userData.role === "admin";
+  console.log("Is Admin: ", isAdmin);
+
+  const toggleViewMode = () => {
+    setIsViewingAsAdmin((prev) => !prev);
+  };
 
   // Effect hook to fetch business details and initialize the countdown
   useEffect(() => {
@@ -281,6 +309,24 @@ export default function BusinessPage({ onBusinessIDChange }) {
         {sentence.trim()}.<br />
       </div> ))}
       </div>
+
+       {/* Toggle buttons for admin view */}
+       {isAdmin && (
+        <div className="toggle-button-container">
+          <button
+            className={`toggle-button ${!isViewingAsAdmin ? 'active' : ''}`}
+            onClick={() => setIsViewingAsAdmin(false)}
+          >
+            תצוגת לקוח
+          </button>
+          <button
+            className={`toggle-button ${isViewingAsAdmin ? 'active' : ''}`}
+            onClick={() => setIsViewingAsAdmin(true)}
+          >
+            תצוגת עסק
+          </button>
+        </div>
+      )}
       
       {/* Allergy filters */}
       {shouldShowFilters && (
@@ -319,9 +365,11 @@ export default function BusinessPage({ onBusinessIDChange }) {
   </div>
 )}
 
+     
+
       {/* Box display or countdown */}
       <div>
-        {showBoxes ? (
+        {isViewingAsAdmin || showBoxes ? (
           <div className="box-container">
           {filteredBoxes.length > 0 ? (
             <div className="grid-container">
@@ -348,7 +396,7 @@ export default function BusinessPage({ onBusinessIDChange }) {
           </div>
         )}
       </div>
-      {!showBoxes && (
+      {!isViewingAsAdmin && !showBoxes && (
   <Button variant="contained" color="primary" className= "btn-calendar" onClick={() =>
       window.open(
         createGoogleCalendarEvent(businessDetails.dailySalesHour),

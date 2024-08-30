@@ -410,3 +410,28 @@
 .whatsapp-button svg {
   margin-right: 10px;
 } */
+.toggle-button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px; /* רווח מעל הכפתורים */
+  margin-bottom: 20px; /* רווח מתחת לכפתורים */
+  z-index: 2; /* לוודא שהכפתורים יופיעו מעל לתוכן אחר */
+  position: relative; /* מיקום יחסי */
+}
+
+.toggle-button {
+  font-family: 'Varela Round', sans-serif;
+  font-size: 14px; /* הקטנת הפונט */
+  padding: 8px 16px; /* ריווח פנימי של הכפתורים */
+  background-color: #f0f0f0; /* צבע רקע ברירת מחדל */
+  color: #333;
+  margin: 0 5px; /* רווח בין הכפתורים */
+  cursor: pointer;
+  border-radius: 5px; /* פינות מעוגלות */
+}
+
+.toggle-button.active {
+  background-color: #d67d00; /* צבע רקע כאשר נבחר */
+  color: white;
+}
