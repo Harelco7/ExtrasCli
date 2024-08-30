@@ -365,8 +365,6 @@ export default function BusinessPage({ onBusinessIDChange }) {
   </div>
 )}
 
-     
-
       {/* Box display or countdown */}
       <div>
         {isViewingAsAdmin || showBoxes ? (
