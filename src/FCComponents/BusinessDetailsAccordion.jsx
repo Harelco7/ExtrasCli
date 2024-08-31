@@ -13,7 +13,7 @@ const BusinessDetailsAccordion = ({
   LoggedInUser,
   handleClickOpenEditDialog,
 }) => (
-  <Accordion defaultExpanded style={{ backgroundColor: "#EEEEEE" }}>
+  <Accordion  style={{ backgroundColor: "#EEEEEE" }}>
     <AccordionSummary
       expandIcon={<ExpandMoreIcon />}
       aria-controls="panel1a-content"

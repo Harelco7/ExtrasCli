@@ -7,7 +7,7 @@ import FCDeliveredOrders from "..//FCComponents/FCDeliveredOrders.jsx";
 
 const OrdersAccordion = ({ openOrders, deliveredOrders }) => (
   <>
-    <Accordion defaultExpanded style={{ backgroundColor: "#EEEEEE" }}>
+    <Accordion  style={{ backgroundColor: "#EEEEEE" }}>
       <AccordionSummary
         expandIcon={<ExpandMoreIcon />}
         aria-controls="panel3a-content"
@@ -22,7 +22,7 @@ const OrdersAccordion = ({ openOrders, deliveredOrders }) => (
       </AccordionDetails>
     </Accordion>
 
-    <Accordion defaultExpanded style={{ backgroundColor: "#EEEEEE" }}>
+    <Accordion  style={{ backgroundColor: "#EEEEEE" }}>
       <AccordionSummary
         expandIcon={<ExpandMoreIcon />}
         aria-controls="panel3a-content"

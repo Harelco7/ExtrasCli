@@ -5,7 +5,7 @@ import AddPhotoAlternateTwoToneIcon from "@mui/icons-material/AddPhotoAlternateT
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 
 const UploadImagesAccordion = ({ handleFileChange }) => (
-  <Accordion defaultExpanded style={{ backgroundColor: "#EEEEEE" }}>
+  <Accordion  style={{ backgroundColor: "#EEEEEE" }}>
     <AccordionSummary
       expandIcon={<ExpandMoreIcon />}
       aria-controls="panel1a-content"
