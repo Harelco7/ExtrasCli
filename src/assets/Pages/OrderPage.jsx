@@ -135,7 +135,7 @@ export default function OrderPage() {
     const item = {
       boxId: box.boxId,
       name: box.boxName,
-      price: box.price,
+      price: box.salePrice,
       description: box.description
     };
     console.log("this is item:",item);
