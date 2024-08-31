@@ -89,9 +89,12 @@ function FCMap({ radius }) {
   };
 
   const handleButtonClick = (business) => {
-    navigate("/BusinessPage", { state: { ...business } });
+    navigate(`/BusinessPage/${business.businessID}`);
     window.scrollTo(0, 0);
+    console.log("this is",business.businessID);
+    
   };
+  
   const navigateToBusiness = (business) => {
     const origin = `${userLocation.lat},${userLocation.lng}`;
     const destination = `${business.latitude},${business.longitude}`;

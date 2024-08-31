@@ -68,7 +68,7 @@ export default function BusinessPage({ onBusinessIDChange }) {
   const location = useLocation();
   const [businessDetails, setBusinessDetails] = useState({});
   const [boxes, setBoxes] = useState([]);
-  console.log(boxes);
+  
   const [filters, setFilters] = useState(
     commonAllergies.reduce((filterObject, allergy) => {
       filterObject[allergy] = false;
