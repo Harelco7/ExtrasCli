@@ -13,7 +13,7 @@ const OrdersAccordion = ({ openOrders, deliveredOrders }) => (
         aria-controls="panel3a-content"
         id="panel3a-header"
       >
-        <Typography style={{ fontSize: 25 }}>
+        <Typography style={{ fontSize: 25 , fontFamily:'Varela Round'}}>
           <ShoppingBagTwoToneIcon /> הזמנות פתוחות
         </Typography>
       </AccordionSummary>
@@ -28,7 +28,7 @@ const OrdersAccordion = ({ openOrders, deliveredOrders }) => (
         aria-controls="panel3a-content"
         id="panel3a-header"
       >
-        <Typography style={{ fontSize: 25 }}>
+        <Typography style={{ fontSize: 25 , fontFamily:'Varela Round'}}>
           <ShoppingBagTwoToneIcon />
           היסטוריית הזמנות
         </Typography>

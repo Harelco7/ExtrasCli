@@ -11,7 +11,7 @@ const UploadImagesAccordion = ({ handleFileChange }) => (
       aria-controls="panel1a-content"
       id="panel1a-header"
     >
-      <Typography style={{ fontSize: 25 }}>
+      <Typography style={{ fontSize: 25 , fontFamily:'Varela Round'}}>
         <AddPhotoAlternateTwoToneIcon /> העלאת תמונת העסק
       </Typography>
     </AccordionSummary>
@@ -29,8 +29,8 @@ const UploadImagesAccordion = ({ handleFileChange }) => (
           <div dir="rtl">
             <Button
               style={{
-                backgroundColor: "#ffc107",
-                fontFamily: "Arimo",
+                backgroundColor: "#D67D00",
+                fontFamily: 'Varela Round',
                 fontWeight: 500,
               }}
               component="label"
@@ -49,8 +49,8 @@ const UploadImagesAccordion = ({ handleFileChange }) => (
           <div dir="rtl">
             <Button
               style={{
-                backgroundColor: "#ffc107",
-                fontFamily: "Arimo",
+                backgroundColor: "#D67D00",
+                fontFamily: 'Varela Round',
                 fontWeight: 500,
               }}
               component="label"

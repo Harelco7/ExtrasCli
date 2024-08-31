@@ -70,9 +70,11 @@
     background-color: #2f6db0;
   }
   
-  span {
+  /* span {
     margin: 0 10px;
   }
+   */
+   
   .button-checkout{
     border: none;
     border-radius: 10px;

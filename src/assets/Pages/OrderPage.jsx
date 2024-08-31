@@ -155,7 +155,6 @@ export default function OrderPage() {
   
   return (
     <div className="container-wrapper">
-      {/* <h2 style={{ display: "flex", justifyContent: "center", width: "100%", marginBottom: 30, marginTop: 30 }}>הזמנת קופסא</h2> */}
       <div className="box-img-container">
         <img src={exampleBox} alt="" />
       </div>
@@ -163,10 +162,10 @@ export default function OrderPage() {
         {box ? (
           <div>
             <h3>{box.boxID}</h3>
-            <h3>{box.boxName}</h3>
+            <h2>{box.boxName}</h2>
             {box.alergicType !== "none" && (
-              <p style={{ fontSize: 20, fontWeight: 400, border: "1px solid black", borderRadius: 10 }}>
-                אלרגיות<LiaAllergiesSolid size={30} />: {box.alergicType}
+              <p style={{ fontSize: 20, fontWeight: "bold"}}>
+                אלרגנים<LiaAllergiesSolid size={30} />: {box.alergicType}
               </p>
             )}
             <p>{box.description}</p>

@@ -18,7 +18,7 @@ const DataCard = ({ icon: Icon, title, number }) => (
     }}
   >
     <CardContent>
-      <Icon sx={{ fontSize: 40, color: "#DC5F00" }} />
+      <Icon sx={{ fontSize: 40, color: "rgb(239, 164, 58)" }} />
       <Typography variant="h6" component="div">
         {title}
       </Typography>
@@ -41,7 +41,7 @@ const DataCard = ({ icon: Icon, title, number }) => (
 
 const BusinessDataCards = ({ businessSales }) => (
  <>
-      <Typography style={{ fontSize: 25 }}>
+      <Typography style={{ fontSize: 25 , fontFamily:'Varela Round'}}>
         <DataThresholdingTwoToneIcon /> נתוני מכירות
       </Typography>
 
