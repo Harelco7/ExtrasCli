@@ -331,8 +331,8 @@ export default function BusinessPage({ onBusinessIDChange }) {
             </div>
           ) : (
               <div className="OOS-container">
-                <p style={{ fontSize: 70, color: "red" }}>
-                   אין מארזים תואמים לחיפוש <TbShoppingBagX />
+                <p style={{ fontSize: 40, color: "red" }}>
+                 אין מארזים במלאי <TbShoppingBagX />
                 </p>
               </div>
             )}

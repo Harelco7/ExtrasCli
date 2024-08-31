@@ -15,11 +15,12 @@ const cacheRtl = createCache({
 
 const BusinessDetailsDialog = ({ open, onClose, onSave, editValues, handleEditChange }) => (
   <Dialog open={open} onClose={onClose}>
-    <DialogTitle>עדכון פרטי העסק</DialogTitle>
+    <DialogTitle style={{fontFamily:'Varela Round'}}>עדכון פרטי העסק</DialogTitle>
     <DialogContent>
-      <DialogContentText>
+      <DialogContentText >
         לעדכון יש לשנות את השדה ואת הערך שתרצה לשנות לאליו
       </DialogContentText>
+      <br></br>
       <CacheProvider value={cacheRtl}>
       <TextField
         margin="dense"
@@ -69,10 +70,10 @@ const BusinessDetailsDialog = ({ open, onClose, onSave, editValues, handleEditCh
       </CacheProvider>
     </DialogContent>
     <DialogActions>
-      <Button onClick={onClose} color="primary">
+      <Button onClick={onClose} color="primary" style={{fontFamily:'Varela Round', backgroundColor: "#2E2E2E", color: "white" , marginLeft: "15px"}}>
        ביטול
       </Button>
-      <Button onClick={onSave} color="primary">
+      <Button onClick={onSave} color="primary" style={{fontFamily:'Varela Round', backgroundColor: "#2E2E2E", color: "white"}}>
         שמור עדכונים
       </Button>
     </DialogActions>

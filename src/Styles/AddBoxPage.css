@@ -33,7 +33,12 @@ button {
 }
 
 .alergicButton,.QuantityButton {
-    background-color: #D67D00;
+    background-color:  #113946;
+    justify-content: space-evenly;
+    margin: 20px;
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
 }
 
 .toggleButton {
@@ -47,10 +52,21 @@ button {
   }
   
   .toggleButton.inactive {
-    background-color: #f44336; /* Red background when inactive */
-    border-color: #f44336; /* Red border when inactive */
+    background-color: #D67D00; /* Red background when inactive */
+    border-color: #D67D00; /* Red border when inactive */
   }
   
+  .publishBox{
+    background-color: #113946;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-family: 'Varela Round', sans-serif;
+    font-weight: 500;
+    align-self: center;
+  }
 
 
 

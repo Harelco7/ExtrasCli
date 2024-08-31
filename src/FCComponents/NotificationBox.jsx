@@ -26,7 +26,6 @@ export default function NotificationBox(props) {
 
     useEffect(() => {
         async function fetch() {
-            console.log("***")
             let config = {
                 method: 'get',
                 maxBodyLength: Infinity,

@@ -206,7 +206,7 @@ export default function MyBusinessPage() {
             aria-controls="panel1a-content"
             id="panel1a-header"
           >
-            <Typography style={{ fontSize: 25 }}>
+            <Typography style={{ fontSize: 25 , fontFamily:'Varela Round' }}>
               <ControlPointTwoToneIcon /> הוספת מארז
             </Typography>
           </AccordionSummary>

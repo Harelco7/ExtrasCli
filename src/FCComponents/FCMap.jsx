@@ -164,7 +164,7 @@ function FCMap({ radius }) {
                 }}
                 onClick={() => handleButtonClick(selectedBusiness)}
               >
-                מעבר לחנות <GoMoveToStart style={{ marginRight: 10 }} />
+                מעבר לחנות <GoMoveToStart style={{ marginRight: 10}} />
               </button>
               <div style={{display:"flex",justifyContent:"center"}}>
               <button
