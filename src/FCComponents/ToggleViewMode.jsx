@@ -30,7 +30,7 @@ export default function ToggleViewMode(props) {
 
   return (
     <>
-      <NotificationBox userId={userData ? userData.customerID : null} />
+        <NotificationBox userId={userData ? userData.customerID : null} />
       <ToggleButtonGroup
         color="primary"
         value={alignment}

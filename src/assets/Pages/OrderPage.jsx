@@ -151,12 +151,13 @@ export default function OrderPage() {
     setSnackbarOrderOpen(false);
   };
 
-  console.log(box)
+  console.log("this box",box)
   
   return (
     <div className="container-wrapper">
       <div className="box-img-container">
-        <img src={exampleBox} alt="" />
+      <img src={`https://proj.ruppin.ac.il/bgroup33/test2/images/BoxImage/${box.boxId}.jpg`} alt="Box Image" />
+        
       </div>
       <div className="order-container">
         {box ? (
@@ -190,9 +191,7 @@ export default function OrderPage() {
         ) : (
           <p>No box data available.</p>
         )}
-        <button className="button-checkout" onClick={handleCheckout}>
-          הזמן עכשיו
-        </button>
+
         <button className="button-checkout" onClick={handleAddToBag}>
           הוסף לסל
         </button>

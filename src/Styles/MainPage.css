@@ -204,8 +204,10 @@
   font-family: 'Varela Round', sans-serif;
 }
 
-
-
+@media (max-width: 768px)
+{
+  
+}
 
 
   

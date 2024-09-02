@@ -50,6 +50,8 @@ export default function FCBusinessCard({ data , userData, Favorite, callBack }) 
     
   };
 
+  console.log("now image",data);
+  
  
   return (
     <>
@@ -71,7 +73,7 @@ export default function FCBusinessCard({ data , userData, Favorite, callBack }) 
           </p>
           <p>
             <FontAwesomeIcon icon={faClock} size="lg" style={{ marginLeft: 10 }} />
-            {data.openingHours}</p>
+            {data.dailySalesHour}</p>
           <button onClick={handleOrderNow}>צפייה במארזים </button>
           <FontAwesomeIcon
             icon={isFavorite ? solidStar : regularStar}

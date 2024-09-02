@@ -63,7 +63,7 @@ export default function NotificationBox(props) {
                 <FontAwesomeIcon icon={faBell} size="2x" color="orange" />
                 <span className="notification" style={{ position: "absolute", top: -3, right: -3, padding: "1px", background: "red", color: "white", borderRadius: "50%", width: "20px", height: "20px", fontSize: "12px" }}>{boxDetails.length}</span>
             </Button>  ) : (
-                <div style={{ transform: "translateX(-40vw)" }} ><FontAwesomeIcon icon={faBell} size="2x" color="orange" /></div>
+                <div style={{ transform: "translateX(-33vw)" }} ><FontAwesomeIcon icon={faBell} size="2x" color="orange" /></div>
             )}
             <Dialog
                 open={open}
