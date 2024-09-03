@@ -9,6 +9,10 @@ import rtlPlugin from "stylis-plugin-rtl";
 import { prefixer } from "stylis";
 import { CacheProvider } from "@emotion/react";
 import createCache from "@emotion/cache";
+import IconButton from '@mui/material/IconButton';
+import InputAdornment from '@mui/material/InputAdornment';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
 const FCLoginModal = ({ show, onHide, onSuccessfulLogin }) => {
   const navigate = useNavigate();
@@ -18,7 +22,7 @@ const FCLoginModal = ({ show, onHide, onSuccessfulLogin }) => {
   const [password, setPassword] = useState("");
   const [username, setUserName] = useState("");
   const [error, setError] = useState("");
-
+  const [showPassword, setShowPassword] = useState(false);
   const [showRegister, setShowRegister] = useState(false);
 
   let user = {
@@ -124,16 +128,26 @@ const FCLoginModal = ({ show, onHide, onSuccessfulLogin }) => {
                   setUserName(e.target.value);
                 }}
               />
-           
-
-            
-              <TextField
+                        
+             <TextField
                 fullWidth
                 label="סיסמא"
                 id="fullWidth"
+                type={showPassword ? 'text' : 'password'}
                 variant="outlined"
-                onChange={(e) => {
-                  setPassword(e.target.value);
+                onChange={(e) => setPassword(e.target.value)}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton
+                        aria-label="toggle password visibility"
+                        onClick={() => setShowPassword(!showPassword)}
+                        onMouseDown={(e) => e.preventDefault()} // מניעת התנהגות ברירת מחדל של כפתור
+                      >
+                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                      </IconButton>
+                    </InputAdornment>
+                  ),
                 }}
               />
             </ThemeProvider>
