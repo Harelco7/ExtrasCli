@@ -92,6 +92,10 @@
     .box-img-container{
       width: 80%;
     }
+    .box-img-container img{
+      height: 100%;
+      width: 100%;
+    }
     
   }
 

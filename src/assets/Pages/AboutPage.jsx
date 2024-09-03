@@ -15,7 +15,7 @@ export default function AboutPage() {
       <div className="photo-about">
         <br></br>
         <motion.img
-          src={photo}
+          src={"https://proj.ruppin.ac.il/bgroup33/test2/dist/Images/GreenWorld.jpeg"}
           alt="photo"
           className="animated-image"
           initial={{ opacity: 0, scale: 0.8 }}

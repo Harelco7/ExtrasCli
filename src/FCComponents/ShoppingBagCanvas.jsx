@@ -81,7 +81,10 @@ useEffect(() => {
   };
 
   const calculateTotalPrice = () => {
+  console.log("items now",items);
+  
     return items.reduce((total, item) => total + item.price * item.quantity, 0);
+    
   };
 
   const handleCheckout = () => {
@@ -93,6 +96,7 @@ useEffect(() => {
         customerId: loggedInUser.customerID,
         BoxDescription: item.desc,
         businessId: parseInt(businessID),
+        salePrice: item.price
       }));
       console.log("orders:", orders);
       orders.forEach((order) => {
