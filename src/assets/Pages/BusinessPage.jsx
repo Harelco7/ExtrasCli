@@ -258,7 +258,6 @@ export default function BusinessPage({ onBusinessIDChange }) {
   // Conditional rendering of the business page
   return (
     <div className="business-page-container">
-      {/* Header with business image and details */}
       <div
         className="img-container"
         style={{
