@@ -2,14 +2,14 @@ import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import "../../Styles/OrderPage.css";
 import ShoppingBagTwoToneIcon from "@mui/icons-material/ShoppingBagTwoTone";
-import Snackbar from '@mui/material/Snackbar';
-import Alert from '@mui/material/Alert';
-import Typography from '@mui/material/Typography';
+import Snackbar from "@mui/material/Snackbar";
+import Alert from "@mui/material/Alert";
+import Typography from "@mui/material/Typography";
 import { useShoppingBag } from "../Context/ShoppingBagContext.jsx";
 import exampleBox from "..//..//..//public/Images/exampleBox.jpg";
 import { LiaAllergiesSolid } from "react-icons/lia";
-import { islocal, localurl, produrl } from '..//..//Settings';
-import { useParams } from 'react-router-dom';
+import { islocal, localurl, produrl } from "..//..//Settings";
+import { useParams } from "react-router-dom";
 
 export default function OrderPage() {
   const location = useLocation();
@@ -22,17 +22,20 @@ export default function OrderPage() {
   const { addItemToBag } = useShoppingBag(); // Use the context
   const [snackbarAddToBagOpen, setSnackbarAddToBagOpen] = useState(false);
   const [snackbarOrderOpen, setSnackbarOrderOpen] = useState(false);
-  const { boxId } = useParams();  // Extract the box ID from the URL
+  const { boxId } = useParams(); // Extract the box ID from the URL
   useEffect(() => {
     const fetchBoxDetails = async () => {
       setLoading(true);
       try {
-        const response = await fetch(`${islocal ? localurl : produrl}api/Box/GetBox/${boxId}`, {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json"
-          },
-        });
+        const response = await fetch(
+          `${islocal ? localurl : produrl}api/Box/GetBox/${boxId}`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
         if (!response.ok) {
           throw new Error("Failed to fetch box details");
         }
@@ -55,10 +58,7 @@ export default function OrderPage() {
     if (userData) {
       setIsLoggedIn(true);
       setLoggedInUser(userData);
-   
     }
-    
-    
   }, []);
 
   useEffect(() => {
@@ -78,7 +78,6 @@ export default function OrderPage() {
   const handleCheckout = () => {
     const userData = JSON.parse(localStorage.getItem("userData"));
     if (userData) {
-     
       setIsLoggedIn(true);
       addOrder();
     } else {
@@ -101,9 +100,8 @@ export default function OrderPage() {
       quantityBuy: quantity,
       customerId: LoggedInUser.customerID,
       boxDescription: box.description,
-      businessID: businessID
+      businessID: businessID,
     };
-
 
     console.log("Order to be sent:", order);
 
@@ -115,20 +113,20 @@ export default function OrderPage() {
       },
       body: JSON.stringify(order),
     })
-    .then(res => res.json())
-    .then(
-      (result) => {
-        console.log("Order Added Successfully!", result);
-        setBox((prevBox) => ({
-          ...prevBox,
-          quantityAvailable: prevBox.quantityAvailable - quantity,
-        }));
-      },
-      (error) => {
-        console.error("Error adding order:", error);
-      }
-    )
-    .finally(() => setLoading(false)); // End loading regardless of result
+      .then((res) => res.json())
+      .then(
+        (result) => {
+          console.log("Order Added Successfully!", result);
+          setBox((prevBox) => ({
+            ...prevBox,
+            quantityAvailable: prevBox.quantityAvailable - quantity,
+          }));
+        },
+        (error) => {
+          console.error("Error adding order:", error);
+        }
+      )
+      .finally(() => setLoading(false)); // End loading regardless of result
   };
 
   const handleAddToBag = () => {
@@ -136,28 +134,30 @@ export default function OrderPage() {
       boxId: box.boxId,
       name: box.boxName,
       price: box.salePrice,
-      description: box.description
+      description: box.description,
     };
-    console.log("this is item:",item);
+    console.log("this is item:", item);
     addItemToBag(item, quantity); // Pass the selected quantity
     console.log(`Added ${quantity} ${box.boxName}(s) to the shopping bag!`);
     setSnackbarAddToBagOpen(true); // Show the snackbar
   };
   const handleSnackbarClose = (event, reason) => {
-    if (reason === 'clickaway') {
+    if (reason === "clickaway") {
       return;
     }
     setSnackbarAddToBagOpen(false);
     setSnackbarOrderOpen(false);
   };
 
-  console.log("this box",box)
-  
+  console.log("this box", box);
+
   return (
     <div className="container-wrapper">
       <div className="box-img-container">
-      <img src={`https://proj.ruppin.ac.il/bgroup33/test2/images/BoxImage/${box.boxId}.jpg`} alt="Box Image" />
-        
+        <img
+          src={`https://proj.ruppin.ac.il/bgroup33/test2/images/BoxImage/${box.boxId}.jpg`}
+          alt="Box Image"
+        />
       </div>
       <div className="order-container">
         {box ? (
@@ -165,8 +165,9 @@ export default function OrderPage() {
             <h3>{box.boxID}</h3>
             <h2>{box.boxName}</h2>
             {box.alergicType !== "none" && (
-              <p style={{ fontSize: 20, fontWeight: "bold"}}>
-                אלרגנים<LiaAllergiesSolid size={30} />: {box.alergicType}
+              <p style={{ fontSize: 20, fontWeight: "bold" }}>
+                אלרגנים
+                <LiaAllergiesSolid size={30} />: {box.alergicType}
               </p>
             )}
             <p>{box.description}</p>
@@ -179,11 +180,17 @@ export default function OrderPage() {
               מארזים שנותרו : {box.quantityAvailable}
             </p>
             <div className="quantity-selector">
-              <button className="quantity-btn" onClick={() => handleQuantityChange(-1)}>
+              <button
+                className="quantity-btn"
+                onClick={() => handleQuantityChange(-1)}
+              >
                 -
               </button>
               <span>{quantity}</span>
-              <button className="quantity-btn" onClick={() => handleQuantityChange(1)}>
+              <button
+                className="quantity-btn"
+                onClick={() => handleQuantityChange(1)}
+              >
                 +
               </button>
             </div>
@@ -201,10 +208,24 @@ export default function OrderPage() {
         open={snackbarAddToBagOpen}
         autoHideDuration={3000}
         onClose={handleSnackbarClose}
-        anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+        anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
       >
-        <Alert onClose={handleSnackbarClose} severity="success" sx={{ width: '300px', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 1, padding: '0 16px' }}>
-          <Typography variant="body1" style={{ textAlign: 'center', flexGrow: 1 }}>
+        <Alert
+          onClose={handleSnackbarClose}
+          severity="success"
+          sx={{
+            width: "300px",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            gap: 1,
+            padding: "0 16px",
+          }}
+        >
+          <Typography
+            variant="body1"
+            style={{ textAlign: "center", flexGrow: 1 }}
+          >
             המארז שבחרת נוסף לסל !
           </Typography>
         </Alert>
@@ -214,10 +235,24 @@ export default function OrderPage() {
         open={snackbarOrderOpen}
         autoHideDuration={6000}
         onClose={handleSnackbarClose}
-        anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+        anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
       >
-        <Alert onClose={handleSnackbarClose} severity="success" sx={{ width: '300px', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 1, padding: '0 16px' }}>
-          <Typography variant="body1" style={{ textAlign: 'center', flexGrow: 1 }}>
+        <Alert
+          onClose={handleSnackbarClose}
+          severity="success"
+          sx={{
+            width: "300px",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            gap: 1,
+            padding: "0 16px",
+          }}
+        >
+          <Typography
+            variant="body1"
+            style={{ textAlign: "center", flexGrow: 1 }}
+          >
             ההזמנה שלך בוצעה בהצלחה!
           </Typography>
         </Alert>

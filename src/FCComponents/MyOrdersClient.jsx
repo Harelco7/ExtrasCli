@@ -55,7 +55,7 @@ export default function MyOrdersClient({userData}) {
                 <TableCell component="th" scope="row">
                   {row.orderId}
                 </TableCell>
-                <TableCell align="right">{row.totalPrice}</TableCell>
+                <TableCell align="right">{row.totalPrice+"₪"}</TableCell>
                 <TableCell align="right">{row.time}</TableCell>
                 <TableCell align="right">{formatDate(row.orderDate)}</TableCell>
                 <TableCell align="right">{row.boxDescription}</TableCell>

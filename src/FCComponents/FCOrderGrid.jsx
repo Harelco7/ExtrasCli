@@ -16,7 +16,7 @@ const FCOrdersGrid = ({ openOrders, onStatusChange }) => {
       CustomerID: order.customerId,
       CustomerName: order.customerName,
       BoxID: order.boxID,
-      TotalPrice: order.totalPrice,
+      TotalPrice: order.totalPrice+"₪",
       BoxDescription: order.boxDescription,
       OrderStatus: order.orderStatus,
       Quantity: order.quantityOrdered,
