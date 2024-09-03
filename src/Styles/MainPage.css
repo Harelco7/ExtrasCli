@@ -206,7 +206,9 @@
 
 @media (max-width: 768px)
 {
-  
+  .headlines h1{
+    padding-right: 50px;
+  }
 }
 
 
